@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GearSouls | Forged in Steel, Powered by Souls</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600;800&family=Rajdhani:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="home-page">
+
+<!-- ================= PRELOADER ================= -->
+<div class="preloader">
+  <div class="preloader-content">
+    <img src="img/0000.jpeg" alt="GearSouls" class="preloader-logo">
+    <div class="preloader-text">GEARSOULS</div>
+    <div class="preloader-bar">
+      <div class="preloader-progress"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ================= DYNAMIC BACKGROUND CANVAS ================= -->
+<canvas id="homeCanvas"></canvas>
+
+<!-- ================= NAVBAR ================= -->
+<header class="navbar">
+  <a href="index.html" class="brand">
+    <img src="img/0000.jpeg" class="brand-logo" alt="GearSouls">
+    <span class="brand-text">Gear<span class="brand-highlight">Souls</span></span>
+  </a>
+  <nav class="nav">
+    <a href="index.html" class="nav-link active">Home</a>
+    <a href="shop.html" class="nav-link">Shop</a>
+    <a href="account.html" class="nav-link">Account</a>
+  </nav>
+  <div class="menu-toggle">
+    <i class="fas fa-bars"></i>
+  </div>
+</header>
+
+<!-- ================= HERO SECTION ================= -->
+<section class="hero-section">
+  <div class="hero-overlay"></div>
+  <div class="hero-content">
+    <div class="hero-badge">EST. 2026</div>
+    <h1 class="hero-title-main">FORGED IN <span class="gradient-text">STEEL</span><br>POWERED BY <span class="gradient-text">SOULS</span></h1>
+    <p class="hero-subtitle">Premium cyberpunk apparel • Limited drops • Built for legends</p>
+    <div class="hero-cta">
+      <a href="#gallery" class="cta-primary">Explore Collection <i class="fas fa-arrow-down"></i></a>
+      <a href="shop.html" class="cta-secondary">Shop Now <i class="fas fa-shopping-bag"></i></a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat-item">
+        <div class="stat-number">50+</div>
+        <div class="stat-label">Drops</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">10k+</div>
+        <div class="stat-label">Souls</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-number">24/7</div>
+        <div class="stat-label">Support</div>
+      </div>
+    </div>
+  </div>
+  <div class="hero-scroll-indicator">
+    <span>Scroll</span>
+    <i class="fas fa-chevron-down"></i>
+  </div>
+</section>
+
+<!-- ================= COLLECTION TITLE ================= -->
+<section class="section-title reveal" id="gallery">
+  <h2>THE <span class="outline-text">COLLECTION</span></h2>
+  <p>Browse our latest drops • Click any piece to view details</p>
+</section>
+
+<!-- ================= GALLERY GRID ================= -->
+<section class="gallery-section">
+  <div class="gallery-grid" id="gallery-grid"></div>
+</section>
+
+<!-- ================= LIGHTBOX ================= -->
+<div class="lightbox" id="lightbox">
+  <span class="lightbox-close"><i class="fas fa-times"></i></span>
+  <div class="lightbox-content">
+    <img src="" alt="" class="lightbox-image" id="lightbox-img">
+    <div class="lightbox-info">
+      <h3 id="lightbox-title">Product Name</h3>
+      <p id="lightbox-desc">Collection preview • Visit shop to purchase</p>
+      <a href="shop.html" class="lightbox-btn">View in Shop <i class="fas fa-arrow-right"></i></a>
+    </div>
+  </div>
+  <span class="lightbox-prev"><i class="fas fa-chevron-left"></i></span>
+  <span class="lightbox-next"><i class="fas fa-chevron-right"></i></span>
+</div>
+
+<!-- ================= STORY SECTION ================= -->
+<section class="story-section reveal">
+  <div class="story-container">
+    <div class="story-image">
+      <img src="img/0007.jpeg" alt="GearSouls Story">
+      <div class="story-image-overlay"></div>
+    </div>
+    <div class="story-content">
+      <span class="story-badge">OUR STORY</span>
+      <h2>Where <span class="gradient-text">Streetwear</span> Meets <span class="gradient-text">Cyberpunk</span></h2>
+      <p>GearSouls was born from the fusion of urban culture and futuristic aesthetics. Every piece is designed for those who walk the line between reality and the digital frontier. Our limited drops ensure exclusivity — when it's gone, it's gone.</p>
+      <div class="story-features">
+        <div class="feature">
+          <i class="fas fa-skull"></i>
+          <span>Limited Drops</span>
+        </div>
+        <div class="feature">
+          <i class="fas fa-bolt"></i>
+          <span>Premium Quality</span>
+        </div>
+        <div class="feature">
+          <i class="fas fa-globe"></i>
+          <span>Worldwide Shipping</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= INSTAGRAM SECTION ================= -->
+<section class="instagram-section reveal">
+  <div class="section-title">
+    <h2>@GEARSOULS <span class="gradient-text">ON IG</span></h2>
+    <p>Tag us for a chance to be featured</p>
+  </div>
+  <div class="instagram-grid" id="instagram-grid"></div>
+</section>
+
+<!-- ================= NEWSLETTER ================= -->
+<section class="newsletter-section reveal">
+  <div class="newsletter-container">
+    <h2>JOIN THE <span class="outline-text">MOVEMENT</span></h2>
+    <p>Subscribe for exclusive drops and early access</p>
+    <form class="newsletter-form" id="newsletter-form">
+      <input type="email" placeholder="Enter your email" required>
+      <button type="submit">Subscribe <i class="fas fa-paper-plane"></i></button>
+    </form>
+  </div>
+</section>
+
+<!-- ================= FOOTER ================= -->
+<footer class="footer-modern">
+  <div class="footer-content">
+    <div class="footer-brand">
+      <img src="img/0000.jpeg" alt="GearSouls">
+      <p>Forged in Steel. Powered by Souls.</p>
+    </div>
+    <div class="footer-links">
+      <div class="footer-column">
+        <h4>Explore</h4>
+        <a href="index.html">Home</a>
+        <a href="shop.html">Shop</a>
+        <a href="account.html">Account</a>
+      </div>
+      <div class="footer-column">
+        <h4>Legal</h4>
+        <a href="#">Privacy</a>
+        <a href="#">Terms</a>
+        <a href="#">Shipping</a>
+      </div>
+      <div class="footer-column">
+        <h4>Social</h4>
+        <a href="https://www.instagram.com/gearsouls_?igsh=Z2FjNHI3dHMxbDV3" target="_blank">
+  <i class="fab fa-instagram"></i> Instagram
+</a>
+
+        <a href="#"><i class="fab fa-twitter"></i> Twitter</a>
+        <a href="#"><i class="fab fa-tiktok"></i> TikTok</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 GearSouls. All rights reserved.</p>
+  </div>
+</footer>
+
+<!-- ================= SCROLL TO TOP ================= -->
+<div class="scroll-top">
+  <i class="fas fa-arrow-up"></i>
+</div>
+
+<script src="home.js"></script>
+</body>
+</html>

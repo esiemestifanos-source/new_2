@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>GearSouls | Shop</title>
+
+  <link rel="stylesheet" href="css/style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body class="shop-page">
+
+<canvas id="shopCanvas"></canvas>
+
+<header class="navbar">
+  <a href="index.html" class="brand">
+    <img src="img/0000.jpeg" class="brand-logo" alt="GearSouls">
+    <span class="brand-text">Gear<span class="brand-highlight">Souls</span></span>
+  </a>
+
+  <nav class="nav">
+    <a href="index.html" class="nav-link">Home</a>
+    <a href="shop.html" class="nav-link active">Shop</a>
+    <a href="account.html" class="nav-link">Account</a>
+  </nav>
+
+  <div class="menu-toggle">
+    <i class="fas fa-bars"></i>
+  </div>
+</header>
+
+<section class="shop-section">
+
+  <div class="shop-header">
+    <h1 class="shop-title">
+      THE <span class="gradient-text">ARMORY</span>
+    </h1>
+    <p class="shop-subtitle">
+      Precision built cyber essentials
+    </p>
+  </div>
+
+  <div class="shopify-container">
+    <div id="product-1"></div>
+    <div id="product-2"></div>
+    <div id="product-component-1771470615559"></div>
+    <div id="product-component-1771472196044"></div>
+    <div id="product-component-1771472237564"></div>
+  </div>
+
+</section>
+
+<div class="shop-notification" id="shopNotification">
+  <i class="fas fa-check-circle"></i>
+  <span id="notificationMessage">Product added to cart</span>
+</div>
+
+<div class="scroll-top">
+  <i class="fas fa-arrow-up"></i>
+</div>
+
+<script src="shop.js"></script>
+
+<script>
+(function () {
+  var scriptURL = 'https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js';
+  if (window.ShopifyBuy) {
+    if (window.ShopifyBuy.UI) ShopifyBuyInit();
+    else loadScript();
+  } else loadScript();
+
+  function loadScript() {
+    var script = document.createElement('script');
+    script.async = true;
+    script.src = scriptURL;
+    (document.head || document.body).appendChild(script);
+    script.onload = ShopifyBuyInit;
+  }
+
+  function ShopifyBuyInit() {
+    var client = ShopifyBuy.buildClient({
+      domain: 'shgx4k-wb.myshopify.com',
+      storefrontAccessToken: '68f1ddeff53ca07083b438c92837d296',
+    });
+
+    ShopifyBuy.UI.onReady(client).then(function (ui) {
+      // Product 1
+      ui.createComponent("product", {
+        id: "10743198351624",
+        node: document.getElementById("product-1"),
+        moneyFormat: "€{{amount_with_comma_separator}}",
+        options: { product: { text: { button: "Add to Cart" } } }
+      });
+
+      // Product 2
+      ui.createComponent("product", {
+        id: "10760158773512",
+        node: document.getElementById("product-2"),
+        moneyFormat: "€{{amount_with_comma_separator}}",
+        options: { product: { text: { button: "Add to Cart" } } }
+      });
+
+      // Product 3
+      ui.createComponent("product", {
+        id: "10761169862920",
+        node: document.getElementById("product-component-1771470615559"),
+        moneyFormat: "€{{amount_with_comma_separator}}",
+        options: { product: { text: { button: "Add to Cart" } } }
+      });
+
+      // Product 4
+      ui.createComponent("product", {
+        id: "10761230024968",
+        node: document.getElementById("product-component-1771472196044"),
+        moneyFormat: "€{{amount_with_comma_separator}}",
+        options: { product: { text: { button: "Add to Cart" } } }
+      });
+
+      // Product 5
+      ui.createComponent("product", {
+        id: "10761255387400",
+        node: document.getElementById("product-component-1771472237564"),
+        moneyFormat: "€{{amount_with_comma_separator}}",
+        options: { product: { text: { button: "Add to Cart" } } }
+      });
+
+    });
+  }
+})();
+</script>
+
+</body>
+</html>
