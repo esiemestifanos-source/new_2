@@ -970,3 +970,325 @@ document.addEventListener('DOMContentLoaded', function() {
     window.addEventListener('resize', initCanvas);
   }
 });
+// ======================================================
+// GEARSOULS - COMPLETE SHOP FUNCTIONALITY
+// Add this to your existing app.js
+// ======================================================
+
+// Global notification function
+window.showNotification = function(message, type = 'success') {
+  // Check if notification element exists
+  let notification = document.querySelector('.shop-notification');
+  
+  // Create notification if it doesn't exist
+  if (!notification) {
+    notification = document.createElement('div');
+    notification.className = 'shop-notification';
+    notification.innerHTML = '<i class="fas fa-check"></i><span></span>';
+    document.body.appendChild(notification);
+  }
+  
+  const icon = notification.querySelector('i');
+  const messageSpan = notification.querySelector('span');
+  
+  // Set icon based on type
+  if (type === 'error') {
+    icon.className = 'fas fa-exclamation-circle';
+    notification.classList.add('error');
+  } else {
+    icon.className = 'fas fa-check';
+    notification.classList.remove('error');
+  }
+  
+  messageSpan.textContent = message;
+  notification.classList.add('show');
+  
+  setTimeout(() => {
+    notification.classList.remove('show');
+  }, 2000);
+};
+
+// Product page functions (if on product page)
+function initProductPage() {
+  // Size selection
+  window.selectSize = function(button, size) {
+    document.querySelectorAll('.size-btn:not(.disabled)').forEach(btn => {
+      btn.classList.remove('active');
+    });
+    button.classList.add('active');
+    
+    const sizeLabel = document.getElementById('selected-size');
+    if (sizeLabel) sizeLabel.textContent = size;
+  };
+  
+  // Color selection
+  window.selectColor = function(swatch, color) {
+    document.querySelectorAll('.color-swatch').forEach(s => {
+      s.classList.remove('active');
+    });
+    swatch.classList.add('active');
+    
+    const colorLabel = document.getElementById('selected-color');
+    if (colorLabel) colorLabel.textContent = color;
+  };
+  
+  // Quantity controls
+  window.incrementQuantity = function() {
+    const input = document.getElementById('quantity');
+    if (input) {
+      let value = parseInt(input.value);
+      if (value < 10) input.value = value + 1;
+    }
+  };
+  
+  window.decrementQuantity = function() {
+    const input = document.getElementById('quantity');
+    if (input) {
+      let value = parseInt(input.value);
+      if (value > 1) input.value = value - 1;
+    }
+  };
+  
+  // Change main image
+  window.changeImage = function(src) {
+    const mainImage = document.getElementById('mainProductImage');
+    if (mainImage) mainImage.src = src;
+    
+    document.querySelectorAll('.thumbnail').forEach(thumb => {
+      thumb.classList.remove('active');
+    });
+    if (event && event.currentTarget) {
+      event.currentTarget.classList.add('active');
+    }
+  };
+  
+  // Accordion toggle
+  window.toggleAccordion = function(header) {
+    const item = header.closest('.accordion-item');
+    if (item) item.classList.toggle('active');
+  };
+  
+  // Add to cart
+  window.addToCart = function() {
+    const size = document.getElementById('selected-size')?.textContent || 'S';
+    const color = document.getElementById('selected-color')?.textContent || 'Black';
+    const quantity = document.getElementById('quantity')?.value || '1';
+    const productTitle = document.querySelector('.product-title-detail')?.textContent || 'Product';
+    
+    showNotification(`Adding ${quantity}x ${productTitle} (${size}, ${color}) to cart...`);
+    
+    // Redirect to Shopify after delay
+    setTimeout(() => {
+      // Replace with your actual Shopify product URL
+      window.location.href = 'https://shgx4k-wb.myshopify.com/products/midnight-d2';
+    }, 800);
+  };
+}
+
+// Initialize based on page
+document.addEventListener('DOMContentLoaded', function() {
+  // Check if we're on product page
+  if (document.querySelector('.product-detail-section')) {
+    initProductPage();
+  }
+  
+  // ==================== EXISTING CODE BELOW ====================
+  // (Keep all your existing code here)
+  
+  // Mobile menu toggle
+  const menuToggle = document.querySelector('.menu-toggle');
+  const nav = document.querySelector('.nav');
+  
+  if (menuToggle) {
+    menuToggle.addEventListener('click', function(e) {
+      e.stopPropagation();
+      nav.classList.toggle('active');
+      
+      const icon = this.querySelector('i');
+      if (nav.classList.contains('active')) {
+        icon.classList.remove('fa-bars');
+        icon.classList.add('fa-times');
+      } else {
+        icon.classList.remove('fa-times');
+        icon.classList.add('fa-bars');
+      }
+    });
+  }
+  
+  // Close menu when clicking on nav links
+  document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', function() {
+      nav.classList.remove('active');
+      const icon = document.querySelector('.menu-toggle i');
+      if (icon) {
+        icon.classList.remove('fa-times');
+        icon.classList.add('fa-bars');
+      }
+    });
+  });
+  
+  // Close menu when clicking outside
+  document.addEventListener('click', function(e) {
+    if (nav && menuToggle) {
+      if (!nav.contains(e.target) && !menuToggle.contains(e.target) && nav.classList.contains('active')) {
+        nav.classList.remove('active');
+        const icon = menuToggle.querySelector('i');
+        if (icon) {
+          icon.classList.remove('fa-times');
+          icon.classList.add('fa-bars');
+        }
+      }
+    }
+  });
+  
+  // Scroll to top
+  const scrollTop = document.querySelector('.scroll-top');
+  
+  window.addEventListener('scroll', function() {
+    if (window.scrollY > 500) {
+      scrollTop.classList.add('visible');
+    } else {
+      scrollTop.classList.remove('visible');
+    }
+  });
+  
+  if (scrollTop) {
+    scrollTop.addEventListener('click', function() {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+  
+  // Brand animation
+  const brand = document.querySelector('.brand');
+  const brandLogo = document.querySelector('.brand-logo');
+  const brandText = document.querySelector('.brand-text');
+  
+  if (brand) {
+    brand.addEventListener('mouseenter', function() {
+      if (brandLogo) {
+        brandLogo.style.transform = 'scale(1.12) rotate(360deg)';
+        brandLogo.style.borderColor = '#ffffff';
+        brandLogo.style.boxShadow = '0 10px 30px rgba(255, 255, 255, 0.2)';
+      }
+      
+      if (brandText) {
+        const line1 = brandText.querySelector('.line1');
+        const line2 = brandText.querySelector('.line2');
+        if (line1) line1.style.color = '#ffffff';
+        if (line2) {
+          line2.style.letterSpacing = '4px';
+          line2.style.color = '#c9b698';
+        }
+      }
+    });
+    
+    brand.addEventListener('mouseleave', function() {
+      if (brandLogo) {
+        brandLogo.style.transform = 'scale(1) rotate(0)';
+        brandLogo.style.borderColor = 'rgba(255, 255, 255, 0.3)';
+        brandLogo.style.boxShadow = '0 4px 15px rgba(0, 0, 0, 0.4)';
+      }
+      
+      if (brandText) {
+        const line1 = brandText.querySelector('.line1');
+        const line2 = brandText.querySelector('.line2');
+        if (line1) line1.style.color = '#cccccc';
+        if (line2) {
+          line2.style.letterSpacing = '2px';
+          line2.style.color = '#ffffff';
+        }
+      }
+    });
+  }
+  
+  // Canvas background (if exists)
+  const canvas = document.getElementById('shopCanvas');
+  if (canvas) {
+    const ctx = canvas.getContext('2d');
+    let width = window.innerWidth;
+    let height = window.innerHeight;
+    let time = 0;
+    
+    canvas.width = width;
+    canvas.height = height;
+    
+    function animateCanvas() {
+      ctx.clearRect(0, 0, width, height);
+      
+      const gradient = ctx.createLinearGradient(0, 0, width, height);
+      gradient.addColorStop(0, '#0a0a0a');
+      gradient.addColorStop(0.5, '#001a1a');
+      gradient.addColorStop(1, '#0a0a0a');
+      ctx.fillStyle = gradient;
+      ctx.fillRect(0, 0, width, height);
+      
+      time += 0.002;
+      
+      for (let layer = 0; layer < 3; layer++) {
+        const opacity = 0.03 - (layer * 0.01);
+        const speed = 0.5 + (layer * 0.3);
+        const amplitude = 30 + (layer * 15);
+        
+        ctx.beginPath();
+        ctx.strokeStyle = `rgba(0, 255, 255, ${opacity})`;
+        ctx.lineWidth = 2 - layer * 0.5;
+        
+        for (let x = 0; x < width; x += 30) {
+          const y = height / 2 + 
+                    Math.sin(x * 0.005 + time * speed) * amplitude + 
+                    Math.cos(x * 0.003 + time * 0.7) * (amplitude * 0.5);
+          
+          if (x === 0) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+        }
+        ctx.stroke();
+        
+        ctx.beginPath();
+        ctx.strokeStyle = `rgba(255, 0, 255, ${opacity * 0.7})`;
+        
+        for (let x = 0; x < width; x += 30) {
+          const y = height / 3 + 
+                    Math.cos(x * 0.004 + time * (speed + 0.2)) * (amplitude * 0.8) + 
+                    Math.sin(x * 0.002 + time * 0.5) * (amplitude * 0.3);
+          
+          if (x === 0) ctx.moveTo(x, y);
+          else ctx.lineTo(x, y);
+        }
+        ctx.stroke();
+      }
+      
+      requestAnimationFrame(animateCanvas);
+    }
+    
+    animateCanvas();
+    
+    window.addEventListener('resize', function() {
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = width;
+      canvas.height = height;
+    });
+  }
+  
+  // Observe Shopify buttons
+  const observer = new MutationObserver(function(mutations) {
+    mutations.forEach(function(mutation) {
+      if (mutation.addedNodes.length) {
+        const shopifyBtn = document.querySelector('.shopify-buy__btn');
+        if (shopifyBtn) {
+          shopifyBtn.classList.add('cyber-shopify-btn');
+          shopifyBtn.addEventListener('click', function() {
+            setTimeout(() => {
+              showNotification('Product added to cart');
+            }, 500);
+          });
+        }
+      }
+    });
+  });
+  
+  observer.observe(document.body, {
+    childList: true,
+    subtree: true
+  });
+});
