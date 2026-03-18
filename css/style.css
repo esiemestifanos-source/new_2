@@ -2,7 +2,44 @@
    GEARSOULS - LUXURY MONOCHROME EDITION
    Complete Redesign - Black & White Luxury
 ====================================================== */
+/* smoother, premium hover */
+.product-card {
+  position: relative;
+  cursor: pointer;
+  overflow: hidden;
+}
 
+/* image zoom effect */
+.product-card:hover .product-image img {
+  transform: scale(1.08);
+}
+
+/* glow border */
+.product-card:hover {
+  box-shadow: 0 10px 30px rgba(201,182,152,0.15);
+}
+
+/* subtle overlay on hover */
+.product-card::after {
+  content: "VIEW";
+  position: absolute;
+  bottom: 20px;
+  right: 20px;
+  font-size: 0.7rem;
+  letter-spacing: 2px;
+  color: #c9b698;
+  opacity: 0;
+  transition: 0.3s;
+}
+
+.product-card:hover::after {
+  opacity: 1;
+}
+
+/* smoother image animation */
+.product-image img {
+  transition: transform 0.4s ease;
+}
 /* ===============================
    GLOBAL & VARIABLES
 =============================== */
