@@ -3,255 +3,412 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>GEARSOULS | Shop</title>
-  <link rel="stylesheet" href="css/style.css">
+  <title>GEARSOULS · Shop</title>
+  
+  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+  
   <style>
-    /* ===== SHOPIFY PRODUCT CUSTOM STYLING ===== */
+    /* Additional shop page styles */
     .shopify-container {
+      position: relative;
+      transition: opacity 0.3s ease;
+      min-height: 400px;
       display: grid !important;
       grid-template-columns: repeat(3, 1fr) !important;
-      gap: 30px !important;
+      gap: 35px !important;
       max-width: 1400px !important;
       margin: 0 auto !important;
-      padding: 40px 20px !important;
+      padding: 20px 40px !important;
     }
-
-    /* Product Card */
-    .shopify-buy__product {
-      background: #111 !important;
-      border: 1px solid #2a2a2a !important;
-      border-radius: 0 !important;
-      padding: 0 !important;
-      transition: all 0.4s ease !important;
-      position: relative !important;
-      overflow: hidden !important;
-      opacity: 0;
-      animation: fadeInUp 0.8s forwards;
+    
+    /* Each product wrapper */
+    .product-wrapper {
+      transition: all 0.3s ease;
+      opacity: 1;
     }
-
-    .shopify-buy__product:nth-child(1) { animation-delay: 0.1s; }
-    .shopify-buy__product:nth-child(2) { animation-delay: 0.2s; }
-    .shopify-buy__product:nth-child(3) { animation-delay: 0.3s; }
-    .shopify-buy__product:nth-child(4) { animation-delay: 0.4s; }
-    .shopify-buy__product:nth-child(5) { animation-delay: 0.5s; }
-
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(30px); }
-      to { opacity: 1; transform: translateY(0); }
+    
+    .product-wrapper.sorting {
+      opacity: 0.5;
+      pointer-events: none;
     }
-
-    .shopify-buy__product:hover {
-      border-color: #c9b698 !important;
-      transform: translateY(-8px) !important;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.5) !important;
+    
+    .product-highlight {
+      animation: productHighlight 1s ease-out;
     }
-
-    /* Product Image */
-    .shopify-buy__product__image {
-      aspect-ratio: 3/4 !important;
-      overflow: hidden !important;
-      background: #1a1a1a !important;
+    
+    @keyframes productHighlight {
+      0% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(201,182,152,0.4);
+      }
+      50% {
+        transform: scale(1.02);
+        box-shadow: 0 0 0 8px rgba(201,182,152,0.2);
+      }
+      100% {
+        transform: scale(1);
+        box-shadow: 0 0 0 0 rgba(201,182,152,0);
+      }
     }
-
-    .shopify-buy__product__image img {
-      width: 100% !important;
-      height: 100% !important;
-      object-fit: cover !important;
-      transition: transform 0.8s ease !important;
-      filter: grayscale(100%) brightness(0.95) !important;
+    
+    .sort-select.loading {
+      opacity: 0.7;
+      cursor: wait;
     }
-
-    .shopify-buy__product:hover .shopify-buy__product__image img {
-      transform: scale(1.08) !important;
-      filter: grayscale(80%) brightness(1.05) !important;
+    
+    .filter-btn {
+      position: relative;
+      transition: all 0.3s ease;
     }
-
-    /* Product Title */
-    .shopify-buy__product__title {
-      font-family: 'Times New Roman', serif !important;
-      font-size: 1.2rem !important;
-      letter-spacing: 2px !important;
-      color: #f5f5f5 !important;
-      padding: 20px 20px 5px !important;
-      text-transform: uppercase !important;
-      font-weight: 300 !important;
-      margin: 0 !important;
+    
+    .filter-btn.active {
+      color: #c9b698;
     }
-
-    /* Product Price */
-    .shopify-buy__product__price {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif !important;
-      color: #c9b698 !important;
-      font-size: 1.4rem !important;
-      padding: 0 20px 15px !important;
-      margin: 0 !important;
-      font-weight: 400 !important;
-    }
-
-    /* Add to Cart Button */
-    .shopify-buy__btn {
-      background: transparent !important;
-      color: #f5f5f5 !important;
-      border: 1px solid #c9b698 !important;
-      border-radius: 0 !important;
-      padding: 15px 25px !important;
-      margin: 0 20px 20px 20px !important;
-      width: calc(100% - 40px) !important;
-      letter-spacing: 3px !important;
-      font-size: 0.8rem !important;
-      text-transform: uppercase !important;
-      cursor: pointer !important;
-      transition: all 0.4s ease !important;
-      position: relative !important;
-      overflow: hidden !important;
-      font-weight: 400 !important;
-    }
-
-    .shopify-buy__btn::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
+    
+    .filter-btn.active::after {
       width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
-      transition: left 0.6s;
     }
-
-    .shopify-buy__btn:hover::before {
-      left: 100%;
-    }
-
-    .shopify-buy__btn:hover {
-      background: #c9b698 !important;
-      color: #000000 !important;
-      transform: translateY(-2px) !important;
-      box-shadow: 0 5px 15px rgba(201, 182, 152, 0.3) !important;
-    }
-
-    /* Hide quantity selector */
-    .shopify-buy__quantity {
-      display: none !important;
-    }
-
-    /* Notification */
-    .shop-notification {
-      position: fixed;
-      bottom: 30px;
-      right: 30px;
-      background: #c9b698;
-      color: #000;
-      padding: 15px 25px;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      z-index: 10000;
-      transform: translateX(400px);
-      transition: transform 0.5s cubic-bezier(0.23, 1, 0.32, 1);
-      border: none;
-      letter-spacing: 1px;
-      font-size: 0.9rem;
-    }
-
-    .shop-notification.show {
-      transform: translateX(0);
-    }
-
-    .shop-notification i {
-      font-size: 1.2rem;
-    }
-
-    /* Mobile Responsive */
+    
     @media (max-width: 992px) {
       .shopify-container {
         grid-template-columns: repeat(2, 1fr) !important;
       }
     }
-
-    @media (max-width: 600px) {
+    
+    @media (max-width: 768px) {
       .shopify-container {
         grid-template-columns: 1fr !important;
-        gap: 20px !important;
-        padding: 20px !important;
-      }
-      
-      .shopify-buy__product__title {
-        font-size: 1rem !important;
-        padding: 15px 15px 5px !important;
-      }
-      
-      .shopify-buy__product__price {
-        font-size: 1.2rem !important;
-        padding: 0 15px 10px !important;
-      }
-      
-      .shopify-buy__btn {
-        padding: 12px 20px !important;
-        margin: 0 15px 15px 15px !important;
-        width: calc(100% - 30px) !important;
-        font-size: 0.7rem !important;
-      }
-      
-      .shop-title {
-        font-size: 2.5rem !important;
-      }
-      
-      .shop-subtitle {
-        font-size: 0.8rem !important;
+        padding: 15px !important;
       }
     }
   </style>
 </head>
-<body>
+<body class="shop-page">
 
-<!-- ================= NAVBAR ================= -->
+<!-- ========== NAVBAR ========== -->
 <header class="navbar">
   <a href="index.html" class="brand">
     <img src="img/0000.jpeg" class="brand-logo" alt="GearSouls">
     <span class="brand-text">GEARSOULS</span>
   </a>
-  <nav class="nav">
+  <nav class="nav" id="mainNav">
     <a href="index.html" class="nav-link">HOME</a>
     <a href="shop.html" class="nav-link active">SHOP</a>
     <a href="account.html" class="nav-link">ACCOUNT</a>
   </nav>
-  <div class="menu-toggle">
+  <div class="menu-toggle" id="menuToggle">
     <i class="fas fa-bars"></i>
   </div>
 </header>
 
-<!-- ================= SHOP ================= -->
-<section class="shop-section">
-  <div class="shop-header">
-    <h1 class="shop-title">THE SHOP</h1>
-    <p class="shop-subtitle">Limited pieces. Eternal style.</p>
-  </div>
-  
-  <!-- SHOPIFY PRODUCTS CONTAINER -->
-  <div class="shopify-container">
-    <div id="product-1"></div>
-    <div id="product-2"></div>
-    <div id="product-component-1771470615559"></div>
-    <div id="product-component-1771472196044"></div>
-    <div id="product-component-1771472237564"></div>
+<!-- ========== SHOP HERO ========== -->
+<section class="shop-hero">
+  <div class="shop-hero-content">
+    <div class="shop-hero-eyebrow">THE ARCHIVE</div>
+    <h1 class="shop-hero-title">
+      <span class="title-word">SHOP</span>
+      <span class="title-word">COLLECTION</span>
+    </h1>
+    <div class="shop-hero-divider"></div>
+    <p class="shop-hero-description">Limited pieces. Eternal style. Each item is crafted with precision.</p>
   </div>
 </section>
 
-<!-- ================= NOTIFICATION ================= -->
+<!-- ========== FILTER BAR ========== -->
+<div class="filter-bar">
+  <div class="filter-container">
+    <div class="filter-group">
+      <button class="filter-btn active" data-filter="all">ALL</button>
+      <button class="filter-btn" data-filter="tops">TOPS</button>
+      <button class="filter-btn" data-filter="outerwear">OUTERWEAR</button>
+      <button class="filter-btn" data-filter="accessories">ACCESSORIES</button>
+    </div>
+    <div class="filter-sort">
+      <span class="sort-label">SORT BY</span>
+      <select class="sort-select" id="sortSelect">
+        <option value="featured">FEATURED</option>
+        <option value="price-asc">PRICE: LOW TO HIGH</option>
+        <option value="price-desc">PRICE: HIGH TO LOW</option>
+        <option value="name-asc">NAME: A TO Z</option>
+        <option value="name-desc">NAME: Z TO A</option>
+      </select>
+    </div>
+  </div>
+</div>
+<!-- ========== SHOPIFY PRODUCTS CONTAINER ========== -->
+<section class="shop-section">
+  <div class="shop-header">
+    <h2 class="shop-title">THE ARCHIVE</h2>
+    <p class="shop-subtitle">Explore our latest drop</p>
+  </div>
+
+  <div class="shopify-container" id="shopify-products">
+    <div class="product-wrapper" data-product-id="10743198351624" data-product-name="SKULL GEAR EMBLEM" data-product-price="29.99" data-category="accessories" data-order="1">
+      <div id="product-1"></div>
+    </div>
+    <div class="product-wrapper" data-product-id="10760158773512" data-product-name="CLASSIC LOGO TEE" data-product-price="49.99" data-category="tops" data-order="2">
+      <div id="product-2"></div>
+    </div>
+    <div class="product-wrapper" data-product-id="10761169862920" data-product-name="SIGNATURE SKULL HOODIE" data-product-price="89.99" data-category="outerwear" data-order="3">
+      <div id="product-component-1771470615559"></div>
+    </div>
+    <div class="product-wrapper" data-product-id="10761230024968" data-product-name="URBAN PUFFER JACKET" data-product-price="149.99" data-category="outerwear" data-order="4">
+      <div id="product-component-1771472196044"></div>
+    </div>
+    <div class="product-wrapper" data-product-id="10761255387400" data-product-name="ESSENTIAL LOGO SET" data-product-price="79.99" data-category="tops" data-order="5">
+      <div id="product-component-1771472237564"></div>
+    </div>
+  </div>
+  
+  <div class="load-more-container">
+    <button class="load-more-btn" id="loadMoreBtn">LOAD MORE <i class="fas fa-arrow-right"></i></button>
+  </div>
+</section>
+
+<!-- ========== FOOTER ========== -->
+<footer class="footer-modern">
+  <div class="footer-content">
+    <div class="footer-brand">
+      <img src="img/0000.jpeg" alt="GearSouls">
+      <p>Eternal Archive. Timeless Style.</p>
+    </div>
+    <div class="footer-links">
+      <div class="footer-column">
+        <h4>EXPLORE</h4>
+        <a href="index.html">DIARY</a>
+        <a href="shop.html">ARCHIVE</a>
+        <a href="account.html">CHAMBER</a>
+      </div>
+      <div class="footer-column">
+        <h4>CONNECT</h4>
+        <a href="https://www.instagram.com/gearsouls_" target="_blank"><i class="fab fa-instagram"></i> INSTAGRAM</a>
+        <a href="#"><i class="fab fa-pinterest"></i> PINTEREST</a>
+        <a href="#"><i class="fab fa-twitter"></i> TWITTER</a>
+      </div>
+      <div class="footer-column">
+        <h4>LEGAL</h4>
+        <a href="#">TERMS</a>
+        <a href="#">PRIVACY</a>
+        <a href="#">RETURNS</a>
+      </div>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 GEARSOULS — ALL RIGHTS RESERVED</p>
+  </div>
+</footer>
+
+<!-- ========== SCROLL TOP & NOTIFICATION ========== -->
+<div class="scroll-top" id="scrollTop"><i class="fas fa-arrow-up"></i></div>
 <div class="shop-notification" id="shopNotification">
   <i class="fas fa-check"></i>
   <span id="notificationMessage"></span>
 </div>
 
-<!-- ================= SCROLL TOP ================= -->
-<div class="scroll-top">
-  <i class="fas fa-arrow-up"></i>
-</div>
-
-<!-- SHOPIFY SCRIPT -->
 <script>
-(function () {
+(function() {
+  // ========== PRODUCT DATA ==========
+  let productsLoaded = false;
+  let currentFilter = 'all';
+  let currentSortOrder = [];
+  let productWrappers = [];
+  
+  // Product data for sorting
+  const productData = {
+    '10743198351624': { name: 'SKULL GEAR EMBLEM', price: 29.99, category: 'accessories', order: 1 },
+    '10760158773512': { name: 'CLASSIC LOGO TEE', price: 49.99, category: 'tops', order: 2 },
+    '10761169862920': { name: 'SIGNATURE SKULL HOODIE', price: 89.99, category: 'outerwear', order: 3 },
+    '10761230024968': { name: 'URBAN PUFFER JACKET', price: 149.99, category: 'outerwear', order: 4 },
+    '10761255387400': { name: 'ESSENTIAL LOGO SET', price: 79.99, category: 'tops', order: 5 }
+  };
+  
+  // ========== NOTIFICATION FUNCTION ==========
+  function showNotification(message, isError = false) {
+    const notification = document.getElementById('shopNotification');
+    const messageSpan = document.getElementById('notificationMessage');
+    
+    if (notification && messageSpan) {
+      messageSpan.textContent = message;
+      notification.classList.add('show');
+      
+      if (isError) {
+        notification.style.background = '#ff4444';
+        notification.style.borderColor = '#ff4444';
+        notification.style.color = '#ffffff';
+      } else {
+        notification.style.background = '#c9b698';
+        notification.style.borderColor = '#c9b698';
+        notification.style.color = '#1a1a1a';
+      }
+      
+      setTimeout(() => {
+        notification.classList.remove('show');
+      }, 2500);
+    }
+  }
+  
+  window.showNotification = showNotification;
+  
+  // ========== APPLY FILTER ==========
+  function applyFilter() {
+    const container = document.getElementById('shopify-products');
+    if (!container || !productsLoaded) return;
+    
+    const wrappers = Array.from(container.children);
+    
+    if (currentFilter === 'all') {
+      wrappers.forEach(wrapper => {
+        wrapper.style.display = '';
+      });
+    } else {
+      wrappers.forEach(wrapper => {
+        const productId = wrapper.getAttribute('data-product-id');
+        const category = productData[productId]?.category;
+        if (category === currentFilter) {
+          wrapper.style.display = '';
+        } else {
+          wrapper.style.display = 'none';
+        }
+      });
+    }
+  }
+  
+  // ========== SORT FUNCTION - USING CSS ORDER PROPERTY ==========
+  function sortProducts(sortType) {
+    const container = document.getElementById('shopify-products');
+    if (!container || !productsLoaded) return;
+    
+    const wrappers = Array.from(container.children);
+    if (wrappers.length === 0) return;
+    
+    // Add loading state
+    container.classList.add('sorting');
+    const sortSelect = document.getElementById('sortSelect');
+    sortSelect.classList.add('loading');
+    
+    // Create a sorted copy
+    let sortedWrappers = [...wrappers];
+    
+    switch(sortType) {
+      case 'price-asc':
+        sortedWrappers.sort((a, b) => {
+          const priceA = productData[a.getAttribute('data-product-id')]?.price || 999;
+          const priceB = productData[b.getAttribute('data-product-id')]?.price || 999;
+          return priceA - priceB;
+        });
+        showNotification('Sorted: Price (Low to High)');
+        break;
+        
+      case 'price-desc':
+        sortedWrappers.sort((a, b) => {
+          const priceA = productData[a.getAttribute('data-product-id')]?.price || 0;
+          const priceB = productData[b.getAttribute('data-product-id')]?.price || 0;
+          return priceB - priceA;
+        });
+        showNotification('Sorted: Price (High to Low)');
+        break;
+        
+      case 'name-asc':
+        sortedWrappers.sort((a, b) => {
+          const nameA = productData[a.getAttribute('data-product-id')]?.name || '';
+          const nameB = productData[b.getAttribute('data-product-id')]?.name || '';
+          return nameA.localeCompare(nameB);
+        });
+        showNotification('Sorted: Name (A to Z)');
+        break;
+        
+      case 'name-desc':
+        sortedWrappers.sort((a, b) => {
+          const nameA = productData[a.getAttribute('data-product-id')]?.name || '';
+          const nameB = productData[b.getAttribute('data-product-id')]?.name || '';
+          return nameB.localeCompare(nameA);
+        });
+        showNotification('Sorted: Name (Z to A)');
+        break;
+        
+      case 'featured':
+      default:
+        sortedWrappers.sort((a, b) => {
+          const orderA = productData[a.getAttribute('data-product-id')]?.order || 999;
+          const orderB = productData[b.getAttribute('data-product-id')]?.order || 999;
+          return orderA - orderB;
+        });
+        showNotification('Sorted: Featured');
+        break;
+    }
+    
+    // IMPORTANT: Store current filter display states
+    const displayStates = {};
+    wrappers.forEach(wrapper => {
+      const productId = wrapper.getAttribute('data-product-id');
+      displayStates[productId] = wrapper.style.display;
+    });
+    
+    // Reorder DOM elements (this works because we're moving the wrapper, not the Shopify content inside)
+    setTimeout(() => {
+      sortedWrappers.forEach(wrapper => {
+        container.appendChild(wrapper);
+      });
+      
+      // Restore display states
+      sortedWrappers.forEach(wrapper => {
+        const productId = wrapper.getAttribute('data-product-id');
+        wrapper.style.display = displayStates[productId] || '';
+      });
+      
+      // Remove loading state
+      container.classList.remove('sorting');
+      sortSelect.classList.remove('loading');
+    }, 50);
+  }
+  
+  // ========== FILTER FUNCTION ==========
+  function filterProducts(category) {
+    if (!productsLoaded) {
+      showNotification('Products loading...', 'error');
+      return;
+    }
+    
+    currentFilter = category;
+    applyFilter();
+    
+    if (category === 'all') {
+      showNotification('Showing: All Products');
+    } else {
+      const container = document.getElementById('shopify-products');
+      const wrappers = Array.from(container.children);
+      let visibleCount = 0;
+      wrappers.forEach(wrapper => {
+        if (wrapper.style.display !== 'none') visibleCount++;
+      });
+      showNotification(`Showing: ${visibleCount} products in ${category.toUpperCase()}`);
+    }
+  }
+  
+  // ========== CHECK URL HASH ==========
+  function checkForProductHighlight() {
+    const hash = window.location.hash;
+    if (hash && hash.startsWith('#product-')) {
+      const productId = hash.replace('#product-', '');
+      setTimeout(() => {
+        const targetWrapper = document.querySelector(`.product-wrapper[data-product-id="${productId}"]`);
+        if (targetWrapper) {
+          targetWrapper.scrollIntoView({ behavior: 'smooth', block: 'center' });
+          targetWrapper.classList.add('product-highlight');
+          showNotification(`Loading: ${productData[productId]?.name || 'Product'}`);
+          setTimeout(() => {
+            targetWrapper.classList.remove('product-highlight');
+          }, 2000);
+        }
+      }, 1500);
+    }
+  }
+  
+  // ========== SHOPIFY SCRIPT ==========
   var scriptURL = 'https://sdks.shopifycdn.com/buy-button/latest/buy-button-storefront.min.js';
   if (window.ShopifyBuy) {
     if (window.ShopifyBuy.UI) ShopifyBuyInit();
@@ -272,7 +429,7 @@
       storefrontAccessToken: '68f1ddeff53ca07083b438c92837d296',
     });
 
-    ShopifyBuy.UI.onReady(client).then(function (ui) {
+    ShopifyBuy.UI.onReady(client).then(function(ui) {
       // Product 1
       ui.createComponent("product", {
         id: "10743198351624",
@@ -283,11 +440,11 @@
             text: { button: "ADD TO CART" },
             styles: {
               button: {
-                "background-color": "#ffffff",
-                "color": "#000000",
+                "background-color": "transparent",
+                "color": "#1a1a1a",
                 "border-radius": "0",
                 "font-family": "inherit",
-                "letter-spacing": "2px",
+                "letter-spacing": "3px",
                 "font-size": "12px"
               }
             }
@@ -305,11 +462,11 @@
             text: { button: "ADD TO CART" },
             styles: {
               button: {
-                "background-color": "#ffffff",
-                "color": "#000000",
+                "background-color": "transparent",
+                "color": "#1a1a1a",
                 "border-radius": "0",
                 "font-family": "inherit",
-                "letter-spacing": "2px",
+                "letter-spacing": "3px",
                 "font-size": "12px"
               }
             }
@@ -327,11 +484,11 @@
             text: { button: "ADD TO CART" },
             styles: {
               button: {
-                "background-color": "#ffffff",
-                "color": "#000000",
+                "background-color": "transparent",
+                "color": "#1a1a1a",
                 "border-radius": "0",
                 "font-family": "inherit",
-                "letter-spacing": "2px",
+                "letter-spacing": "3px",
                 "font-size": "12px"
               }
             }
@@ -349,11 +506,11 @@
             text: { button: "ADD TO CART" },
             styles: {
               button: {
-                "background-color": "#ffffff",
-                "color": "#000000",
+                "background-color": "transparent",
+                "color": "#1a1a1a",
                 "border-radius": "0",
                 "font-family": "inherit",
-                "letter-spacing": "2px",
+                "letter-spacing": "3px",
                 "font-size": "12px"
               }
             }
@@ -371,48 +528,39 @@
             text: { button: "ADD TO CART" },
             styles: {
               button: {
-                "background-color": "#ffffff",
-                "color": "#000000",
+                "background-color": "transparent",
+                "color": "#1a1a1a",
                 "border-radius": "0",
                 "font-family": "inherit",
-                "letter-spacing": "2px",
+                "letter-spacing": "3px",
                 "font-size": "12px"
               }
             }
           } 
         }
       });
+      
+      // Products loaded
+      setTimeout(() => {
+        productsLoaded = true;
+        applyFilter();
+        checkForProductHighlight();
+        showNotification('Shop ready - Sort and filter any time!');
+      }, 1500);
     });
   }
-})();
-</script>
-
-<!-- SIMPLE JAVASCRIPT FOR NOTIFICATION AND MENU -->
-<script>
-// Notification function
-window.showNotification = function(message) {
-  const notification = document.getElementById('shopNotification');
-  const messageSpan = document.getElementById('notificationMessage');
   
-  messageSpan.textContent = message;
-  notification.classList.add('show');
+  // ========== UI INTERACTIONS ==========
   
-  setTimeout(() => {
-    notification.classList.remove('show');
-  }, 2000);
-};
-
-document.addEventListener('DOMContentLoaded', function() {
-  // Mobile menu toggle
-  const menuToggle = document.querySelector('.menu-toggle');
-  const nav = document.querySelector('.nav');
+  // Mobile menu
+  const menuToggle = document.getElementById('menuToggle');
+  const nav = document.getElementById('mainNav');
   
-  if (menuToggle) {
-    menuToggle.addEventListener('click', function(e) {
+  if (menuToggle && nav) {
+    menuToggle.addEventListener('click', (e) => {
       e.stopPropagation();
       nav.classList.toggle('active');
-      
-      const icon = this.querySelector('i');
+      const icon = menuToggle.querySelector('i');
       if (nav.classList.contains('active')) {
         icon.classList.remove('fa-bars');
         icon.classList.add('fa-times');
@@ -421,48 +569,81 @@ document.addEventListener('DOMContentLoaded', function() {
         icon.classList.add('fa-bars');
       }
     });
-  }
-  
-  // Close menu when clicking on nav links
-  document.querySelectorAll('.nav-link').forEach(link => {
-    link.addEventListener('click', function() {
-      nav.classList.remove('active');
-      const icon = document.querySelector('.menu-toggle i');
-      if (icon) {
-        icon.classList.remove('fa-times');
-        icon.classList.add('fa-bars');
+    
+    document.addEventListener('click', (event) => {
+      if (!nav.contains(event.target) && !menuToggle.contains(event.target)) {
+        nav.classList.remove('active');
+        const icon = menuToggle.querySelector('i');
+        if (icon) {
+          icon.classList.remove('fa-times');
+          icon.classList.add('fa-bars');
+        }
       }
     });
-  });
-  
-  // Scroll to top
-  const scrollTop = document.querySelector('.scroll-top');
-  
-  window.addEventListener('scroll', function() {
-    if (window.scrollY > 500) {
-      scrollTop.classList.add('visible');
-    } else {
-      scrollTop.classList.remove('visible');
-    }
-  });
-  
-  if (scrollTop) {
-    scrollTop.addEventListener('click', function() {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
   }
   
-  // Add click notification to Shopify buttons
+  // Add to cart notifications
   setTimeout(function() {
     document.querySelectorAll('.shopify-buy__btn').forEach(btn => {
       btn.addEventListener('click', function() {
         setTimeout(() => {
-          showNotification('Product added to cart');
-        }, 500);
+          showNotification('Added to cart');
+        }, 300);
       });
     });
   }, 2000);
-});
+  
+  // FILTER BUTTONS
+  const filterBtns = document.querySelectorAll('.filter-btn');
+  filterBtns.forEach(btn => {
+    btn.addEventListener('click', function() {
+      filterBtns.forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+      filterProducts(this.dataset.filter);
+    });
+  });
+  
+  // SORT SELECT - FULLY WORKING MULTIPLE TIMES
+  const sortSelect = document.getElementById('sortSelect');
+  if (sortSelect) {
+    sortSelect.addEventListener('change', function() {
+      if (productsLoaded) {
+        sortProducts(this.value);
+      } else {
+        showNotification('Please wait for products to load', 'error');
+      }
+    });
+  }
+  
+  // Scroll to top
+  const scrollBtn = document.getElementById('scrollTop');
+  window.addEventListener('scroll', () => {
+    if (scrollBtn) {
+      scrollBtn.classList.toggle('visible', window.scrollY > 400);
+    }
+  });
+  if (scrollBtn) {
+    scrollBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  }
+  
+  // Load more
+  const loadMoreBtn = document.getElementById('loadMoreBtn');
+  if (loadMoreBtn) {
+    loadMoreBtn.addEventListener('click', () => showNotification('More products coming soon'));
+  }
+  
+  // Brand navigation
+  const brand = document.querySelector('.brand');
+  if (brand) {
+    brand.addEventListener('click', (e) => {
+      e.preventDefault();
+      showNotification('Returning to home');
+      setTimeout(() => window.location.href = 'index.html', 400);
+    });
+  }
+  
+  console.log('GEARSOULS · Shop Ready - Unlimited sorting works!');
+})();
 </script>
 
 </body>

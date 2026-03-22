@@ -1,407 +1,113 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>GEARSOULS · collection drop2</title>
-  <!-- current page indicator (preserved, hidden) -->
-  <span class="current-page-indicator" style="display:none;">/ <span id="currentPageName">HOME</span></span>
+  <title>GEARSOULS · COLLECTION DROP 2</title>
   
-  <!-- font awesome -->
+  <!-- Font Awesome -->
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+  
   <style>
-    /* ----- RESET / BASE (preserved) ----- */
-    * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { background: #0a0a0a; color: #fff; font-family: 'Inter', system-ui, -apple-system, sans-serif; line-height: 1.4; }
-    
-    /* ----- NAVBAR (exactly as original) ----- */
-    .navbar { 
-      background: #0a0a0a; 
-      border-bottom: 1px solid #2a2a2a; 
-      display: flex; 
-      justify-content: space-between; 
-      align-items: center; 
-      padding: 0.8rem 5%; 
-      position: relative; 
-      z-index: 1000;
-    }
-    .brand { 
-      display: flex; 
-      align-items: center; 
-      gap: 0.8rem; 
-      text-decoration: none;
-      transition: transform 0.3s ease;
-    }
-    .brand:hover {
-      transform: scale(1.05);
-    }
-    .brand:active {
-      transform: scale(0.95);
-    }
-    .brand-logo {
-      width: 70px;
-      height: 70px;
-      border-radius: 5px;
-      object-fit: cover;
-      transition: filter 0.3s ease;
-    }
-    .brand:hover .brand-logo {
-      filter: brightness(1.2);
-    }
-    .brand-text { 
-      font-size: 1.6rem; 
-      font-weight: 700; 
-      letter-spacing: 3px; 
-      color: #f0f0f0 !important;
-      transition: color 0.3s ease;
-    }
-    .brand:hover .brand-text {
-      color: #c9b698 !important;
-    }
-    
-    /* desktop nav */
-    .nav { display: flex; gap: 2.5rem; }
-    .nav-link { 
-      color: #f0f0f0 !important; 
-      text-decoration: none; 
-      font-size: 0.95rem; 
-      font-weight: 400; 
-      letter-spacing: 2px; 
-      padding-bottom: 5px; 
-      border-bottom: 1px solid transparent; 
-      transition: 0.2s; 
-    }
-    .nav-link.active { color: #c9b698 !important; border-bottom-color: #c9b698; }
-    .nav-link:hover { color: #c9b698 !important; }
-    
-    /* menu toggle - manual only */
-    .menu-toggle {
-      display: none;
-      font-size: 1.8rem;
+    /* Additional home page specific styles */
+    .product-card {
       cursor: pointer;
-      color: #fff;
-      z-index: 1001;
     }
     
-    /* mobile styles */
-    @media (max-width: 700px) {
-      .menu-toggle { display: block; }
-      .nav {
-        display: none;
-        flex-direction: column;
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 100%;
-        background: #0a0a0a;
-        padding: 2rem;
-        gap: 1.5rem;
-        border-bottom: 1px solid #333;
-        box-shadow: 0 10px 20px rgba(0,0,0,0.5);
-        z-index: 999;
-      }
-      .nav.show { display: flex; }
-      .nav-link { font-size: 1.2rem; }
-    }
-    
-    /* ----- HERO ----- */
-    .collection-hero {
-      position: relative;
+    /* Canvas Background */
+    #bgCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
       width: 100%;
-      height: 88vh;
-      background-image: url('img/ttt.jpeg');
-      background-size: cover;
-      background-position: center 30%;
-      background-repeat: no-repeat;
-      display: flex;
-      align-items: center;
-      justify-content: flex-start;
-      padding: 0 5%;
-      margin-bottom: 2rem;
-      border-bottom: 1px solid #3e3e3e;
-    }
-    .collection-hero::before {
-      content: '';
-      position: absolute;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: linear-gradient(90deg, rgba(0,0,0,0.75) 0%, rgba(0,0,0,0.3) 70%, transparent 100%);
+      height: 100%;
+      z-index: 0;
       pointer-events: none;
     }
-    .hero-text { position: relative; z-index: 3; max-width: 600px; }
-    .hero-mini {
-      font-size: 1rem;
-      letter-spacing: 6px;
-      text-transform: uppercase;
-      color: #c9b698;
-      margin-bottom: 0.5rem;
-      font-weight: 300;
-    }
-    .hero-title {
-      font-size: clamp(3rem, 12vw, 5.5rem);
-      font-weight: 800;
-      line-height: 0.95;
-      text-transform: uppercase;
-      color: white;
-      text-shadow: 0 2px 10px rgba(0,0,0,0.5);
-    }
-    .hero-title span {
-      display: block;
-      color: #c9b698;
-      font-weight: 300;
-      border-left: 4px solid #c9b698;
-      padding-left: 20px;
-      margin-top: 10px;
-      font-size: 0.6em;
-    }
-    .hero-year {
-      font-size: 1.2rem;
-      letter-spacing: 10px;
-      color: #ddd;
-      margin-top: 2rem;
-      border-bottom: 1px solid #c9b69860;
-      padding-bottom: 0.8rem;
-      display: inline-block;
-    }
     
-    /* ----- COLLECTION INTRO ----- */
-    .collection-intro {
-      text-align: center;
-      padding: 3rem 1rem 2rem;
-      font-size: 2rem;
-      font-weight: 300;
-      text-transform: uppercase;
-      color: #ccc;
-      border-bottom: 1px solid #2a2a2a;
-      margin: 0 5% 3rem 5%;
-    }
-    .collection-intro strong {
-      font-weight: 800;
-      color: #c9b698;
-      border: 2px solid #3e3e3e;
-      padding: 0.2rem 1rem;
-      margin: 0 0.3rem;
-    }
-    
-    /* ----- PRODUCT CARD (ALL ORIGINAL ANIMATIONS RESTORED) ----- */
-    .product-card {
-      background: #111;
-      border: 1px solid #2c2c2c;
-      transition: transform 0.2s ease, border-color 0.2s;
-      text-decoration: none;
-      color: inherit;
-      display: flex;
-      flex-direction: column;
-      border-radius: 2px;
-      overflow: hidden;
-      cursor: pointer;
-      width: 100%;
-      height: 100%;
-    }
-    .product-card:hover {
-      border-color: #c9b698;
-      transform: translateY(-4px);
-    }
-    .product-card:active {
-      transform: scale(0.97);
-      transition: transform 0.1s;
-    }
-    .product-image {
-      width: 100%;
-      aspect-ratio: 3/4;
-      background-color: #1e1e1e;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      overflow: hidden;
-    }
-    .product-image img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      transition: opacity 0.2s;
-      display: block;
-    }
-    /* Special fix for logo image */
-    .product-image img[src*="0000.jpeg"] {
-      object-fit: contain;
-      background-color: #1e1e1e;
-    }
-    .product-info {
-      padding: 1.2rem 1rem 1.5rem;
-      background: #0f0f0f;
-    }
-    .product-name {
-      font-size: 1.1rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      color: #f0f0f0;
-      margin-bottom: 0.4rem;
-    }
-    .product-description {
-      font-size: 0.9rem;
-      color: #a7a7a7;
-      margin-bottom: 0.8rem;
-      line-height: 1.4;
-      border-left: 2px solid #c9b698;
-      padding-left: 0.7rem;
-    }
-    .product-category {
-      font-size: 0.7rem;
-      text-transform: uppercase;
-      color: #6f6f6f;
-      letter-spacing: 2px;
-      margin-bottom: 0.3rem;
-    }
-    .product-stock {
-      font-weight: 500;
-      color: #c9b698;
-      font-size: 0.9rem;
-    }
-    
-    /* ----- DROP BANNER ----- */
-    .drop-banner {
-      background: #0f0f0f;
-      border: 1px solid #333;
-      margin: 1rem 5% 4rem 5%;
-      padding: 2rem;
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-    }
-    .drop-banner-left {
-      font-size: 1.8rem;
-      font-weight: 300;
-      text-transform: uppercase;
-    }
-    .drop-banner-left strong {
-      font-weight: 800;
-      color: #c9b698;
-      border: 2px solid #444;
-      padding: 0.2rem 1.2rem;
-      margin: 0 0.2rem;
-    }
-    .drop-banner-right {
-      font-size: 2rem;
-      font-weight: 800;
-      color: #c9b698;
-      letter-spacing: 6px;
-    }
-    
-    /* ----- FOOTER ----- */
-    .footer-modern { background: #0a0a0a; border-top: 1px solid #1f1f1f; padding: 3rem 5% 1rem; }
-    .footer-content { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 2rem; }
-    .footer-brand img { width: 60px; margin-bottom: 0.8rem; }
-    .footer-brand p { color: #aaa; }
-    .footer-links { display: flex; gap: 4rem; flex-wrap: wrap; }
-    .footer-column h4 { color: #c9b698; margin-bottom: 1rem; font-weight: 600; letter-spacing: 2px; }
-    .footer-column a { display: block; color: #bbb; text-decoration: none; margin-bottom: 0.5rem; transition: 0.2s; }
-    .footer-column a:hover { color: #c9b698; }
-    .footer-bottom { border-top: 1px solid #2a2a2a; margin-top: 2.5rem; padding: 1.5rem 0; text-align: center; color: #888; }
-    
-    /* ----- SCROLL TOP & NOTIFICATION ----- */
-    .scroll-top { 
-      position: fixed; bottom: 30px; right: 30px; background: #1a1a1a; color: #c9b698; 
-      width: 48px; height: 48px; border-radius: 2px; display: flex; align-items: center; 
-      justify-content: center; border: 1px solid #333; cursor: pointer; z-index: 99; 
-      transition: 0.2s;
-    }
-    .scroll-top:hover {
-      background: #2a2a2a;
-      color: #fff;
-    }
-    .shop-notification { 
-      position: fixed; bottom: 90px; right: 30px; background: #111; border: 1px solid #c9b698; 
-      padding: 0.8rem 1.5rem; color: white; display: flex; gap: 10px; align-items: center; 
-      transform: translateY(150px); opacity: 0; transition: 0.3s; z-index: 100; 
-    }
-    
-    /* ========== GRID: 4 CARDS PER ROW ========== */
-    .product-grid {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 25px;
-      padding: 0 5% 3rem 5%;
-      max-width: 1600px;
-      margin: 0 auto;
-    }
-    
-    /* Full-width background image sections */
-    .bg-section {
-      width: 100%;
-      height: 50vh;
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      background-attachment: fixed;
+    /* Ensure all content is above canvas */
+    .navbar,
+    .collection-hero,
+    .collection-intro,
+    .product-grid,
+    .bg-section,
+    .drop-banner,
+    .footer-modern,
+    .scroll-top,
+    .shop-notification {
       position: relative;
-      border-top: 1px solid #3e3e3e;
-      border-bottom: 1px solid #3e3e3e;
-      margin: 2rem 0;
-      transition: filter 0.3s;
+      z-index: 1;
     }
-    .bg-section:hover {
-      filter: brightness(1.1);
+    
+    /* Enhanced product card hover */
+    .product-card {
+      transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1), border-color 0.3s, box-shadow 0.3s;
+      background: rgba(17, 17, 17, 0.9);
+      backdrop-filter: blur(2px);
     }
+    
+    .product-card:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 35px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(201, 182, 152, 0.3);
+    }
+    
+    /* Enhanced background sections with overlay */
+    .bg-section {
+      position: relative;
+      z-index: 1;
+    }
+    
     .bg-section::after {
       content: '';
       position: absolute;
-      top: 0; left: 0; width: 100%; height: 100%;
-      background: rgba(0,0,0,0.2);
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
       pointer-events: none;
     }
     
-    /* Background images - using reliable paths */
-    .bg-4 { background-image: url('img/yyy.png'); }
-    .bg-5 { background-image: url('img/yyy.png'); }
-    .bg-6 { background-image: url('img/yyy.peg'); }
-    .bg-1 { background-image: url('img/lll.png'); }
-    .bg-2 { background-image: url('img/yyy.png'); }
-    .bg-3 { background-image: url('img/cccc.png'); }
-    
-    /* Background spots (for in-grid use) */
-    .bg-spot {
-      width: 100%;
-      aspect-ratio: 3/4;
-      background-size: cover;
-      background-position: center;
-      background-repeat: no-repeat;
-      border: 1px solid #2c2c2c;
-      transition: all 0.3s ease;
-      filter: grayscale(30%) brightness(0.9);
-    }
-    .bg-spot:hover {
-      border-color: #c9b698;
-      filter: grayscale(0%) brightness(1);
-      transform: scale(1.02);
+    /* Drop banner enhancement */
+    .drop-banner {
+      background: rgba(15, 15, 15, 0.95);
+      backdrop-filter: blur(10px);
     }
     
-    /* Responsive */
-    @media (max-width: 1000px) {
-      .product-grid { grid-template-columns: repeat(2, 1fr); }
+    /* Scroll top button enhancement */
+    .scroll-top {
+      background: rgba(26, 26, 26, 0.9);
+      backdrop-filter: blur(5px);
     }
-    @media (max-width: 600px) {
-      .collection-hero { height: 70vh; }
-      .hero-title { font-size: 3rem; }
-      .drop-banner { flex-direction: column; align-items: start; gap: 1rem; }
-      .bg-section { height: 40vh; background-attachment: scroll; }
-      .product-grid { grid-template-columns: 1fr; gap: 20px; }
+    
+    .scroll-top:hover {
+      background: #c9b698;
+      color: #000;
+    }
+    
+    /* Smooth scroll */
+    html {
+      scroll-behavior: smooth;
     }
   </style>
 </head>
 <body>
 
-<!-- ========== NAVBAR with MANUAL mobile toggle and BRAND ANIMATION ========== -->
+<!-- Canvas Background -->
+<canvas id="bgCanvas"></canvas>
+
+<!-- ========== NAVBAR ========== -->
 <header class="navbar">
   <a href="index.html" class="brand">
     <img src="img/0000.jpeg" class="brand-logo" alt="GearSouls">
     <span class="brand-text">GEARSOULS</span>
   </a>
   <nav class="nav" id="mainNav">
-    <a href="index.html" class="nav-link">HOME</a>
-    <a href="shop.html" class="nav-link active">SHOP</a>
+    <a href="index.html" class="nav-link active">HOME</a>
+    <a href="shop.html" class="nav-link">SHOP</a>
     <a href="account.html" class="nav-link">ACCOUNT</a>
   </nav>
   <div class="menu-toggle" id="menuToggle">
@@ -409,7 +115,7 @@
   </div>
 </header>
 
-<!-- ========== HERO ========== -->
+<!-- ========== HERO SECTION ========== -->
 <section class="collection-hero">
   <div class="hero-text">
     <div class="hero-mini">GEARSOULS</div>
@@ -421,136 +127,171 @@
   </div>
 </section>
 
-<!-- tagline -->
+<!-- ========== COLLECTION INTRO ========== -->
 <div class="collection-intro">
   <span>collectior</span> <strong>drop2</strong> <span>GEARSOULS</span> <strong>~2026~</strong>
 </div>
 
-<!-- ========== ROW 1: FIRST 4 CARDS ========== -->
+<!-- ========== PRODUCT GRID ROW 1 ========== -->
 <div class="product-grid">
-  <!-- CARD 1 – 0000.jpeg -->
-  <div class="product-card">
+  <!-- Product 1 - Maps to Shopify Product ID: 10743198351624 -->
+  <div class="product-card" data-product-id="10743198351624" data-product-name="SKULL GEAR EMBLEM">
     <div class="product-image"><img src="img/0000.jpeg" alt="Skull Gear Emblem"></div>
     <div class="product-info">
       <div class="product-category">branding · core identity</div>
       <div class="product-name">SKULL GEAR EMBLEM</div>
       <div class="product-description">Official GearSouls skull-in-gear insignia. High-resolution vector logo.</div>
-      <div class="product-stock">In Stock: 999</div>
+      <div class="product-price">In Stock: 999</div>
     </div>
   </div>
-  <!-- CARD 2 – 0001.jpeg -->
-  <div class="product-card">
-    <div class="product-image"><img src="img/0001.jpeg" alt="Classic Logo Tee"></div>
+  
+  <!-- Product 2 - Maps to Shopify Product ID: 10760158773512 -->
+  <div class="product-card" data-product-id="10760158773512" data-product-name="FITTED SKULL TEE">
+    <div class="product-image">
+      <img src="img/0001.jpeg" alt="Fitted Skull Tee">
+    </div>
     <div class="product-info">
-      <div class="product-category">tops · signature tee</div>
-      <div class="product-name">CLASSIC LOGO TEE</div>
-      <div class="product-description">Premium heavyweight cotton tee with signature skull gear print.</div>
-      <div class="product-stock">In Stock: 42</div>
+      <div class="product-category">tops · streetwear</div>
+      <div class="product-name">FITTED SKULL TEE</div>
+      <div class="product-description">
+        Premium cotton tee with bold gear skull graphic. Clean fit, built for everyday street rotation.
+      </div>
+      <div class="product-variants">
+        <span class="variant">White</span>
+        <span class="variant">Black</span>
+      </div>
+      <div class="product-price">In Stock: 19</div>
     </div>
   </div>
-  <!-- CARD 3 – 0002.jpeg -->
-  <div class="product-card">
+  
+  <!-- Product 3 - Maps to Shopify Product ID: 10761169862920 -->
+  <div class="product-card" data-product-id="10761169862920" data-product-name="SIGNATURE SKULL HOODIE">
     <div class="product-image"><img src="img/0002.jpeg" alt="Skull Hoodie"></div>
     <div class="product-info">
       <div class="product-category">outerwear · hoodie</div>
       <div class="product-name">SIGNATURE SKULL HOODIE</div>
       <div class="product-description">Heavy fleece pullover hoodie with oversized skull gear print.</div>
-      <div class="product-stock">In Stock: 28</div>
+      <div class="product-price">In Stock: 28</div>
     </div>
   </div>
-  <!-- CARD 4 – 0003.jpeg -->
-  <div class="product-card">
-    <div class="product-image"><img src="img/0003.jpeg" alt="Urban Puffer"></div>
+  
+  <!-- Product 4 - Maps to Shopify Product ID: 10761230024968 -->
+  <div class="product-card" data-product-id="10761230024968" data-product-name="GEARSOULS HOODIE">
+    <div class="product-image">
+      <img src="img/0006.jpeg" alt="Gearsouls Hoodie">
+    </div>
     <div class="product-info">
-      <div class="product-category">outerwear · winter drop</div>
-      <div class="product-name">URBAN PUFFER JACKET</div>
-      <div class="product-description">Insulated street puffer with embroidered skull emblem.</div>
-      <div class="product-stock">In Stock: 15</div>
+      <div class="product-category">streetwear · essentials</div>
+      <div class="product-name">GEARSOULS HOODIE</div>
+      <div class="product-description">
+        Oversized black hoodie featuring a bold skull-in-gear graphic with "GEARSOULS" branding.
+      </div>
+      <div class="product-price">In Stock: 15</div>
     </div>
   </div>
 </div>
 
-<!-- BACKGROUND SPACE AFTER ROW 1 -->
+<!-- BACKGROUND SECTION 1 -->
 <div class="bg-section bg-1"></div>
 
-<!-- ========== ROW 2: CARDS 5-8 ========== -->
+<!-- ========== PRODUCT GRID ROW 2 ========== -->
 <div class="product-grid">
-  <!-- CARD 5 – 0004.jpeg -->
-  <div class="product-card">
-    <div class="product-image"><img src="img/0004.jpeg" alt="Essential Set"></div>
-    <div class="product-info">
-      <div class="product-category">sets · essentials</div>
-      <div class="product-name">ESSENTIAL LOGO SET</div>
-      <div class="product-description">Matching logo tee and relaxed shorts. Everyday street essential.</div>
-      <div class="product-stock">In Stock: 33</div>
-    </div>
-  </div>
-  <!-- CARD 6 – 0005.jpeg -->
-  <div class="product-card">
-    <div class="product-image"><img src="img/0005.jpeg" alt="Fitted Skull Tee"></div>
-    <div class="product-info">
-      <div class="product-category">tops · fitted</div>
-      <div class="product-name">FITTED SKULL TEE</div>
-      <div class="product-description">Slim-cut cotton tee with centered skull gear print.</div>
-      <div class="product-stock">In Stock: 19</div>
-    </div>
-  </div>
-  <!-- CARD 7 – 0006.jpeg -->
-  <div class="product-card">
-    <div class="product-image"><img src="img/0006.jpeg" alt="Back Print Hoodie"></div>
-    <div class="product-info">
-      <div class="product-category">outerwear · graphic hoodie</div>
-      <div class="product-name">CORE BACK PRINT HOODIE</div>
-      <div class="product-description">Midweight hoodie with oversized back logo print.</div>
-      <div class="product-stock">In Stock: 24</div>
-    </div>
-  </div>
-  <!-- CARD 8 – 0007.jpeg -->
-  <div class="product-card">
-    <div class="product-image"><img src="img/0007.jpeg" alt="Oversized Street Tee"></div>
-    <div class="product-info">
-      <div class="product-category">tops · oversized</div>
-      <div class="product-name">OVERSIZED STREET TEE</div>
-      <div class="product-description">Dropped shoulders, heavyweight cotton, bold skull graphic.</div>
-      <div class="product-stock">In Stock: 37</div>
-    </div>
-  </div>
-</div>
-
-<!-- BACKGROUND SPACE AFTER ROW 2 -->
-<div class="bg-section bg-2"></div>
-
-<!-- ========== ROW 3: CARDS 9-10 + 2 BACKGROUND SPOTS ========== -->
-<div class="product-grid">
-  <!-- CARD 9 – 0008.jpeg -->
-  <div class="product-card">
-    <div class="product-image"><img src="img/0008.jpeg" alt="Long Sleeve Logo"></div>
-    <div class="product-info">
-      <div class="product-category">tops · long sleeve</div>
-      <div class="product-name">LONG SLEEVE LOGO SHIRT</div>
-      <div class="product-description">Relaxed-fit long sleeve with large back skull print.</div>
-      <div class="product-stock">In Stock: 21</div>
-    </div>
-  </div>
-  <!-- CARD 10 – 0009.jpeg -->
-  <div class="product-card">
+  <!-- Product 5 -->
+  <div class="product-card" data-product-id="10761255387400" data-product-name="RED SKULL GRAPHIC TEE">
     <div class="product-image"><img src="img/0009.jpeg" alt="Red Skull Graphic Tee"></div>
     <div class="product-info">
       <div class="product-category">tops · limited colorway</div>
       <div class="product-name">RED SKULL GRAPHIC TEE</div>
       <div class="product-description">Limited red edition with bold front skull emblem.</div>
-      <div class="product-stock">In Stock: 12</div>
+      <div class="product-price">In Stock: 12</div>
     </div>
   </div>
-  <!-- Two background spots with reliable images -->
+  
+  <!-- Product 6 -->
+  <div class="product-card" data-product-id="10743198351624" data-product-name="T-SHIRTS AND TROUSERS">
+    <div class="product-image">
+      <img src="img/0004.jpeg" alt="T-Shirts and Trousers">
+    </div>
+    <div class="product-info">
+      <div class="product-category">tops · streetwear</div>
+      <div class="product-name">T-SHIRTS AND TROUSERS</div>
+      <div class="product-description">
+        Premium cotton tee with bold gear skull graphic. Clean fit, built for everyday street rotation.
+      </div>
+      <div class="product-variants">
+        <span class="variant">White</span>
+        <span class="variant">Black</span>
+      </div>
+      <div class="product-price">In Stock: 19</div>
+    </div>
+  </div>
+  
+  <!-- Product 7 -->
+  <div class="product-card" data-product-id="10760158773512" data-product-name="GEARSOULS HUT">
+    <div class="product-image">
+      <img src="img/0003.jpeg" alt="GEARSOULS Beanie">
+    </div>
+    <div class="product-info">
+      <div class="product-category">accessories · beanie</div>
+      <div class="product-name">GEARSOULS HUT</div>
+      <div class="product-description">
+        Knit beanie featuring bold front logo branding. Soft, warm, and street-ready.
+      </div>
+      <div class="product-variants">
+        <span class="variant">Black Skull</span>
+        <span class="variant">Red Logo</span>
+      </div>
+      <div class="product-price">In Stock: 24</div>
+    </div>
+  </div>
+  
+  <!-- Product 8 -->
+  <div class="product-card" data-product-id="10761169862920" data-product-name="OVERSIZED STREET TEE">
+    <div class="product-image"><img src="img/0007.jpeg" alt="Oversized Street Tee"></div>
+    <div class="product-info">
+      <div class="product-category">tops · oversized</div>
+      <div class="product-name">OVERSIZED STREET TEE</div>
+      <div class="product-description">Dropped shoulders, heavyweight cotton, bold skull graphic.</div>
+      <div class="product-price">In Stock: 37</div>
+    </div>
+  </div>
+</div>
+
+<!-- BACKGROUND SECTION 2 -->
+<div class="bg-section bg-2"></div>
+
+<!-- ========== PRODUCT GRID ROW 3 ========== -->
+<div class="product-grid">
+  <!-- Product 9 -->
+  <div class="product-card" data-product-id="10761230024968" data-product-name="LONG SLEEVE LOGO SHIRT">
+    <div class="product-image"><img src="img/0008.jpeg" alt="Long Sleeve Logo"></div>
+    <div class="product-info">
+      <div class="product-category">tops · long sleeve</div>
+      <div class="product-name">LONG SLEEVE LOGO SHIRT</div>
+      <div class="product-description">Relaxed-fit long sleeve with large back skull print.</div>
+      <div class="product-price">In Stock: 21</div>
+    </div>
+  </div>
+  
+  <!-- Product 10 -->
+  <div class="product-card" data-product-id="10761255387400" data-product-name="RED SKULL GRAPHIC TEE">
+    <div class="product-image"><img src="img/0009.jpeg" alt="Red Skull Graphic Tee"></div>
+    <div class="product-info">
+      <div class="product-category">tops · limited colorway</div>
+      <div class="product-name">RED SKULL GRAPHIC TEE</div>
+      <div class="product-description">Limited red edition with bold front skull emblem.</div>
+      <div class="product-price">In Stock: 12</div>
+    </div>
+  </div>
+  
   <div class="bg-spot" style="background-image: url('img/0002.jpeg');"></div>
   <div class="bg-spot" style="background-image: url('img/0005.jpeg');"></div>
 </div>
 
-<!-- FINAL BACKGROUND SPACER -->
+<!-- BACKGROUND SECTION 3 -->
 <div class="bg-section bg-3"></div>
 
-<!-- DROP BANNER -->
+<!-- ========== DROP BANNER ========== -->
 <div class="drop-banner">
   <div class="drop-banner-left">
     <span>collectior</span> <strong>drop2</strong> <span>GEARSOULS</span>
@@ -578,6 +319,12 @@
         <a href="#"><i class="fab fa-pinterest"></i> PINTEREST</a>
         <a href="#"><i class="fab fa-twitter"></i> TWITTER</a>
       </div>
+      <div class="footer-column">
+        <h4>LEGAL</h4>
+        <a href="#">TERMS</a>
+        <a href="#">PRIVACY</a>
+        <a href="#">RETURNS</a>
+      </div>
     </div>
   </div>
   <div class="footer-bottom">
@@ -585,77 +332,273 @@
   </div>
 </footer>
 
-<!-- SCROLL TOP & NOTIFICATION -->
+<!-- ========== SCROLL TOP & NOTIFICATION ========== -->
 <div class="scroll-top"><i class="fas fa-arrow-up"></i></div>
-<div class="shop-notification"><i class="fas fa-check"></i><span></span></div>
+<div class="shop-notification"><i class="fas fa-check"></i><span id="notifMsg">Welcome to GEARSOULS</span></div>
 
-<!-- ========== FINAL JAVASCRIPT (ALL ANIMATIONS RESTORED) ========== -->
 <script>
 (function() {
-  // ----- ORIGINAL CLICK ANIMATION (exactly as you had it) -----
-  document.querySelectorAll('.product-card').forEach(card => {
-    card.addEventListener('click', function(e) {
-      e.preventDefault();
-      // Original scale effect
-      this.style.transform = "scale(0.97)";
-      setTimeout(() => {
-        this.style.transform = "";
-      }, 150);
-      
-      // Navigate to shop page
-      setTimeout(() => {
-        window.location.href = 'shop.html';
-      }, 150);
-    });
+  // ==================== DYNAMIC CANVAS BACKGROUND ====================
+  const canvas = document.getElementById('bgCanvas');
+  const ctx = canvas.getContext('2d');
+  let width, height;
+  let particles = [];
+  let time = 0;
+  let mouseX = -1000, mouseY = -1000;
+  let mouseInCanvas = false;
+
+  function initCanvas() {
+    width = window.innerWidth;
+    height = window.innerHeight;
+    canvas.width = width;
+    canvas.height = height;
+    
+    particles = [];
+    const particleCount = Math.floor(width * height / 10000);
+    
+    for (let i = 0; i < particleCount; i++) {
+      particles.push({
+        x: Math.random() * width,
+        y: Math.random() * height,
+        radius: Math.random() * 2 + 1,
+        vx: (Math.random() - 0.5) * 0.2,
+        vy: (Math.random() - 0.5) * 0.2,
+        color: `rgba(201, 182, 152, ${Math.random() * 0.2 + 0.1})`,
+        pulseSpeed: 0.01 + Math.random() * 0.02,
+        pulsePhase: Math.random() * Math.PI * 2
+      });
+    }
+  }
+
+  canvas.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+    mouseInCanvas = true;
   });
 
-  // ----- MANUAL MOBILE MENU (only opens when clicked) -----
+  canvas.addEventListener('mouseleave', () => {
+    mouseInCanvas = false;
+    mouseX = -1000;
+    mouseY = -1000;
+  });
+
+  function drawGrid() {
+    const gridSize = 60;
+    ctx.strokeStyle = 'rgba(201, 182, 152, 0.03)';
+    ctx.lineWidth = 0.5;
+    
+    for (let x = 0; x < width; x += gridSize) {
+      ctx.beginPath();
+      ctx.moveTo(x, 0);
+      ctx.lineTo(x + Math.sin(time) * 5, height);
+      ctx.stroke();
+    }
+    
+    for (let y = 0; y < height; y += gridSize) {
+      ctx.beginPath();
+      ctx.moveTo(0, y);
+      ctx.lineTo(width, y + Math.cos(time) * 5);
+      ctx.stroke();
+    }
+  }
+
+  function drawParticles() {
+    particles.forEach(p => {
+      // Mouse repelling effect
+      if (mouseInCanvas) {
+        const dx = p.x - mouseX;
+        const dy = p.y - mouseY;
+        const distance = Math.sqrt(dx * dx + dy * dy);
+        const repelRadius = 120;
+        
+        if (distance < repelRadius) {
+          const force = (repelRadius - distance) / repelRadius;
+          const angle = Math.atan2(dy, dx);
+          p.x += Math.cos(angle) * force * 1.5;
+          p.y += Math.sin(angle) * force * 1.5;
+        }
+      }
+      
+      p.x += p.vx;
+      p.y += p.vy;
+      
+      if (p.x < 0) p.x = width;
+      if (p.x > width) p.x = 0;
+      if (p.y < 0) p.y = height;
+      if (p.y > height) p.y = 0;
+      
+      const pulse = Math.sin(time * p.pulseSpeed + p.pulsePhase) * 0.2 + 0.8;
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, p.radius * pulse, 0, Math.PI * 2);
+      ctx.fillStyle = p.color;
+      ctx.fill();
+    });
+  }
+
+  function drawMouseGlow() {
+    if (!mouseInCanvas) return;
+    
+    const gradient = ctx.createRadialGradient(mouseX, mouseY, 0, mouseX, mouseY, 100);
+    gradient.addColorStop(0, 'rgba(201, 182, 152, 0.08)');
+    gradient.addColorStop(1, 'transparent');
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, width, height);
+  }
+
+  function animateCanvas() {
+    ctx.clearRect(0, 0, width, height);
+    
+    // Gradient background
+    const gradient = ctx.createLinearGradient(0, 0, width, height);
+    gradient.addColorStop(0, '#0a0a0a');
+    gradient.addColorStop(0.5, '#0f0f0f');
+    gradient.addColorStop(1, '#0a0a0a');
+    ctx.fillStyle = gradient;
+    ctx.fillRect(0, 0, width, height);
+    
+    time += 0.003;
+    drawGrid();
+    drawParticles();
+    drawMouseGlow();
+    
+    requestAnimationFrame(animateCanvas);
+  }
+
+  initCanvas();
+  animateCanvas();
+  window.addEventListener('resize', initCanvas);
+
+  // ==================== MOBILE MENU TOGGLE ====================
   const menuToggle = document.getElementById('menuToggle');
   const nav = document.getElementById('mainNav');
   
   if (menuToggle && nav) {
-    menuToggle.addEventListener('click', function(e) {
+    menuToggle.addEventListener('click', (e) => {
       e.stopPropagation();
-      nav.classList.toggle('show');
+      nav.classList.toggle('active');
+      const icon = menuToggle.querySelector('i');
+      if (nav.classList.contains('active')) {
+        icon.classList.remove('fa-bars');
+        icon.classList.add('fa-times');
+      } else {
+        icon.classList.remove('fa-times');
+        icon.classList.add('fa-bars');
+      }
     });
     
-    // Close menu when clicking outside
-    document.addEventListener('click', function(event) {
+    document.addEventListener('click', (event) => {
       if (!nav.contains(event.target) && !menuToggle.contains(event.target)) {
-        nav.classList.remove('show');
+        nav.classList.remove('active');
+        const icon = menuToggle.querySelector('i');
+        if (icon) {
+          icon.classList.remove('fa-times');
+          icon.classList.add('fa-bars');
+        }
       }
     });
   }
-
-  // ----- SCROLL TO TOP -----
+  
+  // ==================== PRODUCT CARDS - NAVIGATE TO SHOP PAGE ====================
+  const productCards = document.querySelectorAll('.product-card');
+  const notification = document.querySelector('.shop-notification');
+  const notifMsg = document.getElementById('notifMsg');
+  
+  function showMessage(message, isError = false) {
+    if (notification && notifMsg) {
+      notifMsg.textContent = message;
+      notification.classList.add('show');
+      if (isError) {
+        notification.style.background = '#ff4444';
+        notification.style.borderColor = '#ff4444';
+        notification.style.color = '#fff';
+      } else {
+        notification.style.background = '#1a1a1a';
+        notification.style.borderColor = '#c9b698';
+        notification.style.color = '#c9b698';
+      }
+      setTimeout(() => {
+        notification.classList.remove('show');
+        notification.style.background = '';
+        notification.style.color = '';
+      }, 2000);
+    }
+  }
+  
+  productCards.forEach(card => {
+    card.addEventListener('click', function(e) {
+      e.preventDefault();
+      
+      const productId = this.getAttribute('data-product-id');
+      const productName = this.getAttribute('data-product-name');
+      
+      // Scale animation
+      this.style.transform = "scale(0.97)";
+      setTimeout(() => { this.style.transform = ""; }, 150);
+      
+      if (productId) {
+        showMessage(`Loading ${productName}...`);
+        setTimeout(() => {
+          window.location.href = `shop.html#product-${productId}`;
+        }, 200);
+      } else {
+        showMessage('Explore collection →');
+        setTimeout(() => {
+          window.location.href = 'shop.html';
+        }, 200);
+      }
+    });
+  });
+  
+  // ==================== BACKGROUND SPOTS INTERACTION ====================
+  const bgSpots = document.querySelectorAll('.bg-spot');
+  
+  bgSpots.forEach(spot => {
+    spot.addEventListener('click', function() {
+      this.style.transform = "scale(0.96)";
+      setTimeout(() => { this.style.transform = ""; }, 150);
+      showMessage('Explore gear archive');
+    });
+  });
+  
+  // ==================== SCROLL TO TOP ====================
   const scrollBtn = document.querySelector('.scroll-top');
+  
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 400) {
+      scrollBtn.classList.add('visible');
+    } else {
+      scrollBtn.classList.remove('visible');
+    }
+  });
+  
   if (scrollBtn) {
     scrollBtn.addEventListener('click', () => {
       window.scrollTo({ top: 0, behavior: 'smooth' });
     });
   }
-
-  // ----- BACKGROUND SPOTS (visual feedback only) -----
-  document.querySelectorAll('.bg-spot').forEach(spot => {
-    spot.addEventListener('click', function(e) {
-      e.preventDefault();
-      // Subtle scale effect
-      this.style.transform = "scale(0.97)";
-      setTimeout(() => {
-        this.style.transform = "";
-      }, 150);
-    });
-  });
-
-  // ----- ORIGINAL NAVBAR HOVER EFFECTS (already in CSS) -----
-  // All animations preserved
   
-  console.log('GEARSOULS · all animations restored · brand animation added');
+  // ==================== BRAND NAVIGATION ====================
+  const brand = document.querySelector('.brand');
+  if (brand) {
+    brand.addEventListener('click', (e) => {
+      e.preventDefault();
+      showMessage('GEARSOULS legacy continues');
+      setTimeout(() => { window.location.href = 'index.html'; }, 300);
+    });
+  }
+  
+  // ==================== ADD PARALLAX EFFECT TO HERO ====================
+  const heroSection = document.querySelector('.collection-hero');
+  if (heroSection) {
+    window.addEventListener('scroll', () => {
+      const scrolled = window.scrollY;
+      heroSection.style.backgroundPositionY = `${30 + scrolled * 0.1}%`;
+    });
+  }
+  
+  console.log('GEARSOULS · Premium Homepage Ready - Product linking enabled');
 })();
 </script>
 
-<!-- keep original script module reference -->
-<script type="module" src="app.js"></script>
 </body>
 </html>
-```

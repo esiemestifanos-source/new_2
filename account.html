@@ -6,6 +6,31 @@
   <title>GEARSOULS | Account</title>
   <link rel="stylesheet" href="css/style.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    /* Additional inline styles for account page if needed */
+    .auth-btn.loading {
+      position: relative;
+      pointer-events: none;
+    }
+    
+    .auth-btn.loading::after {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 20px;
+      height: 20px;
+      border: 2px solid rgba(0,0,0,0.2);
+      border-top-color: #000;
+      border-radius: 50%;
+      animation: spin 0.8s linear infinite;
+    }
+    
+    @keyframes spin {
+      to { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+  </style>
 </head>
 <body>
 
@@ -15,12 +40,12 @@
     <img src="img/0000.jpeg" class="brand-logo" alt="GearSouls">
     <span class="brand-text">GEARSOULS</span>
   </a>
-  <nav class="nav">
+  <nav class="nav" id="mainNav">
     <a href="index.html" class="nav-link">HOME</a>
     <a href="shop.html" class="nav-link">SHOP</a>
     <a href="account.html" class="nav-link active">ACCOUNT</a>
   </nav>
-  <div class="menu-toggle">
+  <div class="menu-toggle" id="menuToggle">
     <i class="fas fa-bars"></i>
   </div>
 </header>
@@ -37,24 +62,24 @@
     <!-- SIGN IN FORM -->
     <div class="auth-form active" id="signinForm">
       <h3>SIGN IN</h3>
-      <div class="input-group">
+      <div class="input-group" id="signinEmailGroup">
         <i class="fas fa-envelope"></i>
-        <input type="email" id="signinEmail" placeholder="EMAIL">
+        <input type="email" id="signinEmail" placeholder="EMAIL" autocomplete="email">
       </div>
-      <div class="input-group">
+      <div class="input-group" id="signinPasswordGroup">
         <i class="fas fa-lock"></i>
-        <input type="password" id="signinPassword" placeholder="PASSWORD">
-        <i class="fas fa-eye toggle-password"></i>
+        <input type="password" id="signinPassword" placeholder="PASSWORD" autocomplete="current-password">
+        <i class="fas fa-eye toggle-password" data-target="signinPassword"></i>
       </div>
       <div class="form-options">
         <label class="checkbox-container">
-          <input type="checkbox" checked>
+          <input type="checkbox" id="rememberMe">
           <span class="checkmark"></span>
-          <span>REMEMBER</span>
+          <span>REMEMBER ME</span>
         </label>
-        <span class="forgot-link" onclick="showForm('reset')">FORGOT?</span>
+        <span class="forgot-link" onclick="showForm('reset')">FORGOT PASSWORD?</span>
       </div>
-      <button class="auth-btn" onclick="login()">SIGN IN</button>
+      <button class="auth-btn" id="signinBtn" onclick="login()">SIGN IN</button>
       <div class="auth-switch">
         <span>NO ACCOUNT?</span>
         <span class="switch-link" onclick="showForm('signup')">CREATE ONE</span>
@@ -64,32 +89,34 @@
     <!-- SIGN UP FORM -->
     <div class="auth-form" id="signupForm">
       <h3>CREATE ACCOUNT</h3>
-      <div class="input-group">
+      <div class="input-group" id="signupNameGroup">
         <i class="fas fa-user"></i>
-        <input type="text" id="signupName" placeholder="NAME">
+        <input type="text" id="signupName" placeholder="FULL NAME" autocomplete="name">
       </div>
-      <div class="input-group">
+      <div class="input-group" id="signupEmailGroup">
         <i class="fas fa-envelope"></i>
-        <input type="email" id="signupEmail" placeholder="EMAIL">
+        <input type="email" id="signupEmail" placeholder="EMAIL" autocomplete="email">
       </div>
-      <div class="input-group">
+      <div class="input-group" id="signupPasswordGroup">
         <i class="fas fa-lock"></i>
-        <input type="password" id="signupPassword" placeholder="PASSWORD">
+        <input type="password" id="signupPassword" placeholder="PASSWORD" autocomplete="new-password">
+        <i class="fas fa-eye toggle-password" data-target="signupPassword"></i>
       </div>
-      <div class="input-group">
+      <div class="input-group" id="signupConfirmGroup">
         <i class="fas fa-lock"></i>
         <input type="password" id="signupConfirm" placeholder="CONFIRM PASSWORD">
+        <i class="fas fa-eye toggle-password" data-target="signupConfirm"></i>
       </div>
       <div class="form-options">
         <label class="checkbox-container">
-          <input type="checkbox">
+          <input type="checkbox" id="acceptTerms">
           <span class="checkmark"></span>
-          <span>ACCEPT TERMS</span>
+          <span>I ACCEPT THE TERMS & CONDITIONS</span>
         </label>
       </div>
-      <button class="auth-btn" onclick="signup()">CREATE</button>
+      <button class="auth-btn" id="signupBtn" onclick="signup()">CREATE ACCOUNT</button>
       <div class="auth-switch">
-        <span>HAVE ACCOUNT?</span>
+        <span>ALREADY HAVE AN ACCOUNT?</span>
         <span class="switch-link" onclick="showForm('signin')">SIGN IN</span>
       </div>
     </div>
@@ -97,14 +124,16 @@
     <!-- RESET PASSWORD FORM -->
     <div class="auth-form" id="resetForm">
       <h3>RESET PASSWORD</h3>
-      <div class="input-group">
+      <div class="input-group" id="resetEmailGroup">
         <i class="fas fa-envelope"></i>
-        <input type="email" id="resetEmail" placeholder="EMAIL">
+        <input type="email" id="resetEmail" placeholder="EMAIL" autocomplete="email">
       </div>
-      <p style="text-align: center; color: #666; margin: 20px 0; font-size: 0.8rem;">A reset link will be sent to your email</p>
-      <button class="auth-btn" onclick="resetPassword()">SEND</button>
+      <p style="text-align: center; color: #666; margin: 20px 0; font-size: 0.8rem; line-height: 1.5;">
+        Enter your email address and we'll send you a link to reset your password.
+      </p>
+      <button class="auth-btn" id="resetBtn" onclick="resetPassword()">SEND RESET LINK</button>
       <div class="auth-switch">
-        <span class="switch-link" onclick="showForm('signin')">BACK TO LOGIN</span>
+        <span class="switch-link" onclick="showForm('signin')">← BACK TO SIGN IN</span>
       </div>
     </div>
     
@@ -114,17 +143,446 @@
 </div>
 
 <!-- ================= NOTIFICATION ================= -->
-<div class="shop-notification">
+<div class="shop-notification" id="shopNotification">
   <i class="fas fa-check"></i>
-  <span></span>
+  <span id="notificationMessage"></span>
 </div>
 
 <!-- ================= SCROLL TOP ================= -->
-<div class="scroll-top">
+<div class="scroll-top" id="scrollTop">
   <i class="fas fa-arrow-up"></i>
 </div>
 
-<script type="module" src="app.js"></script>
+<script>
+// ================= ACCOUNT SYSTEM =================
+// User storage key
+const STORAGE_KEY = 'gearsouls_users';
+const CURRENT_USER_KEY = 'gearsouls_current_user';
+
+// Helper function to show notifications
+function showNotification(message, isError = false) {
+  const notification = document.getElementById('shopNotification');
+  const messageSpan = document.getElementById('notificationMessage');
+  
+  if (notification && messageSpan) {
+    messageSpan.textContent = message;
+    notification.classList.add('show');
+    
+    // Change style for error messages
+    if (isError) {
+      notification.style.background = '#ff4444';
+      notification.style.borderColor = '#ff4444';
+      notification.style.color = '#ffffff';
+    } else {
+      notification.style.background = '#1a1a1a';
+      notification.style.borderColor = '#c9b698';
+      notification.style.color = '#ffffff';
+    }
+    
+    setTimeout(() => {
+      notification.classList.remove('show');
+      // Reset style
+      notification.style.background = '';
+      notification.style.borderColor = '';
+    }, 3000);
+  }
+}
+
+// Helper to show error on input
+function showInputError(inputId, message) {
+  const group = document.getElementById(inputId + 'Group');
+  if (group) {
+    group.classList.add('error');
+    
+    // Remove existing error message
+    const existingError = group.querySelector('.error-message');
+    if (existingError) existingError.remove();
+    
+    // Add new error message
+    const errorMsg = document.createElement('div');
+    errorMsg.className = 'error-message';
+    errorMsg.textContent = message;
+    group.appendChild(errorMsg);
+    
+    // Auto remove after 3 seconds
+    setTimeout(() => {
+      group.classList.remove('error');
+      const msg = group.querySelector('.error-message');
+      if (msg) msg.remove();
+    }, 3000);
+  }
+}
+
+// Clear all input errors
+function clearErrors() {
+  document.querySelectorAll('.input-group').forEach(group => {
+    group.classList.remove('error');
+    const errorMsg = group.querySelector('.error-message');
+    if (errorMsg) errorMsg.remove();
+  });
+}
+
+// Get users from localStorage
+function getUsers() {
+  const users = localStorage.getItem(STORAGE_KEY);
+  return users ? JSON.parse(users) : [];
+}
+
+// Save users to localStorage
+function saveUsers(users) {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(users));
+}
+
+// Get current logged in user
+function getCurrentUser() {
+  const user = localStorage.getItem(CURRENT_USER_KEY);
+  return user ? JSON.parse(user) : null;
+}
+
+// Set current user
+function setCurrentUser(user) {
+  if (user) {
+    localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(user));
+  } else {
+    localStorage.removeItem(CURRENT_USER_KEY);
+  }
+}
+
+// Update user status display
+function updateUserStatus() {
+  const statusDiv = document.getElementById('userStatus');
+  const currentUser = getCurrentUser();
+  
+  if (statusDiv) {
+    if (currentUser) {
+      statusDiv.innerHTML = `WELCOME BACK, ${currentUser.name.toUpperCase()} ✦`;
+      statusDiv.classList.add('logged-in');
+    } else {
+      statusDiv.innerHTML = 'NOT CONNECTED';
+      statusDiv.classList.remove('logged-in');
+    }
+  }
+}
+
+// Login function
+function login() {
+  const email = document.getElementById('signinEmail').value.trim();
+  const password = document.getElementById('signinPassword').value;
+  const rememberMe = document.getElementById('rememberMe').checked;
+  
+  clearErrors();
+  
+  // Validation
+  if (!email) {
+    showInputError('signinEmail', 'Email is required');
+    return;
+  }
+  if (!password) {
+    showInputError('signinPassword', 'Password is required');
+    return;
+  }
+  
+  // Check credentials
+  const users = getUsers();
+  const user = users.find(u => u.email === email && u.password === password);
+  
+  if (user) {
+    setCurrentUser(user);
+    updateUserStatus();
+    showNotification(`Welcome back, ${user.name}!`, false);
+    
+    // Clear form
+    document.getElementById('signinEmail').value = '';
+    document.getElementById('signinPassword').value = '';
+    
+    // Optional: stay on account page or redirect
+    setTimeout(() => {
+      // You can redirect to home or stay
+      // window.location.href = 'index.html';
+    }, 1000);
+  } else {
+    showNotification('Invalid email or password', true);
+  }
+}
+
+// Signup function
+function signup() {
+  const name = document.getElementById('signupName').value.trim();
+  const email = document.getElementById('signupEmail').value.trim();
+  const password = document.getElementById('signupPassword').value;
+  const confirm = document.getElementById('signupConfirm').value;
+  const acceptTerms = document.getElementById('acceptTerms').checked;
+  
+  clearErrors();
+  
+  let hasError = false;
+  
+  // Validation
+  if (!name) {
+    showInputError('signupName', 'Name is required');
+    hasError = true;
+  } else if (name.length < 2) {
+    showInputError('signupName', 'Name must be at least 2 characters');
+    hasError = true;
+  }
+  
+  if (!email) {
+    showInputError('signupEmail', 'Email is required');
+    hasError = true;
+  } else if (!email.includes('@') || !email.includes('.')) {
+    showInputError('signupEmail', 'Enter a valid email address');
+    hasError = true;
+  }
+  
+  if (!password) {
+    showInputError('signupPassword', 'Password is required');
+    hasError = true;
+  } else if (password.length < 6) {
+    showInputError('signupPassword', 'Password must be at least 6 characters');
+    hasError = true;
+  }
+  
+  if (password !== confirm) {
+    showInputError('signupConfirm', 'Passwords do not match');
+    hasError = true;
+  }
+  
+  if (!acceptTerms) {
+    showNotification('Please accept the terms and conditions', true);
+    hasError = true;
+  }
+  
+  if (hasError) return;
+  
+  // Check if user already exists
+  const users = getUsers();
+  const existingUser = users.find(u => u.email === email);
+  
+  if (existingUser) {
+    showInputError('signupEmail', 'Email already registered');
+    return;
+  }
+  
+  // Create new user
+  const newUser = {
+    id: Date.now(),
+    name: name,
+    email: email,
+    password: password,
+    createdAt: new Date().toISOString()
+  };
+  
+  users.push(newUser);
+  saveUsers(users);
+  
+  showNotification('Account created successfully! Please sign in.', false);
+  
+  // Clear signup form
+  document.getElementById('signupName').value = '';
+  document.getElementById('signupEmail').value = '';
+  document.getElementById('signupPassword').value = '';
+  document.getElementById('signupConfirm').value = '';
+  document.getElementById('acceptTerms').checked = false;
+  
+  // Switch to sign in form
+  showForm('signin');
+}
+
+// Reset password function
+function resetPassword() {
+  const email = document.getElementById('resetEmail').value.trim();
+  
+  clearErrors();
+  
+  if (!email) {
+    showInputError('resetEmail', 'Email is required');
+    return;
+  }
+  
+  const users = getUsers();
+  const userExists = users.some(u => u.email === email);
+  
+  if (userExists) {
+    showNotification(`Password reset link sent to ${email}`, false);
+    document.getElementById('resetEmail').value = '';
+    
+    // Switch back to sign in after 2 seconds
+    setTimeout(() => {
+      showForm('signin');
+    }, 2000);
+  } else {
+    showNotification('Email not found in our records', true);
+  }
+}
+
+// Logout function
+function logout() {
+  setCurrentUser(null);
+  updateUserStatus();
+  showNotification('You have been logged out', false);
+}
+
+// Show different forms
+function showForm(formType) {
+  const signinForm = document.getElementById('signinForm');
+  const signupForm = document.getElementById('signupForm');
+  const resetForm = document.getElementById('resetForm');
+  
+  // Hide all forms
+  if (signinForm) signinForm.classList.remove('active');
+  if (signupForm) signupForm.classList.remove('active');
+  if (resetForm) resetForm.classList.remove('active');
+  
+  // Show selected form
+  if (formType === 'signin') {
+    if (signinForm) signinForm.classList.add('active');
+    clearErrors();
+  } else if (formType === 'signup') {
+    if (signupForm) signupForm.classList.add('active');
+    clearErrors();
+  } else if (formType === 'reset') {
+    if (resetForm) resetForm.classList.add('active');
+    clearErrors();
+  }
+}
+
+// Toggle password visibility
+function setupPasswordToggles() {
+  const toggleButtons = document.querySelectorAll('.toggle-password');
+  
+  toggleButtons.forEach(btn => {
+    btn.addEventListener('click', function() {
+      const targetId = this.getAttribute('data-target');
+      const passwordInput = document.getElementById(targetId);
+      
+      if (passwordInput) {
+        const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
+        passwordInput.setAttribute('type', type);
+        
+        // Change icon
+        if (type === 'text') {
+          this.classList.remove('fa-eye');
+          this.classList.add('fa-eye-slash');
+        } else {
+          this.classList.remove('fa-eye-slash');
+          this.classList.add('fa-eye');
+        }
+      }
+    });
+  });
+}
+
+// ================= NAVBAR MOBILE MENU =================
+function setupMobileMenu() {
+  const menuToggle = document.getElementById('menuToggle');
+  const nav = document.getElementById('mainNav');
+  
+  if (menuToggle && nav) {
+    menuToggle.addEventListener('click', (e) => {
+      e.stopPropagation();
+      nav.classList.toggle('active');
+      const icon = menuToggle.querySelector('i');
+      if (nav.classList.contains('active')) {
+        icon.classList.remove('fa-bars');
+        icon.classList.add('fa-times');
+      } else {
+        icon.classList.remove('fa-times');
+        icon.classList.add('fa-bars');
+      }
+    });
+    
+    document.addEventListener('click', (event) => {
+      if (!nav.contains(event.target) && !menuToggle.contains(event.target)) {
+        nav.classList.remove('active');
+        const icon = menuToggle.querySelector('i');
+        if (icon) {
+          icon.classList.remove('fa-times');
+          icon.classList.add('fa-bars');
+        }
+      }
+    });
+  }
+}
+
+// ================= SCROLL TO TOP =================
+function setupScrollTop() {
+  const scrollBtn = document.getElementById('scrollTop');
+  
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 400) {
+      scrollBtn.classList.add('visible');
+    } else {
+      scrollBtn.classList.remove('visible');
+    }
+  });
+  
+  if (scrollBtn) {
+    scrollBtn.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  }
+}
+
+// ================= BRAND NAVIGATION =================
+function setupBrandNavigation() {
+  const brand = document.querySelector('.brand');
+  if (brand) {
+    brand.addEventListener('click', (e) => {
+      e.preventDefault();
+      showNotification('Returning to home');
+      setTimeout(() => {
+        window.location.href = 'index.html';
+      }, 400);
+    });
+  }
+}
+
+// ================= ENTER KEY SUBMIT =================
+function setupEnterKeySubmit() {
+  const inputs = document.querySelectorAll('.auth-form input');
+  inputs.forEach(input => {
+    input.addEventListener('keypress', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        const activeForm = document.querySelector('.auth-form.active');
+        if (activeForm.id === 'signinForm') {
+          login();
+        } else if (activeForm.id === 'signupForm') {
+          signup();
+        } else if (activeForm.id === 'resetForm') {
+          resetPassword();
+        }
+      }
+    });
+  });
+}
+
+// ================= INITIALIZE =================
+document.addEventListener('DOMContentLoaded', function() {
+  // Setup all functionality
+  setupPasswordToggles();
+  setupMobileMenu();
+  setupScrollTop();
+  setupBrandNavigation();
+  setupEnterKeySubmit();
+  updateUserStatus();
+  
+  // Check if user is already logged in
+  const currentUser = getCurrentUser();
+  if (currentUser) {
+    showNotification(`Welcome back, ${currentUser.name}`, false);
+  }
+  
+  console.log('GEARSOULS · Account Page Ready');
+});
+
+// Make functions globally available
+window.login = login;
+window.signup = signup;
+window.resetPassword = resetPassword;
+window.showForm = showForm;
+window.logout = logout;
+</script>
 
 </body>
 </html>
