@@ -1,49 +1,633 @@
-// ======================================================
-// GEARSOULS - FIREBASE CONFIGURATION
-// With Complete Error Handling
-// ======================================================
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes"/>
+  <title>GEARSOULS · COLLECTION DROP 2</title>
+  
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  
+  <!-- Main Stylesheet -->
+  <link rel="stylesheet" href="css/style.css">
+  
+  <style>
+    * {
+      -webkit-tap-highlight-color: transparent;
+    }
+    
+    /* Background Slideshow Container */
+    .bg-slideshow {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      overflow: hidden;
+    }
+    
+    .bg-slideshow .slide {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      opacity: 0;
+      transition: opacity 1.5s ease-in-out;
+    }
+    
+    .bg-slideshow .slide.active {
+      opacity: 1;
+    }
+    
+    /* Dark overlay for better text readability */
+    .bg-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.6);
+      z-index: 1;
+    }
+    
+    /* Particle canvas on top of overlay */
+    #particleCanvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 2;
+      pointer-events: none;
+    }
+    
+    /* Ensure all content is above canvas */
+    .navbar,
+    .collection-hero,
+    .collection-intro,
+    .product-grid,
+    .bg-section,
+    .drop-banner,
+    .footer-modern,
+    .scroll-top,
+    .shop-notification {
+      position: relative;
+      z-index: 10;
+    }
+    
+    /* Hero text styling */
+    .collection-hero {
+      position: relative;
+      background: transparent !important;
+    }
+    
+    .collection-hero::before {
+      background: linear-gradient(90deg, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 60%, transparent 100%);
+    }
+    
+    .hero-title,
+    .hero-mini,
+    .hero-year {
+      text-shadow: 0 2px 20px rgba(0,0,0,0.5);
+    }
+    
+    /* Product cards - glass effect */
+    .product-card {
+      background: rgba(17, 17, 17, 0.85);
+      backdrop-filter: blur(5px);
+    }
+   @media (max-width: 768px) {
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { 
-  getAuth, 
-  createUserWithEmailAndPassword,
-  signInWithEmailAndPassword,
-  signOut,
-  sendPasswordResetEmail,
-  updatePassword,
-  updateProfile,
-  onAuthStateChanged 
-} from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+  /* NAVBAR ABOVE EVERYTHING */
+  .navbar{
+    position: relative !important;
+    z-index: 100001 !important;
+  }
 
-// Your Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyDODZTg4XKIhkG4hxyFQISq_8qWMd7UvtU",
-  authDomain: "gearsouls-5da31.firebaseapp.com",
-  projectId: "gearsouls-5da31",
-  storageBucket: "gearsouls-5da31.firebasestorage.app",
-  messagingSenderId: "668054432272",
-  appId: "1:668054432272:web:273393583b19feec4cb895",
-  measurementId: "G-JCH0MVKVXH"
-};
+  /* MOBILE MENU */
+  .nav{
+    position: fixed !important;
+    top: 0 !important;
+    right: -100% !important;
+    width: 280px !important;
+    height: 100vh !important;
 
-// Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const auth = getAuth(app);
+    background: rgba(0,0,0,0.96) !important;
+    backdrop-filter: blur(10px) !important;
 
-// Custom error messages
-const errorMessages = {
-  'auth/email-already-in-use': 'Email already exists. Please use another email or sign in.',
-  'auth/invalid-email': 'Invalid email format. Please check and try again.',
-  'auth/weak-password': 'Password is too weak. Use at least 6 characters.',
-  'auth/user-not-found': 'No account found with this email. Please sign up first.',
-  'auth/wrong-password': 'Incorrect password. Please try again.',
-  'auth/too-many-requests': 'Too many failed attempts. Please try again later.',
-  'auth/network-request-failed': 'Network error. Please check your connection.',
-  'auth/popup-closed-by-user': 'Sign-in cancelled. Please try again.',
-  'auth/operation-not-allowed': 'This sign-in method is not enabled.',
-  'auth/requires-recent-login': 'Please log in again to complete this action.',
-  'auth/user-disabled': 'This account has been disabled. Contact support.',
-  'auth/invalid-credential': 'Invalid email or password. Please try again.'
-};
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: center !important;
+    align-items: center !important;
+    gap: 30px !important;
 
-export { auth, errorMessages };
+    transition: right 0.35s ease !important;
+
+    z-index: 100000 !important;
+
+    padding: 60px 20px !important;
+  }
+
+  /* OPEN MENU */
+  .nav.active{
+    right: 0 !important;
+  }
+
+  /* NAV LINKS */
+  .nav-link{
+    color: #ffffff !important;
+    font-size: 1.2rem !important;
+    font-weight: 600 !important;
+    letter-spacing: 2px !important;
+    text-decoration: none !important;
+
+    opacity: 1 !important;
+    visibility: visible !important;
+
+    display: block !important;
+    width: 100% !important;
+
+    text-align: center !important;
+
+    padding: 14px 20px !important;
+
+    transition: color 0.3s ease !important;
+
+    position: relative !important;
+    z-index: 100001 !important;
+  }
+
+  .nav-link:hover{
+    color: #c9b698 !important;
+  }
+
+  /* HAMBURGER BUTTON */
+  .menu-toggle{
+    display: block !important;
+    position: relative !important;
+    z-index: 100002 !important;
+    cursor: pointer !important;
+  }
+
+  .menu-toggle i{
+    color: #ffffff !important;
+    font-size: 1.6rem !important;
+  }
+
+  /* PREVENT SCROLL */
+  body.menu-open{
+    overflow: hidden !important;
+  }
+
+  /* DARK OVERLAY */
+  body.menu-open::before{
+    content: '' !important;
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100% !important;
+
+    background: rgba(0,0,0,0.7) !important;
+
+    z-index: 99999 !important;
+  }
+}
+    
+  </style>
+</head>
+<body>
+
+<!-- Background Slideshow -->
+<div class="bg-slideshow" id="bgSlideshow">
+  <div class="bg-overlay"></div>
+</div>
+
+<!-- Particle Canvas -->
+<canvas id="particleCanvas"></canvas>
+
+<!-- ========== NAVBAR ========== -->
+<header class="navbar">
+  <a href="index.html" class="brand">
+    <img src="img/0000.jpeg" class="brand-logo" alt="GearSouls">
+    <span class="brand-text">GEARSOULS</span>
+  </a>
+  <nav class="nav" id="mainNav">
+    <a href="index.html" class="nav-link active">HOME</a>
+    <a href="shop.html" class="nav-link">SHOP</a>
+    <a href="account.html" class="nav-link">ACCOUNT</a>
+  </nav>
+  <div class="menu-toggle" id="menuToggle">
+    <i class="fas fa-bars"></i>
+  </div>
+</header>
+
+<!-- ========== HERO SECTION ========== -->
+<section class="collection-hero">
+  <div class="hero-text">
+    <div class="hero-mini">GEARSOULS</div>
+    <h1 class="hero-title">
+      COLLECTION
+      <span>DROP 2</span>
+    </h1>
+    <div class="hero-year">~2026~</div>
+  </div>
+</section>
+
+<!-- ========== COLLECTION INTRO ========== -->
+<div class="collection-intro">
+  <span>collectior</span> <strong>drop2</strong> <span>GEARSOULS</span> <strong>~2026~</strong>
+</div>
+
+<!-- ========== PRODUCT GRID ROW 1 ========== -->
+<div class="product-grid">
+  <div class="product-card" data-product-id="10743198351624" data-product-name="SKULL GEAR EMBLEM">
+    <div class="product-image"><img src="img/0000.jpeg" alt="Skull Gear Emblem"></div>
+    <div class="product-info">
+      <div class="product-category">branding · core identity</div>
+      <div class="product-name">SKULL GEAR EMBLEM</div>
+      <div class="product-description">Official GearSouls skull-in-gear insignia.</div>
+      <div class="product-price">In Stock: 999</div>
+    </div>
+  </div>
+  
+  <div class="product-card" data-product-id="10760158773512" data-product-name="FITTED SKULL TEE">
+    <div class="product-image"><img src="img/0001.jpeg" alt="Fitted Skull Tee"></div>
+    <div class="product-info">
+      <div class="product-category">tops · streetwear</div>
+      <div class="product-name">FITTED SKULL TEE</div>
+      <div class="product-description">Premium cotton tee with bold gear skull graphic.</div>
+      <div class="product-price">In Stock: 19</div>
+    </div>
+  </div>
+  
+  <div class="product-card" data-product-id="10761169862920" data-product-name="SIGNATURE SKULL HOODIE">
+    <div class="product-image"><img src="img/0002.jpeg" alt="Skull Hoodie"></div>
+    <div class="product-info">
+      <div class="product-category">outerwear · hoodie</div>
+      <div class="product-name">SIGNATURE SKULL HOODIE</div>
+      <div class="product-description">Heavy fleece pullover hoodie.</div>
+      <div class="product-price">In Stock: 28</div>
+    </div>
+  </div>
+  
+  <div class="product-card" data-product-id="10761230024968" data-product-name="GEARSOULS HOODIE">
+    <div class="product-image"><img src="img/0006.jpeg" alt="Gearsouls Hoodie"></div>
+    <div class="product-info">
+      <div class="product-category">streetwear · essentials</div>
+      <div class="product-name">GEARSOULS HOODIE</div>
+      <div class="product-description">Oversized black hoodie with skull-in-gear graphic.</div>
+      <div class="product-price">In Stock: 15</div>
+    </div>
+  </div>
+</div>
+
+<div class="bg-section bg-1"></div>
+
+<!-- ========== PRODUCT GRID ROW 2 ========== -->
+<div class="product-grid">
+  <div class="product-card" data-product-id="10761255387400" data-product-name="RED SKULL TANK-TOP">
+    <div class="product-image"><img src="img/001.png"alt="Red Skull Tank-Top"></div>
+    <div class="product-info">
+      <div class="product-category">tops · limited colorway</div>
+      <div class="product-name">TANK-TOP</div>
+      <div class="product-description">Limited red edition with bold skull emblem.</div>
+      <div class="product-price">In Stock: 12</div>
+    </div>
+  </div>
+  
+  <div class="product-card" data-product-id="10743198351624" data-product-name="T-SHIRTS AND TROUSERS">
+    <div class="product-image"><img src="img/0004.jpeg" alt="T-Shirts and Trousers"></div>
+    <div class="product-info">
+      <div class="product-category">tops · streetwear</div>
+      <div class="product-name">T-SHIRTS AND TROUSERS</div>
+      <div class="product-description">Premium cotton tee with bold gear skull graphic.</div>
+      <div class="product-price">In Stock: 19</div>
+    </div>
+  </div>
+  
+  <div class="product-card" data-product-id="10760158773512" data-product-name="GEARSOULS HUT">
+    <div class="product-image"><img src="img/0003.jpeg" alt="GEARSOULS Beanie"></div>
+    <div class="product-info">
+      <div class="product-category">accessories · beanie</div>
+      <div class="product-name">GEARSOULS HUT</div>
+      <div class="product-description">Knit beanie with bold front logo branding.</div>
+      <div class="product-price">In Stock: 24</div>
+    </div>
+  </div>
+  
+  <div class="product-card" data-product-id="10761169862920" data-product-name="OVERSIZED STREET TEE">
+    <div class="product-image"><img src="img/006.png" alt="Oversized Street Tee"></div>
+    <div class="product-info">
+      <div class="product-category">tops · oversized</div>
+      <div class="product-name">BEST TANK-TOP</div>
+      <div class="product-description">Dropped shoulders, heavyweight cotton.</div>
+      <div class="product-price">In Stock: 37</div>
+    </div>
+  </div>
+</div>
+
+<div class="bg-section bg-2"></div>
+
+<!-- ========== PRODUCT GRID ROW 3 ========== -->
+<div class="product-grid">
+  <div class="product-card" data-product-id="10761230024968" data-product-name="LONG SLEEVE LOGO SHIRT">
+    <div class="product-image"><img src="img/0008.jpeg" alt="Long Sleeve Logo"></div>
+    <div class="product-info">
+      <div class="product-category">tops · long sleeve</div>
+      <div class="product-name">LONG SLEEVE LOGO SHIRT</div>
+      <div class="product-description">Relaxed-fit long sleeve with back skull print.</div>
+      <div class="product-price">In Stock: 21</div>
+    </div>
+  </div>
+  
+  <div class="product-card" data-product-id="10761255387400" data-product-name="RED SKULL GRAPHIC TEE">
+    <div class="product-image"><img src="img/002.png" alt="Red Skull Graphic Tee"></div>
+    <div class="product-info">
+      <div class="product-category">tops · limited colorway</div>
+      <div class="product-name">RED SKULL TANK-TOP</div>
+      <div class="product-description">Limited red edition with bold skull emblem.</div>
+      <div class="product-price">In Stock: 12</div>
+    </div>
+  </div>
+  
+  <div class="bg-spot" style="background-image: url('img/0002.jpeg');"></div>
+  <div class="bg-spot" style="background-image: url('img/0005.jpeg');"></div>
+</div>
+
+<div class="bg-section bg-3"></div>
+
+<!-- ========== DROP BANNER ========== -->
+<div class="drop-banner">
+  <div class="drop-banner-left">
+    <span>collectior</span> <strong>drop2</strong> <span>GEARSOULS</span>
+  </div>
+  <div class="drop-banner-right">~2026~</div>
+</div>
+
+<!-- ========== FOOTER ========== -->
+<footer class="footer-modern">
+  <div class="footer-content" style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap;">
+    <div class="footer-brand">
+      <img src="img/0000.jpeg" alt="GearSouls">
+      <p>Eternal Archive. Timeless Style.</p>
+    </div>
+    <div class="footer-links" style="display: flex; gap: 60px; flex-wrap: wrap;">
+      <div class="footer-column">
+        <h4>EXPLORE</h4>
+        <a href="index.html">DIARY</a>
+        <a href="shop.html">ARCHIVE</a>
+        <a href="account.html">CHAMBER</a>
+      </div>
+      <div class="footer-column">
+        <h4>CONNECT</h4>
+        <a href="https://www.instagram.com/gearsouls_" target="_blank"><i class="fab fa-instagram"></i> INSTAGRAM</a>
+        <a href="#"><i class="fab fa-pinterest"></i> PINTEREST</a>
+        <a href="#"><i class="fab fa-twitter"></i> TWITTER</a>
+      </div>
+      <div class="footer-column">
+        <h4>LEGAL</h4>
+        <a href="#">TERMS</a>
+        <a href="#">PRIVACY</a>
+        <a href="#">RETURNS</a>
+      </div>
+    </div>
+    <div class="footer-image">
+      <img src="img/all.png" alt="GearSouls" style="width: 120px; height: auto; opacity: 0.9; border: 1px solid rgba(201,182,152,0.3); padding: 8px; transition: transform 0.3s;">
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 GEARSOULS — ALL RIGHTS RESERVED</p>
+  </div>
+</footer>
+
+<!-- ========== SCROLL TOP & NOTIFICATION ========== -->
+<div class="scroll-top"><i class="fas fa-arrow-up"></i></div>
+<div class="shop-notification"><i class="fas fa-check"></i><span id="notifMsg">Welcome to GEARSOULS</span></div>
+
+<script>
+(function() {
+  // ==================== FASHION SLIDESHOW BACKGROUND ====================
+  const allImages = [
+    'img/all.png', 'img/lll.jpeg', 'img/0004.jpeg',
+    'img/001.jpeg', 'img/01.jpeg', 'img/0001.jpeg', 'img/06.jpeg',
+    'img/005.jpeg', 'img/02.jpeg', 'img/002.jpeg'
+  ];
+  
+  const bgImages = allImages;
+  let currentIndex = 0;
+  
+  const slideshowContainer = document.getElementById('bgSlideshow');
+  
+  bgImages.forEach((img, index) => {
+    const slide = document.createElement('div');
+    slide.className = 'slide';
+    if (index === 0) slide.classList.add('active');
+    slide.style.backgroundImage = `url('${img}')`;
+    slideshowContainer.appendChild(slide);
+  });
+  
+  setInterval(() => {
+    const slides = document.querySelectorAll('.bg-slideshow .slide');
+    if (slides.length === 0) return;
+    
+    slides[currentIndex].classList.remove('active');
+    currentIndex = (currentIndex + 1) % slides.length;
+    slides[currentIndex].classList.add('active');
+  }, 5000);
+  
+  // ==================== BRIGHT PARTICLE CANVAS ====================
+  const canvas = document.getElementById('particleCanvas');
+  if (canvas) {
+    const ctx = canvas.getContext('2d');
+    let width, height;
+    let particles = [];
+    let mouseX = -1000, mouseY = -1000;
+    let mouseInCanvas = false;
+    let time = 0;
+
+    canvas.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
+      mouseInCanvas = true;
+    });
+
+    canvas.addEventListener('mouseleave', () => {
+      mouseInCanvas = false;
+      mouseX = -1000;
+      mouseY = -1000;
+    });
+
+    function initCanvas() {
+      width = window.innerWidth;
+      height = window.innerHeight;
+      canvas.width = width;
+      canvas.height = height;
+
+      particles = [];
+      const particleCount = Math.floor(width * height / 4000);
+      for (let i = 0; i < particleCount; i++) {
+        particles.push({
+          x: Math.random() * width,
+          y: Math.random() * height,
+          vx: (Math.random() - 0.5) * 0.6,
+          vy: (Math.random() - 0.5) * 0.6,
+          radius: Math.random() * 3 + 1.5,
+          originalRadius: Math.random() * 3 + 1.5,
+          color: `rgba(255, 220, 100, ${Math.random() * 0.8 + 0.5})`,
+          pulseSpeed: 0.02 + Math.random() * 0.04,
+          pulsePhase: Math.random() * Math.PI * 2
+        });
+      }
+    }
+
+    function drawParticles() {
+      particles.forEach(p => {
+        if (mouseInCanvas) {
+          const dx = p.x - mouseX;
+          const dy = p.y - mouseY;
+          const distance = Math.sqrt(dx * dx + dy * dy);
+          const repelRadius = 180;
+
+          if (distance < repelRadius) {
+            const force = (repelRadius - distance) / repelRadius;
+            const angle = Math.atan2(dy, dx);
+            p.x += Math.cos(angle) * force * 6;
+            p.y += Math.sin(angle) * force * 6;
+            p.radius = p.originalRadius * (1 + force * 0.6);
+            ctx.fillStyle = `rgba(255, 235, 150, ${0.9 + force * 0.3})`;
+          } else {
+            p.x += p.vx;
+            p.y += p.vy;
+            p.radius = p.originalRadius;
+            ctx.fillStyle = p.color;
+          }
+        } else {
+          p.x += p.vx;
+          p.y += p.vy;
+          ctx.fillStyle = p.color;
+        }
+
+        if (p.x < 0) p.x = width;
+        if (p.x > width) p.x = 0;
+        if (p.y < 0) p.y = height;
+        if (p.y > height) p.y = 0;
+
+        const pulse = Math.sin(time * p.pulseSpeed + p.pulsePhase) * 0.4 + 0.8;
+        ctx.shadowBlur = 15 * pulse;
+        ctx.shadowColor = '#ffdd88';
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, p.radius * pulse, 0, Math.PI * 2);
+        ctx.fill();
+      });
+    }
+
+    function animateCanvas() {
+      ctx.clearRect(0, 0, width, height);
+      drawParticles();
+      time += 0.005;
+      requestAnimationFrame(animateCanvas);
+    }
+
+    initCanvas();
+    animateCanvas();
+    window.addEventListener('resize', initCanvas);
+  }
+
+  // ==================== MOBILE MENU TOGGLE (WORKING) ====================
+  const menuToggle = document.getElementById('menuToggle');
+  const nav = document.getElementById('mainNav');
+  const body = document.body;
+  
+  if (menuToggle && nav) {
+    const icon = menuToggle.querySelector('i');
+    
+    menuToggle.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      nav.classList.toggle('active');
+      body.classList.toggle('menu-open');
+      
+      if (nav.classList.contains('active')) {
+        icon.classList.remove('fa-bars');
+        icon.classList.add('fa-times');
+      } else {
+        icon.classList.remove('fa-times');
+        icon.classList.add('fa-bars');
+      }
+    });
+    
+    const allNavLinks = document.querySelectorAll('.nav-link');
+    allNavLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        nav.classList.remove('active');
+        body.classList.remove('menu-open');
+        icon.classList.remove('fa-times');
+        icon.classList.add('fa-bars');
+      });
+    });
+    
+    document.addEventListener('click', (event) => {
+      if (nav.classList.contains('active') && 
+          !nav.contains(event.target) && 
+          !menuToggle.contains(event.target)) {
+        nav.classList.remove('active');
+        body.classList.remove('menu-open');
+        icon.classList.remove('fa-times');
+        icon.classList.add('fa-bars');
+      }
+    });
+  }
+  
+  // ==================== PRODUCT CARDS ====================
+  const productCards = document.querySelectorAll('.product-card');
+  const notification = document.querySelector('.shop-notification');
+  const notifMsg = document.getElementById('notifMsg');
+  
+  function showMessage(message) {
+    if (notification && notifMsg) {
+      notifMsg.textContent = message;
+      notification.classList.add('show');
+      setTimeout(() => notification.classList.remove('show'), 2000);
+    }
+  }
+  
+  productCards.forEach(card => {
+    card.addEventListener('click', function() {
+      const productId = this.getAttribute('data-product-id');
+      const productName = this.getAttribute('data-product-name');
+      showMessage(`Loading ${productName}...`);
+      setTimeout(() => {
+        window.location.href = `shop.html#product-${productId}`;
+      }, 200);
+    });
+  });
+  
+  // ==================== SCROLL TO TOP ====================
+  const scrollBtn = document.querySelector('.scroll-top');
+  window.addEventListener('scroll', () => {
+    scrollBtn.classList.toggle('visible', window.scrollY > 400);
+  });
+  scrollBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  
+  // ==================== BRAND NAVIGATION ====================
+  const brand = document.querySelector('.brand');
+  if (brand) {
+    brand.addEventListener('click', (e) => {
+      e.preventDefault();
+      showMessage('Returning to home');
+      setTimeout(() => window.location.href = 'index.html', 400);
+    });
+  }
+  
+  console.log('GEARSOULS · Homepage Ready - Navigation Working');
+})();
+</script>
+
+</body>
+</html>
