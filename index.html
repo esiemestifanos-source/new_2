@@ -243,6 +243,49 @@
     opacity: 1;
   }
 }
+/* Prevent horizontal scrolling on mobile */
+@media (max-width: 768px) {
+  html, body {
+    overflow-x: hidden !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    position: relative !important;
+  }
+  
+  body {
+    overflow-x: hidden !important;
+  }
+  
+  /* Fix any element that might cause horizontal scroll */
+  .navbar,
+  .collection-hero,
+  .collection-intro,
+  .product-grid,
+  .bg-section,
+  .drop-banner,
+  .footer-modern,
+  .scroll-top,
+  .shop-notification {
+    max-width: 100vw !important;
+    overflow-x: hidden !important;
+  }
+  
+  /* Fix product grid on mobile */
+  .product-grid {
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+  }
+  
+  /* Fix footer */
+  .footer-content {
+    max-width: 100vw !important;
+    overflow-x: hidden !important;
+  }
+  
+  .footer-links {
+    flex-wrap: wrap !important;
+  }
+}
     
   </style>
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes, viewport-fit=cover">
