@@ -196,6 +196,19 @@
     background: rgba(0,0,0,0.7) !important;
 
     z-index: 99999 !important;
+
+    /* Fix background images - stay fixed on index page only */
+.bg-slideshow,
+.bg-slideshow .slide,
+.bg-overlay,
+#particleCanvas {
+  position: fixed !important;
+  top: 0 !important;
+  left: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  background-attachment: fixed !important;
+}
   }
 }
     
