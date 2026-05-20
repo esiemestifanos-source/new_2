@@ -211,6 +211,88 @@
 }
   }
 }
+/* Mobile: Stacked background images with animation */
+@media (max-width: 768px) {
+  .bg-slideshow {
+    position: fixed !important;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow-y: auto;
+  }
+  
+  .bg-slideshow .slide {
+    position: relative !important;
+    width: 100% !important;
+    height: 40vh !important;
+    min-height: 250px;
+    background-attachment: scroll !important;
+    background-size: cover !important;
+    background-position: center !important;
+    margin-bottom: 5px;
+    opacity: 1 !important;
+    transition: transform 0.3s ease, filter 0.3s ease;
+  }
+  
+  /* Add hover effect on images */
+  .bg-slideshow .slide:hover {
+    transform: scale(1.02);
+    filter: brightness(1.1);
+  }
+  
+  .bg-overlay {
+    position: fixed !important;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 1;
+    pointer-events: none;
+  }
+  
+  #particleCanvas {
+    position: fixed !important;
+    z-index: 2;
+    pointer-events: none;
+  }
+  
+  /* Keep particles visible and animated */
+  #particleCanvas {
+    display: block !important;
+  }
+}
+/* CSS Slideshow Animation - Images change slowly */
+.bg-slideshow .slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  animation: slowFade 40s ease-in-out infinite;
+}
+
+/* Set different delays for each image */
+.bg-slideshow .slide:nth-child(1) { animation-delay: 0s; }
+.bg-slideshow .slide:nth-child(2) { animation-delay: 4s; }
+.bg-slideshow .slide:nth-child(3) { animation-delay: 8s; }
+.bg-slideshow .slide:nth-child(4) { animation-delay: 12s; }
+.bg-slideshow .slide:nth-child(5) { animation-delay: 16s; }
+.bg-slideshow .slide:nth-child(6) { animation-delay: 20s; }
+.bg-slideshow .slide:nth-child(7) { animation-delay: 24s; }
+.bg-slideshow .slide:nth-child(8) { animation-delay: 28s; }
+.bg-slideshow .slide:nth-child(9) { animation-delay: 32s; }
+.bg-slideshow .slide:nth-child(10) { animation-delay: 36s; }
+
+@keyframes slowFade {
+  0% { opacity: 0; }
+  8% { opacity: 1; }
+  17% { opacity: 1; }
+  25% { opacity: 0; }
+  100% { opacity: 0; }
+}
     
   </style>
 </head>
@@ -445,15 +527,9 @@
     slideshowContainer.appendChild(slide);
   });
   
-  setInterval(() => {
-    const slides = document.querySelectorAll('.bg-slideshow .slide');
-    if (slides.length === 0) return;
-    
-    slides[currentIndex].classList.remove('active');
-    currentIndex = (currentIndex + 1) % slides.length;
-    slides[currentIndex].classList.add('active');
-  }, 5000);
-  
+// Slideshow now handled by CSS only
+console.log('CSS slideshow active');
+
   // ==================== BRIGHT PARTICLE CANVAS ====================
   const canvas = document.getElementById('particleCanvas');
   if (canvas) {
