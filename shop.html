@@ -337,7 +337,7 @@
     }
 
     /* ==========================================================
-       PRODUCT SHOWCASE
+       PRODUCT SHOWCASE — PHONE‑FRIENDLY 2‑COLUMN GRID
     ========================================================== */
     .product-showcase {
       max-width: 1280px;
@@ -529,49 +529,8 @@
       color: #faf7f2;
     }
 
-    @media (max-width: 820px) {
-      .product-grid {
-        grid-template-columns: 1fr;
-        gap: 30px;
-      }
-      .product-image-col {
-        max-width: 540px;
-        margin: 0 auto;
-      }
-      .product-info-col {
-        text-align: center;
-      }
-      .product-description {
-        max-width: 100%;
-        margin-left: auto;
-        margin-right: auto;
-      }
-      .action-group {
-        justify-content: center;
-      }
-      .price-row {
-        justify-content: center;
-      }
-      .paypal-add-wrapper {
-        margin-left: auto;
-        margin-right: auto;
-      }
-    }
-
-    @media (max-width: 480px) {
-      .product-showcase {
-        padding: 20px 16px 60px;
-      }
-      .product-name {
-        font-size: 2.2rem;
-      }
-      .price-current {
-        font-size: 2rem;
-      }
-    }
-
     /* ==========================================================
-       FUTURE PRODUCTS
+       FUTURE PRODUCTS — 2‑COLUMN ON PHONE, COMFORTABLE
     ========================================================== */
     .future-products {
       margin-top: 70px;
@@ -636,26 +595,122 @@
       border-color: #c9b698;
     }
 
-    @media (max-width: 1024px) {
+    /* ==========================================================
+       PHONE FIRST: 2‑COLUMN LAYOUT FOR PRODUCT GRID & FUTURE
+    ========================================================== */
+    @media (max-width: 820px) {
+      .product-grid {
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+      .product-image-col {
+        max-width: 540px;
+        margin: 0 auto;
+      }
+      .product-info-col {
+        text-align: center;
+      }
+      .product-description {
+        max-width: 100%;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .action-group {
+        justify-content: center;
+      }
+      .price-row {
+        justify-content: center;
+      }
+      .paypal-add-wrapper {
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      /* future 2‑col on tablet */
       .future-grid {
         grid-template-columns: repeat(2, 1fr);
       }
     }
 
-    @media (max-width: 768px) {
+    /* ==========================================================
+       SMALL PHONES: 2‑COLUMN PRODUCT & FUTURE GRID
+       – comfortable, at least 4 products visible
+    ========================================================== */
+    @media (max-width: 480px) {
+      .product-showcase {
+        padding: 20px 12px 40px;
+      }
+
+      /* main product: image & info stack, but we keep it slim */
+      .product-grid {
+        gap: 16px;
+      }
+      .product-image-col {
+        max-width: 100%;
+        border-radius: 2px;
+      }
+      .product-name {
+        font-size: 1.8rem;
+        letter-spacing: 2px;
+      }
+      .price-current {
+        font-size: 1.8rem;
+      }
+      .product-description {
+        font-size: 0.9rem;
+      }
+      .product-details-list li {
+        font-size: 0.7rem;
+      }
+      .paypal-add-wrapper {
+        max-width: 100%;
+      }
+      .btn-secondary {
+        padding: 10px 18px;
+        font-size: 0.6rem;
+      }
+
+      /* FUTURE GRID: 2 columns, small but legible */
       .future-grid {
         grid-template-columns: 1fr 1fr;
+        gap: 12px;
       }
-      .future-header {
-        flex-direction: column;
-        gap: 8px;
-        text-align: center;
+      .future-placeholder {
+        aspect-ratio: 1 / 1.2;
+        padding: 12px;
+        font-size: 0.6rem;
+        letter-spacing: 1.5px;
       }
-    }
+      .future-placeholder i {
+        font-size: 1.6rem;
+        margin-bottom: 8px;
+      }
+      .future-header h3 {
+        font-size: 1.4rem;
+        letter-spacing: 3px;
+      }
+      .future-header span {
+        font-size: 0.6rem;
+      }
+      .future-products {
+        margin-top: 40px;
+        padding-top: 30px;
+      }
 
-    @media (max-width: 480px) {
-      .future-grid {
-        grid-template-columns: 1fr;
+      /* hero minimal */
+      .shop-hero {
+        padding: 24px 12px 20px;
+      }
+      .hero-title {
+        font-size: 1.8rem;
+        letter-spacing: 3px;
+      }
+      .hero-eyebrow {
+        font-size: 0.75rem;
+        letter-spacing: 4px;
+      }
+      .hero-sub {
+        font-size: 0.7rem;
       }
     }
 
@@ -958,7 +1013,7 @@
     </div>
   </div>
 
-  <!-- FUTURE PRODUCTS placeholder grid -->
+  <!-- FUTURE PRODUCTS — 2‑COLUMN ON PHONE, COMFORTABLE -->
   <div class="future-products">
     <div class="future-header">
       <h3>coming next</h3>
