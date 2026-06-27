@@ -2,59 +2,277 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes"/>
-  <title>GEARSOULS | Account</title>
-  <link rel="stylesheet" href="css/style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover"/>
+  <title>GEARSOULS · Account</title>
+  
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
+  
+  <!-- PayPal Cart SDK -->
+  <script src="https://www.paypalobjects.com/ncp/cart/cart.js" data-merchant-id="XS3UV3HN5EPSQ"></script>
+
   <style>
-    /* Professional Account Page Styles */
-    .account-wrapper {
-      min-height: 100vh;
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; overflow-x: hidden; width: 100%; }
+    body { background: #faf7f2; color: #1e1b18; font-family: 'Inter', sans-serif; font-weight: 300; line-height: 1.6; -webkit-font-smoothing: antialiased; min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; width: 100%; max-width: 100vw; }
+    a { text-decoration: none; color: inherit; }
+
+    /* ==========================================================
+       NAVBAR - MATCHES HOME PAGE
+    ========================================================== */
+    .navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 80px;
       display: flex;
       align-items: center;
-      justify-content: center;
-      padding: 120px 20px 80px;
-      background: linear-gradient(135deg, #0a0a0a 0%, #1a1a1a 100%);
+      justify-content: space-between;
+      padding: 0 40px;
+      background: #0a0a0a;
+      z-index: 1000;
     }
 
-    .auth-card {
-      max-width: 500px;
+    .brand {
+      display: flex;
+      align-items: center;
+      text-decoration: none;
+    }
+
+    .brand-logo {
+      width: 45px;
+      height: 45px;
+      border-radius: 50%;
+      border: 1.5px solid #c9b698;
+      object-fit: cover;
+    }
+
+    .brand-text {
+      color: white;
+      margin-left: 15px;
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
+      font-size: 24px;
+      letter-spacing: 6px;
+    }
+
+    .nav {
+      display: flex;
+      gap: 35px;
+      align-items: center;
+    }
+
+    .nav-link {
+      color: white;
+      text-decoration: none;
+      font-size: 11px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      font-weight: 500;
+      opacity: 0.6;
+      transition: opacity 0.3s ease;
+    }
+
+    .nav-link:hover {
+      opacity: 1;
+    }
+
+    .nav-link.active {
+      opacity: 1;
+    }
+
+    .cart-wrapper {
+      display: flex;
+      align-items: center;
+      flex-shrink: 0;
+    }
+
+    .cart-wrapper paypal-cart-button {
+      --paypal-button-color: white;
+      --paypal-button-shape: rect;
+      --paypal-button-size: small;
+    }
+
+    .menu-toggle {
+      display: none;
+      color: white;
+      font-size: 25px;
+      cursor: pointer;
+      background: none;
+      border: none;
+    }
+
+    /* ==========================================================
+       MOBILE DROPDOWN
+    ========================================================== */
+    @media (max-width: 768px) {
+      .navbar {
+        padding: 0 20px;
+        height: 70px;
+      }
+
+      .brand-logo {
+        width: 38px;
+        height: 38px;
+      }
+      .brand-text {
+        font-size: 18px;
+        letter-spacing: 4px;
+        margin-left: 10px;
+      }
+
+      .nav {
+        position: absolute;
+        top: 70px;
+        left: 0;
+        width: 100%;
+        background: #0a0a0a;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 25px;
+        padding: 30px 0;
+        transform: translateY(-200%);
+        transition: 0.4s;
+        z-index: 999;
+      }
+
+      .nav.active {
+        transform: translateY(0);
+      }
+
+      .nav-link {
+        font-size: 1rem;
+        opacity: 1;
+        padding: 8px 0;
+      }
+
+      .cart-wrapper {
+        display: none !important;
+      }
+
+      .nav .cart-wrapper {
+        display: flex !important;
+        margin-top: 10px;
+        padding-top: 10px;
+        border-top: 1px solid rgba(201, 182, 152, 0.15);
+        width: 100%;
+        justify-content: center;
+      }
+
+      .menu-toggle {
+        display: block;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .navbar {
+        padding: 0 16px;
+        height: 60px;
+      }
+      .brand-logo {
+        width: 32px;
+        height: 32px;
+      }
+      .brand-text {
+        font-size: 15px;
+        letter-spacing: 3px;
+        margin-left: 8px;
+      }
+      .nav {
+        top: 60px;
+        padding: 20px 0;
+        gap: 18px;
+      }
+      .nav-link {
+        font-size: 0.85rem;
+      }
+      .menu-toggle {
+        font-size: 20px;
+      }
+    }
+
+    /* ==========================================================
+       ACCOUNT HERO
+    ========================================================== */
+    .account-hero { 
+      margin-top: 80px; 
+      padding: 60px 40px 40px; 
+      text-align: center; 
+      background: linear-gradient(180deg, #faf7f2 0%, #f4efe8 100%); 
+      border-bottom: 1px solid #e8e0d6; 
+      max-width: 100vw; 
+      overflow-x: hidden; 
+    }
+    .hero-eyebrow { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-style: italic; font-size: 1rem; letter-spacing: 8px; color: #c9b698; text-transform: uppercase; }
+    .hero-title { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: 4.2rem; letter-spacing: 12px; color: #1e1b18; margin: 12px 0 6px; }
+    .hero-title span { font-weight: 400; color: #c9b698; }
+    .hero-divider { width: 70px; height: 2px; background: #c9b698; margin: 16px auto; }
+    .hero-sub { font-size: 0.9rem; color: #8a8078; letter-spacing: 3px; font-weight: 300; }
+    @media (max-width: 768px) { .account-hero { margin-top: 0; padding: 40px 20px 30px; } .hero-title { font-size: 2.8rem; letter-spacing: 6px; } }
+    @media (max-width: 480px) { .hero-title { font-size: 2rem; letter-spacing: 4px; } .hero-eyebrow { font-size: 0.75rem; letter-spacing: 4px; } .hero-sub { font-size: 0.7rem; } }
+
+    /* ==========================================================
+       ACCOUNT WRAPPER
+    ========================================================== */
+    .account-wrapper {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 50px 40px 80px;
+      flex: 1;
       width: 100%;
-      background: #ffffff;
-      border-radius: 0;
-      padding: 50px 40px;
-      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-      border: 1px solid #e0e0e0;
+      display: flex;
+      align-items: flex-start;
+      justify-content: center;
+      gap: 40px;
+      flex-wrap: wrap;
+    }
+
+    /* ==========================================================
+       AUTH CARD
+    ========================================================== */
+    .auth-card {
+      max-width: 480px;
+      width: 100%;
+      background: #f4efe8;
+      border-radius: 4px;
+      padding: 40px 36px 48px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.03);
+      border: 1px solid rgba(201, 182, 152, 0.15);
     }
 
     .auth-header {
       text-align: center;
-      margin-bottom: 40px;
+      margin-bottom: 32px;
     }
 
     .auth-logo {
-      width: 70px;
-      height: 70px;
+      width: 60px;
+      height: 60px;
       border-radius: 50%;
       object-fit: cover;
-      margin-bottom: 20px;
-      border: 2px solid #c9b698;
+      margin-bottom: 12px;
+      border: 1.5px solid #c9b698;
     }
 
     .auth-title {
-      font-family: 'Times New Roman', serif;
+      font-family: 'Cormorant Garamond', serif;
+      font-weight: 300;
       font-size: 1.8rem;
       letter-spacing: 8px;
-      color: #1a1a1a;
-      margin-bottom: 10px;
-      font-weight: 300;
+      color: #1e1b18;
+      margin-bottom: 4px;
     }
 
     .auth-subtitle {
-      font-size: 0.7rem;
-      letter-spacing: 4px;
-      color: #c9b698;
+      font-size: 0.6rem;
+      letter-spacing: 6px;
+      color: #b0a69c;
       text-transform: uppercase;
+      font-weight: 500;
     }
 
     .auth-form {
@@ -67,22 +285,23 @@
     }
 
     @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
+      from { opacity: 0; transform: translateY(8px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
     .auth-form h3 {
-      font-size: 1.1rem;
+      font-size: 0.9rem;
       letter-spacing: 4px;
-      color: #1a1a1a;
-      margin-bottom: 25px;
+      color: #1e1b18;
+      margin-bottom: 20px;
       text-align: center;
       font-weight: 500;
+      text-transform: uppercase;
     }
 
     .input-group {
       position: relative;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
     }
 
     .input-group i {
@@ -91,24 +310,33 @@
       top: 50%;
       transform: translateY(-50%);
       color: #c9b698;
-      font-size: 1rem;
+      font-size: 0.9rem;
       z-index: 1;
     }
 
     .input-group input {
       width: 100%;
-      padding: 14px 14px 14px 30px;
+      padding: 12px 12px 12px 28px;
       border: none;
-      border-bottom: 1px solid #e0e0e0;
-      font-size: 0.85rem;
+      border-bottom: 1px solid #d6cec4;
+      font-size: 0.8rem;
       background: transparent;
       transition: all 0.3s ease;
       outline: none;
-      color: #1a1a1a;
+      color: #1e1b18;
+      font-family: 'Inter', sans-serif;
+      font-weight: 300;
     }
 
     .input-group input:focus {
       border-bottom-color: #c9b698;
+    }
+
+    .input-group input::placeholder {
+      color: #b0a69c;
+      font-weight: 300;
+      letter-spacing: 2px;
+      font-size: 0.7rem;
     }
 
     .toggle-password {
@@ -117,16 +345,22 @@
       top: 50%;
       transform: translateY(-50%);
       cursor: pointer;
-      color: #999;
+      color: #b0a69c;
       font-size: 0.85rem;
+    }
+
+    .toggle-password:hover {
+      color: #c9b698;
     }
 
     .form-options {
       display: flex;
       justify-content: space-between;
       align-items: center;
-      margin: 20px 0 30px;
-      font-size: 0.7rem;
+      margin: 16px 0 24px;
+      font-size: 0.6rem;
+      flex-wrap: wrap;
+      gap: 8px;
     }
 
     .checkbox-container {
@@ -134,12 +368,15 @@
       align-items: center;
       gap: 8px;
       cursor: pointer;
-      color: #666;
+      color: #6b625a;
+      font-weight: 400;
+      letter-spacing: 1px;
+      font-size: 0.6rem;
     }
 
     .checkbox-container input {
-      width: 16px;
-      height: 16px;
+      width: 14px;
+      height: 14px;
       cursor: pointer;
       accent-color: #c9b698;
     }
@@ -148,84 +385,120 @@
       color: #c9b698;
       text-decoration: none;
       cursor: pointer;
-      font-size: 0.7rem;
+      font-size: 0.6rem;
       letter-spacing: 1px;
+      transition: opacity 0.3s;
     }
 
     .forgot-link:hover {
-      text-decoration: underline;
+      opacity: 0.7;
     }
 
     .auth-btn {
       width: 100%;
       padding: 14px;
-      background: #1a1a1a;
+      background: #1e1b18;
       border: none;
-      color: #ffffff;
-      font-size: 0.8rem;
+      color: #faf7f2;
+      font-size: 0.7rem;
       letter-spacing: 4px;
       cursor: pointer;
       transition: all 0.3s ease;
-      margin-bottom: 20px;
+      margin-bottom: 16px;
       font-weight: 500;
+      text-transform: uppercase;
+      font-family: 'Inter', sans-serif;
     }
 
     .auth-btn:hover {
       background: #c9b698;
-      color: #1a1a1a;
+      color: #1e1b18;
     }
 
     .auth-switch {
       text-align: center;
-      font-size: 0.7rem;
-      color: #666;
+      font-size: 0.65rem;
+      color: #6b625a;
+      letter-spacing: 1px;
     }
 
     .switch-link {
       color: #c9b698;
       cursor: pointer;
-      margin-left: 5px;
+      margin-left: 4px;
       text-decoration: none;
+      font-weight: 500;
+      transition: opacity 0.3s;
     }
 
     .switch-link:hover {
-      text-decoration: underline;
+      opacity: 0.7;
     }
 
     .user-status {
       text-align: center;
-      margin-top: 30px;
-      padding-top: 20px;
-      border-top: 1px solid #e0e0e0;
-      font-size: 0.7rem;
-      letter-spacing: 2px;
-      color: #c9b698;
+      margin-top: 24px;
+      padding-top: 16px;
+      border-top: 1px solid #d6cec4;
+      font-size: 0.6rem;
+      letter-spacing: 3px;
+      color: #b0a69c;
+      text-transform: uppercase;
     }
 
     .user-status.logged-in {
       color: #2e7d32;
     }
 
+    .user-status .logout-btn {
+      background: none;
+      border: none;
+      color: #c9b698;
+      cursor: pointer;
+      font-size: 0.6rem;
+      letter-spacing: 3px;
+      font-family: 'Inter', sans-serif;
+      text-transform: uppercase;
+      margin-top: 6px;
+      transition: opacity 0.3s;
+    }
+
+    .user-status .logout-btn:hover {
+      opacity: 0.7;
+    }
+
     /* Error states */
     .input-group.error input {
-      border-bottom-color: #ff4444;
+      border-bottom-color: #b13e3e;
     }
 
     .error-message {
-      color: #ff4444;
-      font-size: 0.65rem;
-      margin-top: 5px;
+      color: #b13e3e;
+      font-size: 0.55rem;
+      margin-top: 4px;
       display: block;
+      letter-spacing: 0.5px;
     }
 
-    /* Responsive */
+    .reset-note {
+      text-align: center;
+      color: #6b625a;
+      margin: 16px 0 24px;
+      font-size: 0.7rem;
+      line-height: 1.6;
+      letter-spacing: 0.5px;
+    }
+
+    /* ==========================================================
+       RESPONSIVE
+    ========================================================== */
     @media (max-width: 768px) {
       .account-wrapper {
-        padding: 100px 16px 60px;
+        padding: 30px 20px 60px;
       }
       
       .auth-card {
-        padding: 35px 25px;
+        padding: 30px 20px 36px;
       }
       
       .auth-title {
@@ -234,174 +507,358 @@
       }
       
       .auth-form h3 {
-        font-size: 1rem;
+        font-size: 0.8rem;
         letter-spacing: 3px;
       }
       
       .input-group input {
-        font-size: 0.8rem;
-        padding: 12px 12px 12px 28px;
+        font-size: 0.75rem;
+        padding: 10px 10px 10px 24px;
       }
       
       .auth-btn {
         padding: 12px;
-        font-size: 0.75rem;
+        font-size: 0.65rem;
         letter-spacing: 3px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .account-wrapper {
+        padding: 20px 12px 40px;
+      }
+      
+      .auth-card {
+        padding: 24px 16px 28px;
+        border-radius: 2px;
+      }
+      
+      .auth-logo {
+        width: 48px;
+        height: 48px;
+      }
+      
+      .auth-title {
+        font-size: 1.2rem;
+        letter-spacing: 4px;
+      }
+      
+      .auth-subtitle {
+        font-size: 0.5rem;
+        letter-spacing: 4px;
+      }
+      
+      .input-group {
+        margin-bottom: 12px;
+      }
+      
+      .input-group input {
+        font-size: 0.7rem;
+        padding: 8px 8px 8px 20px;
+      }
+      
+      .input-group i {
+        font-size: 0.7rem;
+      }
+      
+      .auth-btn {
+        padding: 10px;
+        font-size: 0.6rem;
+        letter-spacing: 2px;
+      }
+      
+      .form-options {
+        font-size: 0.5rem;
+        margin: 12px 0 18px;
+      }
+      
+      .auth-switch {
+        font-size: 0.55rem;
+      }
+    }
+
+    /* ==========================================================
+       NOTIFICATION
+    ========================================================== */
+    .shop-notification {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: #1e1b18;
+      border: 1px solid #c9b698;
+      color: #faf7f2;
+      padding: 14px 26px;
+      font-size: 0.75rem;
+      font-weight: 400;
+      letter-spacing: 1.5px;
+      transform: translateY(100px);
+      opacity: 0;
+      transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+      z-index: 9999;
+      max-width: 360px;
+      backdrop-filter: blur(4px);
+    }
+
+    .shop-notification.show {
+      transform: translateY(0);
+      opacity: 1;
+    }
+
+    .shop-notification i {
+      margin-right: 10px;
+      color: #c9b698;
+    }
+
+    @media (max-width: 768px) {
+      .shop-notification {
+        right: 16px;
+        left: 16px;
+        max-width: none;
+        text-align: center;
+        bottom: 20px;
+        font-size: 0.65rem;
+        padding: 12px 18px;
+      }
+    }
+
+    /* ==========================================================
+       SCROLL TOP
+    ========================================================== */
+    .scroll-top {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: rgba(30, 27, 24, 0.9);
+      backdrop-filter: blur(6px);
+      border: 1px solid rgba(201, 182, 152, 0.3);
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #faf7f2;
+      font-size: 1.1rem;
+      cursor: pointer;
+      opacity: 0;
+      transition: 0.4s;
+      z-index: 999;
+    }
+
+    .scroll-top.visible {
+      opacity: 1;
+    }
+
+    .scroll-top:hover {
+      background: #c9b698;
+      color: #1e1b18;
+    }
+
+    @media (max-width: 480px) {
+      .scroll-top {
+        width: 36px;
+        height: 36px;
+        font-size: 0.9rem;
+        bottom: 80px;
+        right: 16px;
       }
     }
   </style>
 </head>
 <body>
 
-<!-- ================= NAVBAR ================= -->
+<!-- ============================================================
+   NAVBAR - MATCHES HOME PAGE
+============================================================ -->
 <header class="navbar">
-  <a href="index.html" class="brand">
-    <img src="img/0000.jpeg" class="brand-logo" alt="GearSouls">
+  <a href="index.html" class="brand" id="brandLink">
+    <img src="img/0000.jpeg" class="brand-logo" alt="GearSouls" onerror="this.style.display='none'">
     <span class="brand-text">GEARSOULS</span>
   </a>
+  
   <nav class="nav" id="mainNav">
-    <a href="index.html" class="nav-link">HOME</a>
-    <a href="shop.html" class="nav-link">SHOP</a>
-    <a href="account.html" class="nav-link active">ACCOUNT</a>
+    <a href="index.html" class="nav-link" id="navHome">HOME</a>
+    <a href="shop.html" class="nav-link" id="navShop">SHOP</a>
+    <a href="account.html" class="nav-link active" id="navAccount">ACCOUNT</a>
+    
+    <div class="cart-wrapper">
+      <paypal-cart-button data-id="pp-view-cart"></paypal-cart-button>
+      <script>
+        cartPaypal.Cart({ id: "pp-view-cart" });
+      </script>
+    </div>
   </nav>
-  <div class="menu-toggle" id="menuToggle">
+
+  <button class="menu-toggle" id="menuToggle" aria-label="Menu">
     <i class="fas fa-bars"></i>
-  </div>
+  </button>
 </header>
 
-<!-- ================= ACCOUNT ================= -->
+<!-- ============================================================
+   HERO
+============================================================ -->
+<section class="account-hero" id="account">
+  <div class="hero-eyebrow">✦ member access</div>
+  <h1 class="hero-title"><span>ACCOUNT</span></h1>
+  <div class="hero-divider"></div>
+  <p class="hero-sub">sign in · create · reset</p>
+</section>
+
+<!-- ============================================================
+   ACCOUNT
+============================================================ -->
 <div class="account-wrapper">
   <div class="auth-card">
     <div class="auth-header">
-      <img src="img/0000.jpeg" alt="GearSouls" class="auth-logo">
+      <img src="img/0000.jpeg" alt="GearSouls" class="auth-logo" onerror="this.style.display='none'">
       <h1 class="auth-title">GEARSOULS</h1>
-      <div class="auth-subtitle">MEMBER ACCESS</div>
+      <div class="auth-subtitle">member access</div>
     </div>
     
     <!-- SIGN IN FORM -->
     <div class="auth-form active" id="signinForm">
-      <h3>SIGN IN</h3>
+      <h3>sign in</h3>
       <div class="input-group" id="signinEmailGroup">
         <i class="fas fa-envelope"></i>
-        <input type="email" id="signinEmail" placeholder="EMAIL" autocomplete="email">
+        <input type="email" id="signinEmail" placeholder="email" autocomplete="email">
       </div>
       <div class="input-group" id="signinPasswordGroup">
         <i class="fas fa-lock"></i>
-        <input type="password" id="signinPassword" placeholder="PASSWORD" autocomplete="current-password">
+        <input type="password" id="signinPassword" placeholder="password" autocomplete="current-password">
         <i class="fas fa-eye toggle-password" data-target="signinPassword"></i>
       </div>
       <div class="form-options">
         <label class="checkbox-container">
           <input type="checkbox" id="rememberMe">
-          <span>REMEMBER ME</span>
+          <span>remember me</span>
         </label>
-        <span class="forgot-link" onclick="showForm('reset')">FORGOT PASSWORD?</span>
+        <span class="forgot-link" onclick="showForm('reset')">forgot password?</span>
       </div>
-      <button class="auth-btn" id="signinBtn" onclick="login()">SIGN IN</button>
+      <button class="auth-btn" id="signinBtn" onclick="login()">sign in</button>
       <div class="auth-switch">
-        <span>NO ACCOUNT?</span>
-        <span class="switch-link" onclick="showForm('signup')">CREATE ONE</span>
+        <span>no account?</span>
+        <span class="switch-link" onclick="showForm('signup')">create one</span>
       </div>
     </div>
     
     <!-- SIGN UP FORM -->
     <div class="auth-form" id="signupForm">
-      <h3>CREATE ACCOUNT</h3>
+      <h3>create account</h3>
       <div class="input-group" id="signupNameGroup">
         <i class="fas fa-user"></i>
-        <input type="text" id="signupName" placeholder="FULL NAME" autocomplete="name">
+        <input type="text" id="signupName" placeholder="full name" autocomplete="name">
       </div>
       <div class="input-group" id="signupEmailGroup">
         <i class="fas fa-envelope"></i>
-        <input type="email" id="signupEmail" placeholder="EMAIL" autocomplete="email">
+        <input type="email" id="signupEmail" placeholder="email" autocomplete="email">
       </div>
       <div class="input-group" id="signupPasswordGroup">
         <i class="fas fa-lock"></i>
-        <input type="password" id="signupPassword" placeholder="PASSWORD" autocomplete="new-password">
+        <input type="password" id="signupPassword" placeholder="password" autocomplete="new-password">
         <i class="fas fa-eye toggle-password" data-target="signupPassword"></i>
       </div>
       <div class="input-group" id="signupConfirmGroup">
         <i class="fas fa-lock"></i>
-        <input type="password" id="signupConfirm" placeholder="CONFIRM PASSWORD">
+        <input type="password" id="signupConfirm" placeholder="confirm password">
         <i class="fas fa-eye toggle-password" data-target="signupConfirm"></i>
       </div>
       <div class="form-options">
         <label class="checkbox-container">
           <input type="checkbox" id="acceptTerms">
-          <span>I ACCEPT THE TERMS & CONDITIONS</span>
+          <span>accept terms & conditions</span>
         </label>
       </div>
-      <button class="auth-btn" id="signupBtn" onclick="signup()">CREATE ACCOUNT</button>
+      <button class="auth-btn" id="signupBtn" onclick="signup()">create account</button>
       <div class="auth-switch">
-        <span>ALREADY HAVE AN ACCOUNT?</span>
-        <span class="switch-link" onclick="showForm('signin')">SIGN IN</span>
+        <span>already have an account?</span>
+        <span class="switch-link" onclick="showForm('signin')">sign in</span>
       </div>
     </div>
     
     <!-- RESET PASSWORD FORM -->
     <div class="auth-form" id="resetForm">
-      <h3>RESET PASSWORD</h3>
+      <h3>reset password</h3>
       <div class="input-group" id="resetEmailGroup">
         <i class="fas fa-envelope"></i>
-        <input type="email" id="resetEmail" placeholder="EMAIL" autocomplete="email">
+        <input type="email" id="resetEmail" placeholder="email" autocomplete="email">
       </div>
-      <p style="text-align: center; color: #666; margin: 20px 0; font-size: 0.75rem; line-height: 1.5;">
-        Enter your email address and we'll send you a link to reset your password.
-      </p>
-      <button class="auth-btn" id="resetBtn" onclick="resetPassword()">SEND RESET LINK</button>
+      <p class="reset-note">Enter your email address and we'll send you a link to reset your password.</p>
+      <button class="auth-btn" id="resetBtn" onclick="resetPassword()">send reset link</button>
       <div class="auth-switch">
-        <span class="switch-link" onclick="showForm('signin')">← BACK TO SIGN IN</span>
+        <span class="switch-link" onclick="showForm('signin')">← back to sign in</span>
       </div>
     </div>
     
     <!-- USER STATUS -->
-    <div class="user-status" id="userStatus">NOT CONNECTED</div>
+    <div class="user-status" id="userStatus">
+      not connected
+    </div>
   </div>
 </div>
 
-<!-- ================= NOTIFICATION ================= -->
+<!-- ============================================================
+   NOTIFICATION
+============================================================ -->
 <div class="shop-notification" id="shopNotification">
   <i class="fas fa-check"></i>
   <span id="notificationMessage"></span>
 </div>
 
-<!-- ================= SCROLL TOP ================= -->
+<!-- ============================================================
+   SCROLL TOP
+============================================================ -->
 <div class="scroll-top" id="scrollTop">
   <i class="fas fa-arrow-up"></i>
 </div>
 
+<!-- ============================================================
+   SCRIPT
+============================================================ -->
 <script>
-// ================= ACCOUNT SYSTEM =================
-const STORAGE_KEY = 'gearsouls_users';
-const CURRENT_USER_KEY = 'gearsouls_current_user';
+(function() {
+  'use strict';
 
-function showNotification(message, isError = false) {
+  // ============================================================
+  // ACCOUNT SYSTEM
+  // ============================================================
+  const STORAGE_KEY = 'gearsouls_users';
+  const CURRENT_USER_KEY = 'gearsouls_current_user';
+
+  // ============================================================
+  // NOTIFICATION
+  // ============================================================
   const notification = document.getElementById('shopNotification');
-  const messageSpan = document.getElementById('notificationMessage');
-  
-  if (notification && messageSpan) {
-    messageSpan.textContent = message;
+  const notifMsg = document.getElementById('notificationMessage');
+  let notifTimer;
+
+  function showNotification(message, isError = false) {
+    if (!notification || !notifMsg) return;
+    notifMsg.textContent = message;
     notification.classList.add('show');
     
     if (isError) {
-      notification.style.background = '#ff4444';
-      notification.style.borderColor = '#ff4444';
+      notification.style.background = '#b13e3e';
+      notification.style.borderColor = '#b13e3e';
       notification.style.color = '#ffffff';
     } else {
-      notification.style.background = '#c9b698';
+      notification.style.background = '#1e1b18';
       notification.style.borderColor = '#c9b698';
-      notification.style.color = '#1a1a1a';
+      notification.style.color = '#faf7f2';
     }
     
-    setTimeout(() => {
+    clearTimeout(notifTimer);
+    notifTimer = setTimeout(() => {
       notification.classList.remove('show');
     }, 3000);
   }
-}
+  window.showNotification = showNotification;
 
-function showInputError(inputId, message) {
-  const group = document.getElementById(inputId + 'Group');
-  if (group) {
+  // ============================================================
+  // HELPERS
+  // ============================================================
+  function showInputError(inputId, message) {
+    const group = document.getElementById(inputId + 'Group');
+    if (!group) return;
     group.classList.add('error');
     const existingError = group.querySelector('.error-message');
     if (existingError) existingError.remove();
@@ -417,222 +874,235 @@ function showInputError(inputId, message) {
       if (msg) msg.remove();
     }, 3000);
   }
-}
 
-function clearErrors() {
-  document.querySelectorAll('.input-group').forEach(group => {
-    group.classList.remove('error');
-    const errorMsg = group.querySelector('.error-message');
-    if (errorMsg) errorMsg.remove();
-  });
-}
-
-function getUsers() {
-  const users = localStorage.getItem(STORAGE_KEY);
-  return users ? JSON.parse(users) : [];
-}
-
-function saveUsers(users) {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(users));
-}
-
-function getCurrentUser() {
-  const user = localStorage.getItem(CURRENT_USER_KEY);
-  return user ? JSON.parse(user) : null;
-}
-
-function setCurrentUser(user) {
-  if (user) {
-    localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(user));
-  } else {
-    localStorage.removeItem(CURRENT_USER_KEY);
+  function clearErrors() {
+    document.querySelectorAll('.input-group').forEach(group => {
+      group.classList.remove('error');
+      const errorMsg = group.querySelector('.error-message');
+      if (errorMsg) errorMsg.remove();
+    });
   }
-}
 
-function updateUserStatus() {
-  const statusDiv = document.getElementById('userStatus');
-  const currentUser = getCurrentUser();
-  
-  if (statusDiv) {
-    if (currentUser) {
-      statusDiv.innerHTML = `WELCOME BACK, ${currentUser.name.toUpperCase()}`;
-      statusDiv.classList.add('logged-in');
-    } else {
-      statusDiv.innerHTML = 'NOT CONNECTED';
-      statusDiv.classList.remove('logged-in');
+  function getUsers() {
+    try {
+      const users = localStorage.getItem(STORAGE_KEY);
+      return users ? JSON.parse(users) : [];
+    } catch {
+      return [];
     }
   }
-}
 
-function login() {
-  const email = document.getElementById('signinEmail').value.trim();
-  const password = document.getElementById('signinPassword').value;
-  const rememberMe = document.getElementById('rememberMe').checked;
-  
-  clearErrors();
-  
-  if (!email) {
-    showInputError('signinEmail', 'Email is required');
-    return;
+  function saveUsers(users) {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(users));
   }
-  if (!password) {
-    showInputError('signinPassword', 'Password is required');
-    return;
+
+  function getCurrentUser() {
+    try {
+      const user = localStorage.getItem(CURRENT_USER_KEY);
+      return user ? JSON.parse(user) : null;
+    } catch {
+      return null;
+    }
   }
-  
-  const users = getUsers();
-  const user = users.find(u => u.email === email && u.password === password);
-  
-  if (user) {
-    setCurrentUser(user);
-    updateUserStatus();
-    showNotification(`Welcome back, ${user.name}!`);
+
+  function setCurrentUser(user) {
+    if (user) {
+      localStorage.setItem(CURRENT_USER_KEY, JSON.stringify(user));
+    } else {
+      localStorage.removeItem(CURRENT_USER_KEY);
+    }
+  }
+
+  function updateUserStatus() {
+    const statusDiv = document.getElementById('userStatus');
+    const currentUser = getCurrentUser();
     
-    document.getElementById('signinEmail').value = '';
-    document.getElementById('signinPassword').value = '';
-  } else {
-    showNotification('Invalid email or password', true);
+    if (statusDiv) {
+      if (currentUser) {
+        statusDiv.innerHTML = `
+          welcome back, ${currentUser.name.toUpperCase()}
+          <br>
+          <button class="logout-btn" onclick="logout()">sign out</button>
+        `;
+        statusDiv.classList.add('logged-in');
+      } else {
+        statusDiv.innerHTML = 'not connected';
+        statusDiv.classList.remove('logged-in');
+      }
+    }
   }
-}
 
-function signup() {
-  const name = document.getElementById('signupName').value.trim();
-  const email = document.getElementById('signupEmail').value.trim();
-  const password = document.getElementById('signupPassword').value;
-  const confirm = document.getElementById('signupConfirm').value;
-  const acceptTerms = document.getElementById('acceptTerms').checked;
-  
-  clearErrors();
-  
-  let hasError = false;
-  
-  if (!name) {
-    showInputError('signupName', 'Name is required');
-    hasError = true;
-  } else if (name.length < 2) {
-    showInputError('signupName', 'Name must be at least 2 characters');
-    hasError = true;
-  }
-  
-  if (!email) {
-    showInputError('signupEmail', 'Email is required');
-    hasError = true;
-  } else if (!email.includes('@') || !email.includes('.')) {
-    showInputError('signupEmail', 'Enter a valid email address');
-    hasError = true;
-  }
-  
-  if (!password) {
-    showInputError('signupPassword', 'Password is required');
-    hasError = true;
-  } else if (password.length < 6) {
-    showInputError('signupPassword', 'Password must be at least 6 characters');
-    hasError = true;
-  }
-  
-  if (password !== confirm) {
-    showInputError('signupConfirm', 'Passwords do not match');
-    hasError = true;
-  }
-  
-  if (!acceptTerms) {
-    showNotification('Please accept the terms and conditions', true);
-    hasError = true;
-  }
-  
-  if (hasError) return;
-  
-  const users = getUsers();
-  const existingUser = users.find(u => u.email === email);
-  
-  if (existingUser) {
-    showInputError('signupEmail', 'Email already registered');
-    return;
-  }
-  
-  const newUser = {
-    id: Date.now(),
-    name: name,
-    email: email,
-    password: password,
-    createdAt: new Date().toISOString()
-  };
-  
-  users.push(newUser);
-  saveUsers(users);
-  
-  showNotification('Account created successfully! Please sign in.');
-  
-  document.getElementById('signupName').value = '';
-  document.getElementById('signupEmail').value = '';
-  document.getElementById('signupPassword').value = '';
-  document.getElementById('signupConfirm').value = '';
-  document.getElementById('acceptTerms').checked = false;
-  
-  showForm('signin');
-}
-
-function resetPassword() {
-  const email = document.getElementById('resetEmail').value.trim();
-  
-  clearErrors();
-  
-  if (!email) {
-    showInputError('resetEmail', 'Email is required');
-    return;
-  }
-  
-  const users = getUsers();
-  const userExists = users.some(u => u.email === email);
-  
-  if (userExists) {
-    showNotification(`Password reset link sent to ${email}`);
-    document.getElementById('resetEmail').value = '';
+  // ============================================================
+  // AUTH FUNCTIONS
+  // ============================================================
+  window.login = function() {
+    const email = document.getElementById('signinEmail').value.trim();
+    const password = document.getElementById('signinPassword').value;
     
-    setTimeout(() => {
-      showForm('signin');
-    }, 2000);
-  } else {
-    showNotification('Email not found in our records', true);
-  }
-}
-
-function logout() {
-  setCurrentUser(null);
-  updateUserStatus();
-  showNotification('You have been logged out');
-}
-
-function showForm(formType) {
-  const signinForm = document.getElementById('signinForm');
-  const signupForm = document.getElementById('signupForm');
-  const resetForm = document.getElementById('resetForm');
-  
-  if (signinForm) signinForm.classList.remove('active');
-  if (signupForm) signupForm.classList.remove('active');
-  if (resetForm) resetForm.classList.remove('active');
-  
-  if (formType === 'signin') {
-    if (signinForm) signinForm.classList.add('active');
     clearErrors();
-  } else if (formType === 'signup') {
-    if (signupForm) signupForm.classList.add('active');
-    clearErrors();
-  } else if (formType === 'reset') {
-    if (resetForm) resetForm.classList.add('active');
-    clearErrors();
-  }
-}
-
-function setupPasswordToggles() {
-  const toggleButtons = document.querySelectorAll('.toggle-password');
-  
-  toggleButtons.forEach(btn => {
-    btn.addEventListener('click', function() {
-      const targetId = this.getAttribute('data-target');
-      const passwordInput = document.getElementById(targetId);
+    
+    if (!email) {
+      showInputError('signinEmail', 'Email is required');
+      return;
+    }
+    if (!password) {
+      showInputError('signinPassword', 'Password is required');
+      return;
+    }
+    
+    const users = getUsers();
+    const user = users.find(u => u.email === email && u.password === password);
+    
+    if (user) {
+      setCurrentUser(user);
+      updateUserStatus();
+      showNotification(`Welcome back, ${user.name}!`);
       
-      if (passwordInput) {
+      document.getElementById('signinEmail').value = '';
+      document.getElementById('signinPassword').value = '';
+    } else {
+      showNotification('Invalid email or password', true);
+    }
+  };
+
+  window.signup = function() {
+    const name = document.getElementById('signupName').value.trim();
+    const email = document.getElementById('signupEmail').value.trim();
+    const password = document.getElementById('signupPassword').value;
+    const confirm = document.getElementById('signupConfirm').value;
+    const acceptTerms = document.getElementById('acceptTerms').checked;
+    
+    clearErrors();
+    let hasError = false;
+    
+    if (!name) {
+      showInputError('signupName', 'Name is required');
+      hasError = true;
+    } else if (name.length < 2) {
+      showInputError('signupName', 'Name must be at least 2 characters');
+      hasError = true;
+    }
+    
+    if (!email) {
+      showInputError('signupEmail', 'Email is required');
+      hasError = true;
+    } else if (!email.includes('@') || !email.includes('.')) {
+      showInputError('signupEmail', 'Enter a valid email address');
+      hasError = true;
+    }
+    
+    if (!password) {
+      showInputError('signupPassword', 'Password is required');
+      hasError = true;
+    } else if (password.length < 6) {
+      showInputError('signupPassword', 'Password must be at least 6 characters');
+      hasError = true;
+    }
+    
+    if (password !== confirm) {
+      showInputError('signupConfirm', 'Passwords do not match');
+      hasError = true;
+    }
+    
+    if (!acceptTerms) {
+      showNotification('Please accept the terms and conditions', true);
+      hasError = true;
+    }
+    
+    if (hasError) return;
+    
+    const users = getUsers();
+    const existingUser = users.find(u => u.email === email);
+    
+    if (existingUser) {
+      showInputError('signupEmail', 'Email already registered');
+      return;
+    }
+    
+    const newUser = {
+      id: Date.now(),
+      name: name,
+      email: email,
+      password: password,
+      createdAt: new Date().toISOString()
+    };
+    
+    users.push(newUser);
+    saveUsers(users);
+    
+    showNotification('Account created successfully! Please sign in.');
+    
+    document.getElementById('signupName').value = '';
+    document.getElementById('signupEmail').value = '';
+    document.getElementById('signupPassword').value = '';
+    document.getElementById('signupConfirm').value = '';
+    document.getElementById('acceptTerms').checked = false;
+    
+    window.showForm('signin');
+  };
+
+  window.resetPassword = function() {
+    const email = document.getElementById('resetEmail').value.trim();
+    
+    clearErrors();
+    
+    if (!email) {
+      showInputError('resetEmail', 'Email is required');
+      return;
+    }
+    
+    const users = getUsers();
+    const userExists = users.some(u => u.email === email);
+    
+    if (userExists) {
+      showNotification(`Password reset link sent to ${email}`);
+      document.getElementById('resetEmail').value = '';
+      
+      setTimeout(() => {
+        window.showForm('signin');
+      }, 2000);
+    } else {
+      showNotification('Email not found in our records', true);
+    }
+  };
+
+  window.logout = function() {
+    setCurrentUser(null);
+    updateUserStatus();
+    showNotification('You have been logged out');
+  };
+
+  window.showForm = function(formType) {
+    const signinForm = document.getElementById('signinForm');
+    const signupForm = document.getElementById('signupForm');
+    const resetForm = document.getElementById('resetForm');
+    
+    if (signinForm) signinForm.classList.remove('active');
+    if (signupForm) signupForm.classList.remove('active');
+    if (resetForm) resetForm.classList.remove('active');
+    
+    if (formType === 'signin') {
+      if (signinForm) signinForm.classList.add('active');
+      clearErrors();
+    } else if (formType === 'signup') {
+      if (signupForm) signupForm.classList.add('active');
+      clearErrors();
+    } else if (formType === 'reset') {
+      if (resetForm) resetForm.classList.add('active');
+      clearErrors();
+    }
+  };
+
+  // ============================================================
+  // PASSWORD TOGGLES
+  // ============================================================
+  function setupPasswordToggles() {
+    document.querySelectorAll('.toggle-password').forEach(btn => {
+      btn.addEventListener('click', function() {
+        const targetId = this.getAttribute('data-target');
+        const passwordInput = document.getElementById(targetId);
+        if (!passwordInput) return;
+        
         const type = passwordInput.getAttribute('type') === 'password' ? 'text' : 'password';
         passwordInput.setAttribute('type', type);
         
@@ -643,111 +1113,114 @@ function setupPasswordToggles() {
           this.classList.remove('fa-eye-slash');
           this.classList.add('fa-eye');
         }
-      }
+      });
     });
-  });
-}
+  }
 
-function setupMobileMenu() {
-  const menuToggle = document.getElementById('menuToggle');
-  const nav = document.getElementById('mainNav');
-  
-  if (menuToggle && nav) {
-    menuToggle.addEventListener('click', (e) => {
-      e.stopPropagation();
-      nav.classList.toggle('active');
-      const icon = menuToggle.querySelector('i');
-      if (nav.classList.contains('active')) {
-        icon.classList.remove('fa-bars');
-        icon.classList.add('fa-times');
-      } else {
-        icon.classList.remove('fa-times');
-        icon.classList.add('fa-bars');
-      }
+  // ============================================================
+  // ENTER KEY SUBMIT
+  // ============================================================
+  function setupEnterKeySubmit() {
+    document.querySelectorAll('.auth-form input').forEach(input => {
+      input.addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') {
+          e.preventDefault();
+          const activeForm = document.querySelector('.auth-form.active');
+          if (activeForm) {
+            if (activeForm.id === 'signinForm') {
+              window.login();
+            } else if (activeForm.id === 'signupForm') {
+              window.signup();
+            } else if (activeForm.id === 'resetForm') {
+              window.resetPassword();
+            }
+          }
+        }
+      });
     });
+  }
+
+  // ============================================================
+  // MOBILE MENU
+  // ============================================================
+  function setupMobileMenu() {
+    const menuToggle = document.getElementById('menuToggle');
+    const mainNav = document.getElementById('mainNav');
+    const body = document.body;
     
-    document.addEventListener('click', (event) => {
-      if (!nav.contains(event.target) && !menuToggle.contains(event.target)) {
-        nav.classList.remove('active');
-        const icon = menuToggle.querySelector('i');
-        if (icon) {
+    if (menuToggle && mainNav) {
+      const icon = menuToggle.querySelector('i');
+      
+      menuToggle.addEventListener('click', function(e) {
+        e.stopPropagation();
+        mainNav.classList.toggle('active');
+        body.classList.toggle('menu-open');
+        if (mainNav.classList.contains('active')) {
+          icon.classList.remove('fa-bars');
+          icon.classList.add('fa-times');
+        } else {
           icon.classList.remove('fa-times');
           icon.classList.add('fa-bars');
         }
-      }
-    });
-  }
-}
+      });
 
-function setupScrollTop() {
-  const scrollBtn = document.getElementById('scrollTop');
-  
-  window.addEventListener('scroll', () => {
-    if (window.scrollY > 400) {
-      scrollBtn.classList.add('visible');
-    } else {
-      scrollBtn.classList.remove('visible');
-    }
-  });
-  
-  if (scrollBtn) {
-    scrollBtn.addEventListener('click', () => {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    });
-  }
-}
+      document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', function() {
+          mainNav.classList.remove('active');
+          body.classList.remove('menu-open');
+          icon.classList.remove('fa-times');
+          icon.classList.add('fa-bars');
+        });
+      });
 
-function setupEnterKeySubmit() {
-  const inputs = document.querySelectorAll('.auth-form input');
-  inputs.forEach(input => {
-    input.addEventListener('keypress', (e) => {
-      if (e.key === 'Enter') {
-        e.preventDefault();
-        const activeForm = document.querySelector('.auth-form.active');
-        if (activeForm.id === 'signinForm') {
-          login();
-        } else if (activeForm.id === 'signupForm') {
-          signup();
-        } else if (activeForm.id === 'resetForm') {
-          resetPassword();
+      document.addEventListener('click', function(e) {
+        if (mainNav.classList.contains('active') && 
+            !mainNav.contains(e.target) && 
+            !menuToggle.contains(e.target)) {
+          mainNav.classList.remove('active');
+          body.classList.remove('menu-open');
+          icon.classList.remove('fa-times');
+          icon.classList.add('fa-bars');
         }
-      }
-    });
-  });
-}
-
-document.addEventListener('DOMContentLoaded', function() {
-  setupPasswordToggles();
-  setupMobileMenu();
-  setupScrollTop();
-  setupEnterKeySubmit();
-  updateUserStatus();
-  
-  console.log('GEARSOULS · Account Page Ready');
-});
-
-window.login = login;
-window.signup = signup;
-window.resetPassword = resetPassword;
-window.showForm = showForm;
-window.logout = logout;
-// Check if user is logged in when accessing cart/checkout
-function requireAuth() {
-  const currentUser = localStorage.getItem('gearsouls_current_user');
-  const protectedPages = ['cart.html', 'checkout.html'];
-  const currentPage = window.location.pathname.split('/').pop();
-  
-  if (protectedPages.includes(currentPage) && !currentUser) {
-    showNotification('Please sign in to continue', true);
-    setTimeout(() => {
-      window.location.href = 'account.html';
-    }, 1500);
-    return false;
+      });
+    }
   }
-  return true;
-}
 
-requireAuth();
+  // ============================================================
+  // SCROLL TOP
+  // ============================================================
+  function setupScrollTop() {
+    const scrollBtn = document.getElementById('scrollTop');
+    window.addEventListener('scroll', () => {
+      if (scrollBtn) scrollBtn.classList.toggle('visible', window.scrollY > 350);
+    });
+    scrollBtn?.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  }
+
+  // ============================================================
+  // BRAND LINK
+  // ============================================================
+  document.getElementById('brandLink')?.addEventListener('click', function(e) {
+    e.preventDefault();
+    showNotification('Returning to home …');
+    setTimeout(() => {
+      window.location.href = 'index.html';
+    }, 400);
+  });
+
+  // ============================================================
+  // INIT
+  // ============================================================
+  document.addEventListener('DOMContentLoaded', function() {
+    setupPasswordToggles();
+    setupMobileMenu();
+    setupScrollTop();
+    setupEnterKeySubmit();
+    updateUserStatus();
+    console.log('✦ GEARSOULS · Account Page Ready');
+  });
+
+})();
 </script>
 
 </body>
