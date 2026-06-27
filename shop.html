@@ -16,7 +16,7 @@
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; overflow-x: hidden; width: 100%; }
-    body { background: #faf7f2; color: #1e1b18; font-family: 'Inter', sans-serif; font-weight: 300; line-height: 1.6; -webkit-font-smoothing: antialiased; min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; width: 100%; max-width: 100vw; }
+    body { background: #faf7f2; color: #1e1b18; font-family: 'Inter', sans-serif; font-weight: 300; line-height: 1.6; -webkit-font-smoothing: antialiased; min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; width: 100%; max-width: 100vw; padding-bottom: 80px; }
     a { text-decoration: none; color: inherit; }
 
     /* ==========================================================
@@ -456,7 +456,7 @@
     /* ==========================================================
        FUTURE PRODUCTS
     ========================================================== */
-    .future-products { margin-top: 70px; padding-top: 50px; border-top: 1px solid #e8e0d6; }
+    .future-products { margin-top: 70px; padding-top: 50px; border-top: 1px solid #e8e0d6; max-width: 1280px; margin-left: auto; margin-right: auto; padding-left: 40px; padding-right: 40px; }
     .future-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; flex-wrap: wrap; gap: 10px; }
     .future-header h3 { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: 1.8rem; letter-spacing: 6px; color: #1e1b18; }
     .future-header span { font-size: 0.7rem; color: #b0a69c; letter-spacing: 2px; font-weight: 400; }
@@ -466,7 +466,7 @@
     .future-placeholder:hover { background: #ede7df; border-color: #c9b698; }
 
     @media (max-width: 600px) {
-      .future-products { margin-top: 30px; padding-top: 20px; }
+      .future-products { margin-top: 30px; padding-top: 20px; padding-left: 16px; padding-right: 16px; }
       .future-header h3 { font-size: 1.2rem; letter-spacing: 3px; }
       .future-header span { font-size: 0.6rem; }
       .future-grid { grid-template-columns: repeat(3, 1fr); gap: 10px; }
@@ -509,6 +509,97 @@
     .shop-notification.show { transform: translateY(0); opacity: 1; }
     .shop-notification i { margin-right: 10px; color: #c9b698; }
     @media (max-width: 768px) { .shop-notification { right: 16px; left: 16px; max-width: none; text-align: center; } }
+
+    /* ==========================================================
+       FIXED CART BUTTON (MOBILE) - VISIBLE AT ALL TIMES
+    ========================================================== */
+    .mobile-cart-fab {
+      display: none; /* hidden by default, shown on phones */
+      position: fixed;
+      bottom: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 9998;
+      background: #0a0a0a;
+      border: 1px solid #c9b698;
+      border-radius: 60px;
+      padding: 10px 24px;
+      box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+      backdrop-filter: blur(4px);
+      align-items: center;
+      gap: 12px;
+      color: #faf7f2;
+      font-size: 0.7rem;
+      letter-spacing: 1.5px;
+      font-weight: 400;
+      text-transform: uppercase;
+      transition: all 0.2s ease;
+      white-space: nowrap;
+    }
+    .mobile-cart-fab i {
+      color: #c9b698;
+      font-size: 1rem;
+    }
+    .mobile-cart-fab paypal-cart-button {
+      --paypal-button-color: white;
+      --paypal-button-shape: rect;
+      --paypal-button-size: small;
+      display: inline-block;
+    }
+    .mobile-cart-fab .cart-label {
+      display: inline-block;
+      margin-right: 4px;
+    }
+    @media (max-width: 768px) {
+      .mobile-cart-fab {
+        display: flex;
+        bottom: 24px;
+        padding: 8px 18px;
+        gap: 8px;
+        font-size: 0.6rem;
+      }
+      .mobile-cart-fab i {
+        font-size: 0.85rem;
+      }
+    }
+    @media (max-width: 480px) {
+      .mobile-cart-fab {
+        bottom: 16px;
+        padding: 6px 14px;
+        gap: 6px;
+        font-size: 0.5rem;
+        border-radius: 40px;
+      }
+      .mobile-cart-fab i {
+        font-size: 0.7rem;
+      }
+    }
+    /* hide the default cart wrapper on mobile (already hidden) but keep FAB */
+    @media (max-width: 768px) {
+      .navbar .cart-wrapper {
+        display: none !important;
+      }
+    }
+
+    /* ----- alignment tweaks for perfect consistency ----- */
+    .product-card .product-details-list li {
+      justify-content: flex-start;
+    }
+    .product-card .paypal-add-wrapper {
+      margin-top: 4px;
+      margin-bottom: 4px;
+    }
+    .product-card .action-group {
+      margin-top: 8px;
+    }
+    .product-card .btn-secondary {
+      padding: 10px 24px;
+    }
+    @media (max-width: 600px) {
+      .product-card .btn-secondary {
+        padding: 6px 14px;
+      }
+    }
   </style>
 </head>
 <body>
@@ -562,14 +653,10 @@
       <div class="product-category">tops · streetwear</div>
       <h2 class="product-name">STREETWEAR <span class="accent">TANK-TOP</span></h2>
       <p class="product-description">
-        Dropped shoulders, heavyweight cotton. The ultimate streetwear tank — 
-        crafted with a bold gear skull graphic.
         <span class="highlight">"BE BRAVE ENOUGH TO BE STUPID."</span>
       </p>
       <ul class="product-details-list">
-        <li><i class="fas fa-circle"></i> oversized drop-shoulder fit</li>
-        <li><i class="fas fa-circle"></i> limited run — 002</li>
-        <li><i class="fas fa-circle"></i> €26.99 EUR</li>
+        <!-- empty on purpose – only cart visible -->
       </ul>
       <div class="paypal-add-wrapper">
         <paypal-add-to-cart-button data-id="8BFGGXMHESFJE"></paypal-add-to-cart-button>
@@ -588,15 +675,9 @@
       <div class="product-category">tops · signature</div>
       <h2 class="product-name">RED <span class="accent">TANK-TOP</span></h2>
       <p class="product-description">
-        Premium heavyweight tee with embossed gear skull and soul mantra. 
-        Cut for a relaxed fit, finished with tonal stitching.
         <span class="highlight">"BE BRAVE ENOUGH TO BE STUPID."</span>
       </p>
-      <ul class="product-details-list">
-        <li><i class="fas fa-circle"></i> 100% combed ring-spun cotton</li>
-        <li><i class="fas fa-circle"></i> screen-printed & garment-dyed</li>
-        <li><i class="fas fa-circle"></i> €29.99 EUR</li>
-      </ul>
+      <!-- empty on purpose – only cart visible -->
       <div class="paypal-add-wrapper">
         <paypal-add-to-cart-button data-id="3R7SKEB2X6DZ2"></paypal-add-to-cart-button>
         <script>
@@ -682,6 +763,18 @@
     <p>© 2026 GEARSOULS — ALL RIGHTS RESERVED</p>
   </div>
 </footer>
+
+<!-- ============================================================
+   FIXED CART BUTTON - VISIBLE ON MOBILE AT ALL TIMES
+============================================================ -->
+<div class="mobile-cart-fab" id="mobileCartFab">
+  <i class="fas fa-shopping-bag"></i>
+  <span class="cart-label">CART</span>
+  <paypal-cart-button data-id="pp-view-cart-mobile"></paypal-cart-button>
+  <script>
+    cartPaypal.Cart({ id: "pp-view-cart-mobile" });
+  </script>
+</div>
 
 <!-- ============================================================
    NOTIFICATION
@@ -793,7 +886,7 @@
       });
     });
 
-    console.log('✦ GEARSOULS · Shop Page — Scrollable products on phone');
+    console.log('✦ GEARSOULS · Shop Page — Clean & aligned');
   })();
 </script>
 
