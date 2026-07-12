@@ -10,111 +10,103 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&family=Inter:opsz,wght@14..32,300;14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
   <link rel="icon" type="image/png" href="/img/0000.jpeg">
+  <link rel="shortcut icon" href="/img/0000.jpeg">
+  <link rel="apple-touch-icon" href="/img/0000.jpeg">
 
-<link rel="icon" href="/img/0000.jpeg" type="image/png" sizes="32x32">
-<link rel="shortcut icon" href="/img/0000.jpeg">
-<link rel="apple-touch-icon" href="/img/0000.jpeg">
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "GearSouls",
-  "url": "https://gearsouls.com",
-  "logo": "https://gearsouls.com/img/0000.png"
-}
-</script>
-</script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Organization",
+    "name": "GearSouls",
+    "url": "https://gearsouls.com",
+    "logo": "https://gearsouls.com/img/0000.png"
+  }
+  </script>
   <!-- PayPal Cart SDK -->
   <script src="https://www.paypalobjects.com/ncp/cart/cart.js" data-merchant-id="XS3UV3HN5EPSQ"></script>
 
   <style>
     * { margin: 0; padding: 0; box-sizing: border-box; }
     html { scroll-behavior: smooth; overflow-x: hidden; width: 100%; }
-    body { background: #faf7f2; color: #1e1b18; font-family: 'Inter', sans-serif; font-weight: 300; line-height: 1.6; -webkit-font-smoothing: antialiased; min-height: 100vh; display: flex; flex-direction: column; overflow-x: hidden; width: 100%; max-width: 100vw; padding-bottom: 80px; }
+    body { 
+      background: #faf7f2; 
+      color: #1e1b18; 
+      font-family: 'Inter', sans-serif; 
+      font-weight: 300; 
+      line-height: 1.6; 
+      -webkit-font-smoothing: antialiased; 
+      min-height: 100vh; 
+      display: flex; 
+      flex-direction: column; 
+      overflow-x: hidden; 
+      width: 100%; 
+      max-width: 100vw; 
+      padding-bottom: 80px; 
+    }
     a { text-decoration: none; color: inherit; }
 
     /* ==========================================================
-       NAVBAR - MATCHES HOME PAGE
+       NAVBAR - COMPACT
     ========================================================== */
     .navbar {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
-      height: 80px;
+      height: 64px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 40px;
+      padding: 0 20px;
       background: #0a0a0a;
       z-index: 1000;
     }
-
     .brand {
       display: flex;
       align-items: center;
       text-decoration: none;
     }
-
     .brand-logo {
-      width: 45px;
-      height: 45px;
+      width: 36px;
+      height: 36px;
       border-radius: 50%;
       border: 1.5px solid #c9b698;
       object-fit: cover;
     }
-
     .brand-text {
       color: white;
-      margin-left: 15px;
+      margin-left: 10px;
       font-family: 'Cormorant Garamond', serif;
       font-weight: 300;
-      font-size: 24px;
-      letter-spacing: 6px;
+      font-size: 18px;
+      letter-spacing: 4px;
     }
-
     .nav {
       display: flex;
-      gap: 35px;
+      gap: 24px;
       align-items: center;
     }
-
     .nav-link {
       color: white;
       text-decoration: none;
-      font-size: 11px;
-      letter-spacing: 3px;
+      font-size: 10px;
+      letter-spacing: 2.5px;
       text-transform: uppercase;
       font-weight: 500;
       opacity: 0.6;
       transition: opacity 0.3s ease;
     }
-
-    .nav-link:hover {
-      opacity: 1;
-    }
-
-    .nav-link.active {
-      opacity: 1;
-    }
-
-    .cart-wrapper {
-      display: flex;
-      align-items: center;
-      flex-shrink: 0;
-    }
-
+    .nav-link:hover, .nav-link.active { opacity: 1; }
+    .cart-wrapper { display: flex; align-items: center; flex-shrink: 0; }
     .cart-wrapper paypal-cart-button {
       --paypal-button-color: white;
       --paypal-button-shape: rect;
       --paypal-button-size: small;
     }
-
     .menu-toggle {
       display: none;
       color: white;
-      font-size: 25px;
+      font-size: 22px;
       cursor: pointer;
       background: none;
       border: none;
@@ -124,503 +116,485 @@
        MOBILE DROPDOWN
     ========================================================== */
     @media (max-width: 768px) {
-      .navbar {
-        padding: 0 20px;
-        height: 70px;
-      }
-
-      .brand-logo {
-        width: 38px;
-        height: 38px;
-      }
-      .brand-text {
-        font-size: 18px;
-        letter-spacing: 4px;
-        margin-left: 10px;
-      }
-
+      .navbar { height: 60px; padding: 0 16px; }
+      .brand-logo { width: 32px; height: 32px; }
+      .brand-text { font-size: 16px; letter-spacing: 3px; margin-left: 8px; }
       .nav {
         position: absolute;
-        top: 70px;
+        top: 60px;
         left: 0;
         width: 100%;
         background: #0a0a0a;
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 25px;
-        padding: 30px 0;
+        gap: 20px;
+        padding: 24px 0;
         transform: translateY(-200%);
         transition: 0.4s;
         z-index: 999;
       }
-
-      .nav.active {
-        transform: translateY(0);
-      }
-
-      .nav-link {
-        font-size: 1rem;
-        opacity: 1;
-        padding: 8px 0;
-      }
-
-      .cart-wrapper {
-        display: none !important;
-      }
-
-      .nav .cart-wrapper {
-        display: flex !important;
-        margin-top: 10px;
-        padding-top: 10px;
-        border-top: 1px solid rgba(201, 182, 152, 0.15);
-        width: 100%;
-        justify-content: center;
-      }
-
-      .menu-toggle {
-        display: block;
-      }
+      .nav.active { transform: translateY(0); }
+      .nav-link { font-size: 0.9rem; opacity: 1; padding: 6px 0; }
+      .cart-wrapper { display: none !important; }
+      .nav .cart-wrapper { display: flex !important; margin-top: 8px; padding-top: 8px; border-top: 1px solid rgba(201, 182, 152, 0.15); width: 100%; justify-content: center; }
+      .menu-toggle { display: block; }
     }
-
     @media (max-width: 480px) {
-      .navbar {
-        padding: 0 16px;
-        height: 60px;
-      }
-      .brand-logo {
-        width: 32px;
-        height: 32px;
-      }
-      .brand-text {
-        font-size: 15px;
-        letter-spacing: 3px;
-        margin-left: 8px;
-      }
-      .nav {
-        top: 60px;
-        padding: 20px 0;
-        gap: 18px;
-      }
-      .nav-link {
-        font-size: 0.85rem;
-      }
-      .menu-toggle {
-        font-size: 20px;
-      }
+      .navbar { height: 54px; padding: 0 12px; }
+      .brand-logo { width: 28px; height: 28px; }
+      .brand-text { font-size: 14px; letter-spacing: 2px; margin-left: 6px; }
+      .nav { top: 54px; padding: 18px 0; gap: 16px; }
+      .nav-link { font-size: 0.8rem; }
+      .menu-toggle { font-size: 18px; }
     }
 
     /* ==========================================================
-       HERO
+       HERO - COMPACT
     ========================================================== */
-    .shop-hero { margin-top: 80px; padding: 60px 40px 40px; text-align: center; background: linear-gradient(180deg, #faf7f2 0%, #f4efe8 100%); border-bottom: 1px solid #e8e0d6; max-width: 100vw; overflow-x: hidden; }
-    .hero-eyebrow { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-style: italic; font-size: 1rem; letter-spacing: 8px; color: #c9b698; text-transform: uppercase; }
-    .hero-title { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: 4.2rem; letter-spacing: 12px; color: #1e1b18; margin: 12px 0 6px; }
+    .shop-hero { 
+      margin-top: 64px; 
+      padding: 32px 20px 24px; 
+      text-align: center; 
+      background: linear-gradient(180deg, #faf7f2 0%, #f4efe8 100%); 
+      border-bottom: 1px solid #e8e0d6; 
+    }
+    .hero-eyebrow { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-style: italic; font-size: 0.75rem; letter-spacing: 6px; color: #c9b698; text-transform: uppercase; }
+    .hero-title { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: 2.6rem; letter-spacing: 8px; color: #1e1b18; margin: 6px 0 4px; }
     .hero-title span { font-weight: 400; color: #c9b698; }
-    .hero-divider { width: 70px; height: 2px; background: #c9b698; margin: 16px auto; }
-    .hero-sub { font-size: 0.9rem; color: #8a8078; letter-spacing: 3px; font-weight: 300; }
-    @media (max-width: 768px) { .shop-hero { margin-top: 0; padding: 40px 20px 30px; } .hero-title { font-size: 2.8rem; letter-spacing: 6px; } }
-    @media (max-width: 480px) { .hero-title { font-size: 2rem; letter-spacing: 4px; } .hero-eyebrow { font-size: 0.75rem; letter-spacing: 4px; } .hero-sub { font-size: 0.7rem; } }
+    .hero-divider { width: 50px; height: 2px; background: #c9b698; margin: 10px auto; }
+    .hero-sub { font-size: 0.75rem; color: #8a8078; letter-spacing: 2px; font-weight: 300; }
+    @media (max-width: 768px) { .shop-hero { margin-top: 0; padding: 24px 16px 18px; } .hero-title { font-size: 2.2rem; letter-spacing: 6px; } }
+    @media (max-width: 480px) { .hero-title { font-size: 1.8rem; letter-spacing: 4px; } .hero-eyebrow { font-size: 0.6rem; letter-spacing: 4px; } .hero-sub { font-size: 0.65rem; } }
 
     /* ==========================================================
-       PRODUCT SHOWCASE - SCROLLABLE ON PHONE
+       PRODUCT SHOWCASE - PHONE COMFORT OPTIMIZED
     ========================================================== */
     .product-showcase { 
-      max-width: 1280px; 
+      max-width: 100%; 
       margin: 0 auto; 
-      padding: 50px 40px 80px; 
+      padding: 20px 12px 60px; 
       flex: 1; 
       width: 100%; 
-      overflow-x: hidden; 
     }
     
-    .product-grid-2 { 
+    .product-grid { 
       display: grid; 
-      grid-template-columns: 1fr 1fr; 
-      gap: 40px; 
-      align-items: stretch; 
-      justify-content: center;
+      grid-template-columns: 1fr; 
+      gap: 20px; 
+      max-width: 480px;
+      margin: 0 auto;
     }
     
     .product-card { 
       background: #f4efe8; 
-      border-radius: 4px; 
+      border-radius: 12px; 
       overflow: hidden; 
-      box-shadow: 0 20px 60px rgba(0,0,0,0.03); 
-      transition: transform 0.6s cubic-bezier(0.23, 1, 0.32, 1); 
+      box-shadow: 0 4px 20px rgba(0,0,0,0.04); 
+      transition: transform 0.3s ease; 
       display: flex; 
       flex-direction: column; 
-      max-width: 100%; 
-      padding: 40px 32px 48px; 
-      border: 1px solid rgba(201, 182, 152, 0.15); 
+      padding: 24px 20px 28px; 
+      border: 1px solid rgba(201, 182, 152, 0.12); 
       align-items: flex-start;
     }
+    .product-card:active { transform: scale(0.98); }
     
-    .product-card:hover { transform: scale(1.005); }
-    .product-card .badge { display: inline-block; background: #c9b698; color: #1e1b18; font-size: 0.6rem; letter-spacing: 4px; text-transform: uppercase; padding: 8px 22px; font-weight: 600; margin-bottom: 20px; align-self: flex-start; }
-    .product-category { font-size: 0.65rem; letter-spacing: 4px; text-transform: uppercase; color: #b0a69c; font-weight: 500; margin-bottom: 8px; }
-    .product-name { font-family: 'Cormorant Garamond', serif; font-size: 2.8rem; font-weight: 300; letter-spacing: 4px; color: #1e1b18; line-height: 1.1; margin-bottom: 12px; }
+    .product-card .badge { 
+      display: inline-block; 
+      background: #c9b698; 
+      color: #1e1b18; 
+      font-size: 0.55rem; 
+      letter-spacing: 3px; 
+      text-transform: uppercase; 
+      padding: 5px 16px; 
+      font-weight: 600; 
+      margin-bottom: 12px; 
+      align-self: flex-start;
+      border-radius: 20px;
+    }
+    .product-category { 
+      font-size: 0.55rem; 
+      letter-spacing: 3px; 
+      text-transform: uppercase; 
+      color: #b0a69c; 
+      font-weight: 500; 
+      margin-bottom: 4px; 
+    }
+    .product-name { 
+      font-family: 'Cormorant Garamond', serif; 
+      font-size: 2rem; 
+      font-weight: 300; 
+      letter-spacing: 3px; 
+      color: #1e1b18; 
+      line-height: 1.1; 
+      margin-bottom: 6px; 
+    }
     .product-name .accent { color: #c9b698; font-weight: 400; }
-    .product-description { font-size: 0.95rem; color: #4f4943; max-width: 100%; margin-bottom: 20px; font-weight: 300; line-height: 1.8; letter-spacing: 0.2px; flex: 1; }
-    .product-description .highlight { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-style: italic; color: #c9b698; display: block; margin-top: 12px; letter-spacing: 2px; }
-    .product-details-list { list-style: none; margin-bottom: 24px; border-top: 1px solid #e8e0d6; padding-top: 16px; width: 100%; }
-    .product-details-list li { font-size: 0.75rem; letter-spacing: 1.5px; color: #6b625a; padding: 5px 0; display: flex; align-items: center; gap: 10px; font-weight: 400; }
-    .product-details-list li i { color: #c9b698; width: 18px; font-size: 0.6rem; }
-    .paypal-add-wrapper { margin: 8px 0 6px; max-width: 100%; width: 100%; }
-    .paypal-add-wrapper paypal-add-to-cart-button { --paypal-button-color: black; --paypal-button-shape: rect; --paypal-button-size: medium; --paypal-button-width: 100%; }
-    .action-group { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 6px; width: 100%; }
-    .btn-secondary { background: transparent; border: 1.5px solid #1e1b18; color: #1e1b18; padding: 12px 28px; font-size: 0.6rem; letter-spacing: 2px; font-weight: 600; transition: all 0.3s ease; cursor: pointer; font-family: 'Inter', sans-serif; }
-    .btn-secondary:hover { background: #1e1b18; color: #faf7f2; }
+    .product-description { 
+      font-size: 0.85rem; 
+      color: #4f4943; 
+      max-width: 100%; 
+      margin-bottom: 12px; 
+      font-weight: 300; 
+      line-height: 1.6; 
+      flex: 1; 
+    }
+    .product-description .highlight { 
+      font-family: 'Cormorant Garamond', serif; 
+      font-size: 0.95rem; 
+      font-style: italic; 
+      color: #c9b698; 
+      display: block; 
+      margin-top: 4px; 
+      letter-spacing: 1px; 
+    }
+    
+    /* ---- PURCHASE AREA: BIG TAP TARGETS ---- */
+    .purchase-area {
+      width: 100%;
+      margin-top: 4px;
+      padding-top: 14px;
+      border-top: 1px solid #e8e0d6;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+    .paypal-add-wrapper { 
+      width: 100%; 
+      min-height: 52px;
+    }
+    .paypal-add-wrapper paypal-add-to-cart-button { 
+      --paypal-button-color: black; 
+      --paypal-button-shape: rect; 
+      --paypal-button-size: large;
+      --paypal-button-width: 100%; 
+      --paypal-button-height: 54px;
+    }
+    .action-group {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 10px;
+      width: 100%;
+      margin-top: 2px;
+    }
+    .btn-secondary {
+      background: transparent;
+      border: 1.5px solid #1e1b18;
+      color: #1e1b18;
+      padding: 12px 20px;
+      font-size: 0.65rem;
+      letter-spacing: 2px;
+      font-weight: 600;
+      transition: all 0.2s ease;
+      cursor: pointer;
+      font-family: 'Inter', sans-serif;
+      border-radius: 4px;
+      flex: 1;
+      min-height: 48px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      background: rgba(255,255,255,0.5);
+    }
+    .btn-secondary:active { background: #1e1b18; color: #faf7f2; }
+    .btn-secondary i { margin-right: 8px; }
 
     /* ==========================================================
-       RESPONSIVE - SCROLLABLE PRODUCTS ON PHONE
+       DESKTOP - 2 COLUMN LAYOUT FOR WIDER SCREENS
     ========================================================== */
-    
-    /* Tablet and smaller laptops - keep side by side, just smaller */
-    @media (max-width: 900px) {
-      .product-grid-2 {
-        grid-template-columns: 1fr 1fr;
-        gap: 20px;
+    @media (min-width: 600px) {
+      .product-grid { 
+        grid-template-columns: 1fr 1fr; 
+        max-width: 720px;
+        gap: 24px;
       }
-      
-      .product-card {
-        padding: 28px 20px 32px;
-      }
-      
-      .product-name {
-        font-size: 2rem;
-        letter-spacing: 3px;
-      }
-      
-      .product-description {
-        font-size: 0.85rem;
-      }
-      
-      .product-details-list li {
-        font-size: 0.7rem;
-      }
+      .product-card { padding: 28px 24px 32px; }
+      .product-name { font-size: 2.2rem; }
     }
 
-    /* Phone - SCROLLABLE PRODUCTS, SIDE BY SIDE */
-    @media (max-width: 600px) {
-      .product-showcase {
-        padding: 20px 0 40px;
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        scroll-snap-type: x mandatory;
-        cursor: grab;
+    @media (min-width: 1024px) {
+      .product-grid { 
+        grid-template-columns: 1fr 1fr 1fr; 
+        max-width: 1000px;
+        gap: 28px;
       }
-      
-      .product-showcase:active {
-        cursor: grabbing;
-      }
-      
-      .product-grid-2 {
-        display: flex;
-        gap: 16px;
-        padding: 0 16px;
-        min-width: max-content;
-        width: auto;
-        scroll-snap-type: x mandatory;
-        justify-content: flex-start;
-      }
-      
-      .product-card {
-        flex: 0 0 280px;
-        width: 280px;
-        padding: 20px 16px 24px;
-        border-radius: 8px;
-        scroll-snap-align: start;
-        margin: 0;
-        max-width: none;
-        min-height: 380px;
-        align-items: flex-start;
-      }
-      
-      .product-card .badge {
-        font-size: 0.5rem;
-        padding: 5px 14px;
-        align-self: flex-start;
-        margin-bottom: 10px;
-        letter-spacing: 2px;
-      }
-      
-      .product-category {
-        font-size: 0.55rem;
-        letter-spacing: 2px;
-        text-align: left;
-        margin-bottom: 4px;
-      }
-      
-      .product-name {
-        font-size: 1.6rem;
-        letter-spacing: 2px;
-        text-align: left;
-        margin-bottom: 8px;
-      }
-      
-      .product-description {
-        font-size: 0.75rem;
-        line-height: 1.5;
-        text-align: left;
-        margin-bottom: 10px;
-      }
-      
-      .product-description .highlight {
-        font-size: 0.8rem;
-        margin-top: 4px;
-      }
-      
-      .product-details-list {
-        margin-bottom: 12px;
-        padding-top: 10px;
-        width: 100%;
-      }
-      
-      .product-details-list li {
-        font-size: 0.6rem;
-        letter-spacing: 1px;
-        padding: 3px 0;
-        justify-content: flex-start;
-        gap: 8px;
-      }
-      
-      .product-details-list li i {
-        width: 12px;
-        font-size: 0.4rem;
-      }
-      
-      .paypal-add-wrapper {
-        margin: 4px 0;
-        width: 100%;
-      }
-      
-      .paypal-add-wrapper paypal-add-to-cart-button {
-        --paypal-button-size: small;
-      }
-      
-      .action-group {
-        justify-content: flex-start;
-        gap: 8px;
-        margin-top: 4px;
-        width: 100%;
-      }
-      
-      .btn-secondary {
-        padding: 8px 16px;
-        font-size: 0.5rem;
-        letter-spacing: 1.5px;
-        border-width: 1px;
-      }
-
-      /* Scroll indicator */
-      .product-showcase::after {
-        content: '← swipe →';
-        display: block;
-        text-align: center;
-        font-size: 0.6rem;
-        color: #b0a69c;
-        letter-spacing: 3px;
-        padding: 12px 0 4px;
-        opacity: 0.6;
-        animation: pulseSwipe 2s ease-in-out infinite;
-      }
-    }
-
-    @keyframes pulseSwipe {
-      0%, 100% { opacity: 0.3; transform: translateX(0); }
-      50% { opacity: 0.8; transform: translateX(5px); }
-    }
-
-    /* Very small phones - still scrollable */
-    @media (max-width: 400px) {
-      .product-card {
-        flex: 0 0 240px;
-        width: 240px;
-        padding: 16px 12px 20px;
-        min-height: 320px;
-      }
-      
-      .product-name {
-        font-size: 1.3rem;
-      }
-      
-      .product-description {
-        font-size: 0.65rem;
-      }
-      
-      .product-description .highlight {
-        font-size: 0.7rem;
-      }
-      
-      .product-details-list li {
-        font-size: 0.5rem;
-      }
-      
-      .product-card .badge {
-        font-size: 0.4rem;
-        padding: 4px 10px;
-      }
-      
-      .btn-secondary {
-        padding: 6px 12px;
-        font-size: 0.45rem;
-      }
+      .product-card { padding: 32px 28px 36px; }
+      .product-name { font-size: 2.4rem; }
     }
 
     /* ==========================================================
        FUTURE PRODUCTS
     ========================================================== */
-    .future-products { margin-top: 70px; padding-top: 50px; border-top: 1px solid #e8e0d6; max-width: 1280px; margin-left: auto; margin-right: auto; padding-left: 40px; padding-right: 40px; }
-    .future-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 32px; flex-wrap: wrap; gap: 10px; }
-    .future-header h3 { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: 1.8rem; letter-spacing: 6px; color: #1e1b18; }
-    .future-header span { font-size: 0.7rem; color: #b0a69c; letter-spacing: 2px; font-weight: 400; }
-    .future-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px; }
-    .future-placeholder { background: #f4efe8; aspect-ratio: 3 / 4; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #b0a69c; font-size: 0.7rem; letter-spacing: 3px; text-transform: uppercase; border: 1px dashed #d6cec4; transition: all 0.4s ease; padding: 20px; text-align: center; }
-    .future-placeholder i { font-size: 2.2rem; color: #c9b698; margin-bottom: 14px; opacity: 0.6; }
-    .future-placeholder:hover { background: #ede7df; border-color: #c9b698; }
+    .future-products { 
+      margin-top: 40px; 
+      padding-top: 30px; 
+      border-top: 1px solid #e8e0d6; 
+      max-width: 480px; 
+      margin-left: auto; 
+      margin-right: auto; 
+      padding-left: 16px; 
+      padding-right: 16px; 
+    }
+    .future-header { 
+      display: flex; 
+      justify-content: space-between; 
+      align-items: center; 
+      margin-bottom: 20px; 
+      flex-wrap: wrap; 
+      gap: 6px; 
+    }
+    .future-header h3 { 
+      font-family: 'Cormorant Garamond', serif; 
+      font-weight: 300; 
+      font-size: 1.3rem; 
+      letter-spacing: 4px; 
+      color: #1e1b18; 
+    }
+    .future-header span { 
+      font-size: 0.6rem; 
+      color: #b0a69c; 
+      letter-spacing: 2px; 
+      font-weight: 400; 
+    }
+    .future-grid { 
+      display: grid; 
+      grid-template-columns: repeat(3, 1fr); 
+      gap: 12px; 
+    }
+    .future-placeholder { 
+      background: #f4efe8; 
+      aspect-ratio: 1 / 1.2; 
+      display: flex; 
+      flex-direction: column; 
+      align-items: center; 
+      justify-content: center; 
+      color: #b0a69c; 
+      font-size: 0.5rem; 
+      letter-spacing: 2px; 
+      text-transform: uppercase; 
+      border: 1px dashed #d6cec4; 
+      transition: all 0.3s ease; 
+      padding: 12px; 
+      text-align: center; 
+      border-radius: 8px;
+    }
+    .future-placeholder i { 
+      font-size: 1.4rem; 
+      color: #c9b698; 
+      margin-bottom: 8px; 
+      opacity: 0.6; 
+    }
+    .future-placeholder:active { background: #ede7df; border-color: #c9b698; }
 
-    @media (max-width: 600px) {
-      .future-products { margin-top: 30px; padding-top: 20px; padding-left: 16px; padding-right: 16px; }
-      .future-header h3 { font-size: 1.2rem; letter-spacing: 3px; }
-      .future-header span { font-size: 0.6rem; }
-      .future-grid { grid-template-columns: repeat(3, 1fr); gap: 10px; }
-      .future-placeholder { aspect-ratio: 1 / 1.2; padding: 10px; font-size: 0.5rem; letter-spacing: 1px; }
-      .future-placeholder i { font-size: 1.2rem; margin-bottom: 6px; }
+    @media (min-width: 600px) {
+      .future-products { max-width: 720px; padding-left: 24px; padding-right: 24px; }
+      .future-grid { gap: 16px; }
+      .future-placeholder { font-size: 0.6rem; }
+      .future-placeholder i { font-size: 1.8rem; }
     }
 
     /* ==========================================================
        BRAND NOTE
     ========================================================== */
-    .brand-note { max-width: 1280px; margin: 0 auto 40px; padding: 0 40px; display: flex; justify-content: flex-start; width: 100%; overflow-x: hidden; }
-    .note-block { border-left: 3px solid #c9b698; padding-left: 28px; max-width: 460px; }
-    .note-block p { font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; font-weight: 300; font-style: italic; color: #4f4943; letter-spacing: 0.5px; line-height: 1.7; }
-    .note-block .attribution { font-family: 'Inter', sans-serif; font-size: 0.6rem; letter-spacing: 4px; text-transform: uppercase; color: #b0a69c; margin-top: 8px; font-style: normal; }
-    @media (max-width: 768px) { .brand-note { justify-content: center; padding: 0 20px; } .note-block { border-left: none; padding-left: 0; text-align: center; max-width: 100%; } }
-    @media (max-width: 600px) { .brand-note { margin: 0 auto 20px; } .note-block p { font-size: 0.9rem; } }
+    .brand-note { 
+      max-width: 480px; 
+      margin: 0 auto 24px; 
+      padding: 0 16px; 
+      display: flex; 
+      justify-content: center; 
+      width: 100%; 
+    }
+    .note-block { 
+      border-left: 3px solid #c9b698; 
+      padding-left: 16px; 
+      max-width: 100%; 
+    }
+    .note-block p { 
+      font-family: 'Cormorant Garamond', serif; 
+      font-size: 0.95rem; 
+      font-weight: 300; 
+      font-style: italic; 
+      color: #4f4943; 
+      letter-spacing: 0.5px; 
+      line-height: 1.6; 
+    }
+    .note-block .attribution { 
+      font-family: 'Inter', sans-serif; 
+      font-size: 0.55rem; 
+      letter-spacing: 3px; 
+      text-transform: uppercase; 
+      color: #b0a69c; 
+      margin-top: 4px; 
+      font-style: normal; 
+    }
+    @media (min-width: 600px) {
+      .brand-note { max-width: 720px; padding: 0 24px; }
+      .note-block p { font-size: 1.05rem; }
+    }
 
     /* ==========================================================
-       FOOTER
+       FOOTER - COMPACT
     ========================================================== */
-    .footer-modern { background: #0d0b09; border-top: 1px solid rgba(201, 182, 152, 0.08); padding: 50px 48px 24px; margin-top: auto; width: 100%; position: relative; z-index: 10; overflow-x: hidden; }
-    .footer-content { max-width: 1280px; margin: 0 auto; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 40px; }
-    .footer-brand { display: flex; align-items: center; gap: 14px; }
-    .footer-brand .brand-logo-small { width: 44px; height: 44px; border-radius: 50%; border: 1.5px solid rgba(201, 182, 152, 0.15); display: flex; align-items: center; justify-content: center; font-size: 18px; color: #c9b698; background: #2a2520; }
-    .footer-brand p { font-size: 0.7rem; color: rgba(255,255,255,0.3); letter-spacing: 2px; font-weight: 300; }
-    .footer-links { display: flex; gap: 60px; flex-wrap: wrap; }
-    .footer-col h4 { font-size: 0.55rem; letter-spacing: 3px; text-transform: uppercase; color: rgba(255,255,255,0.2); font-weight: 600; margin-bottom: 12px; }
-    .footer-col a { display: block; font-size: 0.7rem; color: rgba(255,255,255,0.3); padding: 5px 0; transition: color 0.3s ease; font-weight: 300; letter-spacing: 0.5px; cursor: pointer; }
-    .footer-col a:hover { color: #c9b698; }
-    .footer-col a i { margin-right: 8px; font-size: 0.75rem; }
-    .footer-image .placeholder { width: 120px; height: 80px; display: flex; align-items: center; justify-content: center; border: 1px solid rgba(201,182,152,0.3); padding: 8px; color: #c9b698; font-family: 'Cormorant Garamond', serif; font-size: 1.2rem; letter-spacing: 4px; background: #1a1614; }
-    .footer-bottom { text-align: center; padding-top: 28px; margin-top: 28px; border-top: 1px solid rgba(255,255,255,0.04); }
-    .footer-bottom p { font-size: 0.55rem; color: rgba(255,255,255,0.1); letter-spacing: 2px; }
-    @media (max-width: 768px) { .footer-modern { padding: 30px 20px 16px; } .footer-content { flex-direction: column; text-align: center; gap: 30px; } .footer-links { justify-content: center; gap: 30px; width: 100%; } .footer-col { flex: 1 1 120px; text-align: center; } }
+    .footer-modern { 
+      background: #0d0b09; 
+      border-top: 1px solid rgba(201, 182, 152, 0.08); 
+      padding: 30px 16px 16px; 
+      margin-top: auto; 
+      width: 100%; 
+    }
+    .footer-content { 
+      max-width: 480px; 
+      margin: 0 auto; 
+      display: flex; 
+      flex-direction: column; 
+      align-items: center; 
+      gap: 24px; 
+    }
+    .footer-brand { display: flex; align-items: center; gap: 10px; }
+    .footer-brand .brand-logo-small { 
+      width: 36px; 
+      height: 36px; 
+      border-radius: 50%; 
+      border: 1.5px solid rgba(201, 182, 152, 0.15); 
+      display: flex; 
+      align-items: center; 
+      justify-content: center; 
+      font-size: 14px; 
+      color: #c9b698; 
+      background: #2a2520; 
+    }
+    .footer-brand p { 
+      font-size: 0.6rem; 
+      color: rgba(255,255,255,0.3); 
+      letter-spacing: 2px; 
+      font-weight: 300; 
+    }
+    .footer-links { 
+      display: flex; 
+      gap: 24px; 
+      flex-wrap: wrap; 
+      justify-content: center; 
+      width: 100%; 
+    }
+    .footer-col h4 { 
+      font-size: 0.5rem; 
+      letter-spacing: 2px; 
+      text-transform: uppercase; 
+      color: rgba(255,255,255,0.2); 
+      font-weight: 600; 
+      margin-bottom: 8px; 
+      text-align: center; 
+    }
+    .footer-col a { 
+      display: block; 
+      font-size: 0.6rem; 
+      color: rgba(255,255,255,0.25); 
+      padding: 3px 0; 
+      transition: color 0.3s ease; 
+      font-weight: 300; 
+      letter-spacing: 0.5px; 
+      text-align: center; 
+      cursor: pointer; 
+    }
+    .footer-col a:active { color: #c9b698; }
+    .footer-col a i { margin-right: 6px; font-size: 0.6rem; }
+    .footer-image { display: none; }
+    .footer-bottom { 
+      text-align: center; 
+      padding-top: 16px; 
+      margin-top: 16px; 
+      border-top: 1px solid rgba(255,255,255,0.04); 
+      width: 100%; 
+    }
+    .footer-bottom p { 
+      font-size: 0.5rem; 
+      color: rgba(255,255,255,0.1); 
+      letter-spacing: 1.5px; 
+    }
+
+    @media (min-width: 600px) {
+      .footer-content { max-width: 720px; flex-direction: row; flex-wrap: wrap; justify-content: space-between; gap: 20px; }
+      .footer-links { width: auto; gap: 40px; }
+      .footer-col a { text-align: left; }
+      .footer-col h4 { text-align: left; }
+    }
 
     /* ==========================================================
        NOTIFICATION
     ========================================================== */
-    .shop-notification { position: fixed; bottom: 30px; right: 30px; background: #1e1b18; border: 1px solid #c9b698; color: #faf7f2; padding: 14px 26px; font-size: 0.75rem; font-weight: 400; letter-spacing: 1.5px; transform: translateY(100px); opacity: 0; transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1); z-index: 9999; max-width: 360px; backdrop-filter: blur(4px); }
+    .shop-notification { 
+      position: fixed; 
+      bottom: 20px; 
+      left: 16px; 
+      right: 16px; 
+      background: #1e1b18; 
+      border: 1px solid #c9b698; 
+      color: #faf7f2; 
+      padding: 12px 20px; 
+      font-size: 0.7rem; 
+      font-weight: 400; 
+      letter-spacing: 1px; 
+      transform: translateY(100px); 
+      opacity: 0; 
+      transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1); 
+      z-index: 9999; 
+      text-align: center; 
+      border-radius: 8px;
+      backdrop-filter: blur(4px);
+    }
     .shop-notification.show { transform: translateY(0); opacity: 1; }
-    .shop-notification i { margin-right: 10px; color: #c9b698; }
-    @media (max-width: 768px) { .shop-notification { right: 16px; left: 16px; max-width: none; text-align: center; } }
+    .shop-notification i { margin-right: 8px; color: #c9b698; }
 
     /* ==========================================================
-       FIXED CART BUTTON (MOBILE) - VISIBLE AT ALL TIMES
+       FIXED CART BUTTON (MOBILE) - BIGGER TAP TARGET
     ========================================================== */
     .mobile-cart-fab {
-      display: none; /* hidden by default, shown on phones */
+      display: none;
       position: fixed;
-      bottom: 20px;
+      bottom: 16px;
       left: 50%;
       transform: translateX(-50%);
       z-index: 9998;
       background: #0a0a0a;
       border: 1px solid #c9b698;
-      border-radius: 60px;
-      padding: 10px 24px;
-      box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+      border-radius: 50px;
+      padding: 10px 22px;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.5);
       backdrop-filter: blur(4px);
       align-items: center;
-      gap: 12px;
+      gap: 10px;
       color: #faf7f2;
-      font-size: 0.7rem;
+      font-size: 0.65rem;
       letter-spacing: 1.5px;
       font-weight: 400;
       text-transform: uppercase;
       transition: all 0.2s ease;
       white-space: nowrap;
     }
-    .mobile-cart-fab i {
-      color: #c9b698;
-      font-size: 1rem;
-    }
+    .mobile-cart-fab i { color: #c9b698; font-size: 0.95rem; }
     .mobile-cart-fab paypal-cart-button {
       --paypal-button-color: white;
       --paypal-button-shape: rect;
       --paypal-button-size: small;
       display: inline-block;
     }
-    .mobile-cart-fab .cart-label {
-      display: inline-block;
-      margin-right: 4px;
+    .mobile-cart-fab .cart-label { display: inline-block; margin-right: 4px; }
+    @media (max-width: 768px) {
+      .mobile-cart-fab { display: flex; bottom: 16px; padding: 10px 20px; gap: 8px; font-size: 0.6rem; }
+      .mobile-cart-fab i { font-size: 0.85rem; }
     }
     @media (max-width: 768px) {
-      .mobile-cart-fab {
-        display: flex;
-        bottom: 24px;
-        padding: 8px 18px;
-        gap: 8px;
-        font-size: 0.6rem;
-      }
-      .mobile-cart-fab i {
-        font-size: 0.85rem;
-      }
-    }
-    @media (max-width: 480px) {
-      .mobile-cart-fab {
-        bottom: 16px;
-        padding: 6px 14px;
-        gap: 6px;
-        font-size: 0.5rem;
-        border-radius: 40px;
-      }
-      .mobile-cart-fab i {
-        font-size: 0.7rem;
-      }
-    }
-    /* hide the default cart wrapper on mobile (already hidden) but keep FAB */
-    @media (max-width: 768px) {
-      .navbar .cart-wrapper {
-        display: none !important;
-      }
-    }
-
-    /* ----- alignment tweaks for perfect consistency ----- */
-    .product-card .product-details-list li {
-      justify-content: flex-start;
-    }
-    .product-card .paypal-add-wrapper {
-      margin-top: 4px;
-      margin-bottom: 4px;
-    }
-    .product-card .action-group {
-      margin-top: 8px;
-    }
-    .product-card .btn-secondary {
-      padding: 10px 24px;
-    }
-    @media (max-width: 600px) {
-      .product-card .btn-secondary {
-        padding: 6px 14px;
-      }
+      .navbar .cart-wrapper { display: none !important; }
     }
   </style>
 </head>
 <body>
 
 <!-- ============================================================
-   NAVBAR - MATCHES HOME PAGE
+   NAVBAR
 ============================================================ -->
 <header class="navbar">
   <a href="index.html" class="brand" id="brandLink">
@@ -635,9 +609,7 @@
     
     <div class="cart-wrapper">
       <paypal-cart-button data-id="pp-view-cart"></paypal-cart-button>
-      <script>
-        cartPaypal.Cart({ id: "pp-view-cart" });
-      </script>
+      <script> cartPaypal.Cart({ id: "pp-view-cart" }); </script>
     </div>
   </nav>
 
@@ -653,16 +625,36 @@
   <div class="hero-eyebrow">✦ the archive</div>
   <h1 class="hero-title"><span>DROP</span> 002</h1>
   <div class="hero-divider"></div>
-  <p class="hero-sub">two pieces · eternal style · more coming</p>
+  <p class="hero-sub">three pieces · eternal style</p>
 </section>
 
 <!-- ============================================================
-   TWO PRODUCTS SIDE BY SIDE - SCROLLABLE ON PHONE
+   THREE PRODUCTS – OPTIMIZED FOR PHONE COMFORT
 ============================================================ -->
 <section class="product-showcase">
-  <div class="product-grid-2">
+  <div class="product-grid">
     
-    <!-- PRODUCT 1: STREETWEAR TANK-TOP (8BFGGXMHESFJE) -->
+    <!-- PRODUCT 1: GEARSOULS BEANIE -->
+    <div class="product-card">
+      <span class="badge">✦ signature</span>
+      <div class="product-category">accessories · headwear</div>
+      <h2 class="product-name">GEARSOULS <span class="accent">BEANIE</span></h2>
+      <p class="product-description">
+        <span class="highlight">"WEAR THE ARCHIVE."</span>
+      </p>
+      
+      <div class="purchase-area">
+        <div class="paypal-add-wrapper">
+          <paypal-add-to-cart-button data-id="UP39NSGJGCRVC"></paypal-add-to-cart-button>
+          <script> cartPaypal.AddToCart({ id: "UP39NSGJGCRVC" }); </script>
+        </div>
+        <div class="action-group">
+          <button class="btn-secondary notify-btn" data-product="GEARSOULS BEANIE"><i class="fas fa-bell"></i> NOTIFY</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PRODUCT 2: STREETWEAR TANK-TOP -->
     <div class="product-card">
       <span class="badge">✦ new drop</span>
       <div class="product-category">tops · streetwear</div>
@@ -670,21 +662,19 @@
       <p class="product-description">
         <span class="highlight">"BE BRAVE ENOUGH TO BE STUPID."</span>
       </p>
-      <ul class="product-details-list">
-        <!-- empty on purpose – only cart visible -->
-      </ul>
-      <div class="paypal-add-wrapper">
-        <paypal-add-to-cart-button data-id="8BFGGXMHESFJE"></paypal-add-to-cart-button>
-        <script>
-          cartPaypal.AddToCart({ id: "8BFGGXMHESFJE" });
-        </script>
-      </div>
-      <div class="action-group">
-        <button class="btn-secondary notify-btn" data-product="STREETWEAR TANK-TOP">NOTIFY ME</button>
+      
+      <div class="purchase-area">
+        <div class="paypal-add-wrapper">
+          <paypal-add-to-cart-button data-id="8BFGGXMHESFJE"></paypal-add-to-cart-button>
+          <script> cartPaypal.AddToCart({ id: "8BFGGXMHESFJE" }); </script>
+        </div>
+        <div class="action-group">
+          <button class="btn-secondary notify-btn" data-product="STREETWEAR TANK-TOP"><i class="fas fa-bell"></i> NOTIFY</button>
+        </div>
       </div>
     </div>
 
-    <!-- PRODUCT 2: RED TANK-TOP (3R7SKEB2X6DZ2) -->
+    <!-- PRODUCT 3: RED TANK-TOP -->
     <div class="product-card">
       <span class="badge">✦ fresh</span>
       <div class="product-category">tops · signature</div>
@@ -692,15 +682,15 @@
       <p class="product-description">
         <span class="highlight">"BE BRAVE ENOUGH TO BE STUPID."</span>
       </p>
-      <!-- empty on purpose – only cart visible -->
-      <div class="paypal-add-wrapper">
-        <paypal-add-to-cart-button data-id="3R7SKEB2X6DZ2"></paypal-add-to-cart-button>
-        <script>
-          cartPaypal.AddToCart({ id: "3R7SKEB2X6DZ2" });
-        </script>
-      </div>
-      <div class="action-group">
-        <button class="btn-secondary notify-btn" data-product="RED TANK-TOP">NOTIFY ME</button>
+      
+      <div class="purchase-area">
+        <div class="paypal-add-wrapper">
+          <paypal-add-to-cart-button data-id="3R7SKEB2X6DZ2"></paypal-add-to-cart-button>
+          <script> cartPaypal.AddToCart({ id: "3R7SKEB2X6DZ2" }); </script>
+        </div>
+        <div class="action-group">
+          <button class="btn-secondary notify-btn" data-product="RED TANK-TOP"><i class="fas fa-bell"></i> NOTIFY</button>
+        </div>
       </div>
     </div>
 
@@ -736,7 +726,7 @@
 ============================================================ -->
 <div class="brand-note">
   <div class="note-block">
-    <p>"Two pieces. Eternal archive. Each drop is a chapter."</p>
+    <p>"Three pieces. Eternal archive. Each drop is a chapter."</p>
     <div class="attribution">— GEARSOULS, 2026</div>
   </div>
 </div>
@@ -770,9 +760,6 @@
         <a href="#"><i class="fas fa-chevron-right"></i> RETURNS</a>
       </div>
     </div>
-    <div class="footer-image">
-      <div class="placeholder">✦ GS ✦</div>
-    </div>
   </div>
   <div class="footer-bottom">
     <p>© 2026 GEARSOULS — ALL RIGHTS RESERVED</p>
@@ -780,15 +767,13 @@
 </footer>
 
 <!-- ============================================================
-   FIXED CART BUTTON - VISIBLE ON MOBILE AT ALL TIMES
+   FIXED CART BUTTON – MOBILE
 ============================================================ -->
 <div class="mobile-cart-fab" id="mobileCartFab">
   <i class="fas fa-shopping-bag"></i>
   <span class="cart-label">CART</span>
   <paypal-cart-button data-id="pp-view-cart-mobile"></paypal-cart-button>
-  <script>
-    cartPaypal.Cart({ id: "pp-view-cart-mobile" });
-  </script>
+  <script> cartPaypal.Cart({ id: "pp-view-cart-mobile" }); </script>
 </div>
 
 <!-- ============================================================
@@ -830,20 +815,14 @@
     }
     window.showNotification = showNotification;
 
-    // ============================================================
     // MOBILE MENU TOGGLE
-    // ============================================================
     const menuToggle = document.getElementById('menuToggle');
     const mainNav = document.getElementById('mainNav');
-    const body = document.body;
-    
     if (menuToggle && mainNav) {
       const icon = menuToggle.querySelector('i');
-      
       menuToggle.addEventListener('click', function(e) {
         e.stopPropagation();
         mainNav.classList.toggle('active');
-        body.classList.toggle('menu-open');
         if (mainNav.classList.contains('active')) {
           icon.classList.remove('fa-bars');
           icon.classList.add('fa-times');
@@ -852,47 +831,35 @@
           icon.classList.add('fa-bars');
         }
       });
-
-      // Close menu when clicking a nav link
       document.querySelectorAll('.nav-link').forEach(link => {
         link.addEventListener('click', function() {
           mainNav.classList.remove('active');
-          body.classList.remove('menu-open');
           icon.classList.remove('fa-times');
           icon.classList.add('fa-bars');
         });
       });
-
-      // Close menu when clicking outside
       document.addEventListener('click', function(e) {
         if (mainNav.classList.contains('active') && 
             !mainNav.contains(e.target) && 
             !menuToggle.contains(e.target)) {
           mainNav.classList.remove('active');
-          body.classList.remove('menu-open');
           icon.classList.remove('fa-times');
           icon.classList.add('fa-bars');
         }
       });
     }
 
-    // ============================================================
     // BRAND LINK
-    // ============================================================
     const brandLink = document.getElementById('brandLink');
     if (brandLink) {
       brandLink.addEventListener('click', function(e) {
         e.preventDefault();
         showNotification('Returning to home …', false);
-        setTimeout(function() {
-          window.location.href = 'index.html';
-        }, 400);
+        setTimeout(function() { window.location.href = 'index.html'; }, 400);
       });
     }
 
-    // ============================================================
     // NOTIFY ME BUTTONS
-    // ============================================================
     const notifyBtns = document.querySelectorAll('.notify-btn');
     notifyBtns.forEach(btn => {
       btn.addEventListener('click', function() {
@@ -901,7 +868,7 @@
       });
     });
 
-    console.log('✦ GEARSOULS · Shop Page — Clean & aligned');
+    console.log('✦ GEARSOULS · Shop — Phone comfort optimized.');
   })();
 </script>
 
