@@ -1,275 +1,289 @@
 // ======================================================
-// GEARSOULS - SHOP FUNCTIONALITY
-// PayPal Integration Only - No Shopify
+// GEARSOULS · SHOP
+// PayPal Cart SDK — 3 products only
 // ======================================================
 
 // ======================================================
-// PRODUCT DATA
+// ⬇️ EDIT HERE — products, images, colors
+// ======================================================
+//
+// • id          → your PayPal hosted button ID (do NOT change)
+// • images      → 4 filenames for the 2x2 grid, in order:
+//                 [top-left, top-right, bottom-left, bottom-right]
+// • thumbs      → filenames for the thumbnail row (below grid)
+// • colors      → list of color names for the dropdown
+// • price       → shown on page (PayPal uses its own price)
+//
+// Replace the image filenames with your real ones.
 // ======================================================
 
-const products = [
+const PRODUCTS = [
   {
-    id: 1,
-    name: 'BEST TANK-TOP',
-    price: 25.00,
-    category: 'tops',
-    image: 'img/006.png',
-    paypalLink: 'https://www.paypal.com/ncp/payment/BMWW2HB5R3DJL',
-    description: 'Dropped shoulders, heavyweight cotton. The ultimate streetwear tank.',
-    badge: '✦ NEW DROP'
+    id: 'UP39NSGJGCRVC',
+    name: 'GEARSOULS BEANIE',
+    price: 15.00,
+    badge: '✦ NEW DROP',
+    colors: ['Black', 'Red', 'Blue', 'White'],
+    images: [
+      'img/beanie-black.jpg',
+      'img/beanie-red.jpg',
+      'img/beanie-blue.jpg',
+      'img/beanie-white.jpg'
+    ],
+    thumbs: [
+      'img/beanie-black.jpg',
+      'img/beanie-red.jpg',
+      'img/beanie-blue.jpg',
+      'img/beanie-white.jpg'
+    ]
   },
   {
-    id: 2,
-    name: 'TANK-TOP Blue',
+    id: '8BFGGXMHESFJE',
+    name: 'STREET TANK-TOP',
+    price: 25.00,
+    badge: '✦ STREET',
+    colors: ['Black', 'White'],
+    images: [
+      'img/tank-black.jpg',
+      'img/tank-white.jpg',
+      'img/tank-black-2.jpg',
+      'img/tank-white-2.jpg'
+    ],
+    thumbs: [
+      'img/tank-black.jpg',
+      'img/tank-white.jpg',
+      'img/tank-black-2.jpg',
+      'img/tank-white-2.jpg'
+    ]
+  },
+  {
+    id: '3R7SKEB2X6DZ2',
+    name: 'THE BEST RED TANK-TOP',
     price: 25.99,
-    category: 'tops',
-    image: 'img/001.png',
-    paypalLink: 'https://www.paypal.com/ncp/payment/NCNBALDPDNTXS',
-    description: 'Best tank-top in Dublin. Premium quality with bold gear skull graphic.',
-    badge: '✦ LIMITED COLOR'
+    badge: '✦ LIMITED',
+    colors: ['Red'],
+    images: [
+      'img/tank-red.jpg',
+      'img/tank-red-2.jpg',
+      'img/tank-red-3.jpg',
+      'img/tank-red-4.jpg'
+    ],
+    thumbs: [
+      'img/tank-red.jpg',
+      'img/tank-red-2.jpg',
+      'img/tank-red-3.jpg',
+      'img/tank-red-4.jpg'
+    ]
   }
 ];
 
 // ======================================================
-// STATE
+// DOM
 // ======================================================
 
-let currentFilter = 'all';
-let currentSort = 'featured';
-let productsLoaded = false;
-
-// ======================================================
-// DOM REFERENCES
-// ======================================================
-
-const container = document.getElementById('shopify-products');
-const filterBtns = document.querySelectorAll('.filter-btn');
-const sortSelect = document.getElementById('sortSelect');
-const loadMoreBtn = document.getElementById('loadMoreBtn');
-const notification = document.getElementById('shopNotification');
+const container       = document.getElementById('shopify-products');
+const notification    = document.getElementById('shopNotification');
 const notificationMsg = document.getElementById('notificationMessage');
 
 // ======================================================
-// NOTIFICATION SYSTEM
+// NOTIFICATION
 // ======================================================
 
-function showNotification(message, isError = false) {
-  if (notification && notificationMsg) {
-    notificationMsg.textContent = message;
-    notification.classList.add('show');
-    
-    if (isError) {
-      notification.style.background = '#ff4444';
-      notification.style.color = '#ffffff';
-    } else {
-      notification.style.background = '#c9b698';
-      notification.style.color = '#1a1a1a';
-    }
-    
-    clearTimeout(window.notificationTimer);
-    window.notificationTimer = setTimeout(() => {
-      notification.classList.remove('show');
-    }, 2500);
-  }
+function showNotification(message) {
+  if (!notification || !notificationMsg) return;
+  notificationMsg.textContent = message;
+  notification.classList.add('show');
+  clearTimeout(window.notificationTimer);
+  window.notificationTimer = setTimeout(() => {
+    notification.classList.remove('show');
+  }, 2200);
 }
-
 window.showNotification = showNotification;
 
 // ======================================================
-// RENDER PRODUCTS
+// RENDER — one card per product
 // ======================================================
 
-function renderProducts(productsToRender) {
+function renderProducts() {
   if (!container) return;
-  
-  container.innerHTML = productsToRender.map(product => `
-    <div class="custom-product-card" 
-         data-product-id="${product.id}" 
-         data-product-name="${product.name}" 
-         data-product-price="${product.price}" 
-         data-category="${product.category}" 
-         data-order="${product.id}">
-      <div class="product-image">
-        <img src="${product.image}" alt="${product.name}" loading="lazy">
-        <span class="product-badge">${product.badge}</span>
-      </div>
-      <div class="product-info">
-        <div class="product-category">${product.category.toUpperCase()} · STREETWEAR</div>
-        <h3 class="product-name">${product.name}</h3>
-        <p class="product-description">${product.description}</p>
-        <div class="product-footer">
-          <span class="product-price">€${product.price.toFixed(2)} <small>EUR</small></span>
-          <a href="${product.paypalLink}" target="_blank" class="paypal-btn-shop">
-            <i class="fab fa-paypal"></i> BUY NOW
-          </a>
+
+  container.innerHTML = PRODUCTS.map(p => {
+
+    const imgs = p.images && p.images.length
+      ? p.images
+      : ['img/placeholder.jpg'];
+
+    const thumbs = p.thumbs && p.thumbs.length
+      ? p.thumbs
+      : imgs;
+
+    // Build 2x2 grid — pad to 4 cells if fewer images
+    const gridImgs = [...imgs];
+    while (gridImgs.length < 4) gridImgs.push(imgs[0]);
+
+    // Color dropdown
+    const colorOptions = (p.colors || []).map((c, i) =>
+      `<option value="${c}" ${i === 0 ? 'selected' : ''}>${c}</option>`
+    ).join('');
+
+    return `
+    <div class="custom-product-card" data-paypal-id="${p.id}">
+
+      <!-- LEFT: MEDIA -->
+      <div class="product-media">
+
+        <div class="media-grid">
+          ${gridImgs.slice(0, 4).map((src, i) => `
+            <div class="media-cell" data-img="${src}">
+              <img src="${src}" alt="${p.name} view ${i + 1}" loading="lazy"
+                   onerror="this.style.opacity=0.15">
+            </div>
+          `).join('')}
+        </div>
+
+        <div class="media-thumbs">
+          ${thumbs.map((src, i) => `
+            <div class="media-thumb ${i === 0 ? 'active' : ''}" data-img="${src}">
+              <img src="${src}" alt="${p.name} thumb ${i + 1}" loading="lazy"
+                   onerror="this.style.opacity=0.15">
+            </div>
+          `).join('')}
         </div>
       </div>
+
+      <!-- RIGHT: BUY BOX -->
+      <div class="product-info">
+
+        <h2 class="product-name">${p.name}</h2>
+
+        <div class="product-price">
+          €${p.price.toFixed(2)}<small>EUR</small>
+        </div>
+
+        <div class="option-group">
+          <label class="option-label" for="color-${p.id}">Color</label>
+          <select class="option-select" id="color-${p.id}" data-role="color">
+            ${colorOptions}
+          </select>
+        </div>
+
+        <div class="option-group">
+          <label class="option-label" for="qty-${p.id}">Quantity</label>
+          <select class="option-select" id="qty-${p.id}" data-role="qty">
+            <option value="1" selected>1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+          </select>
+        </div>
+
+        <div class="purchase-area">
+          <div class="paypal-add-wrapper">
+            <paypal-add-to-cart-button data-id="${p.id}"></paypal-add-to-cart-button>
+            <script>cartPaypal.AddToCart({ id: "${p.id}" });<\/script>
+          </div>
+        </div>
+
+        <div class="trust-row">
+          <div class="trust-item"><i class="fas fa-truck"></i> Free shipping over €99</div>
+          <div class="trust-item"><i class="fas fa-rotate-left"></i> 30-day returns</div>
+          <div class="trust-item"><i class="fas fa-shield-halved"></i> Secure checkout</div>
+        </div>
+
+      </div>
     </div>
-  `).join('');
-  
-  // Attach PayPal button tracking
-  document.querySelectorAll('.paypal-btn-shop').forEach(btn => {
-    btn.addEventListener('click', function(e) {
-      const card = this.closest('.custom-product-card');
-      const productName = card?.querySelector('.product-name')?.textContent || 'product';
-      showNotification(`Redirecting to PayPal for ${productName.trim()}...`);
+    `;
+  }).join('');
+
+  attachInteractions();
+}
+
+// ======================================================
+// INTERACTIONS — thumbnails swap the 2x2 grid
+// ======================================================
+
+function attachInteractions() {
+  document.querySelectorAll('.custom-product-card').forEach(card => {
+
+    const gridCells = card.querySelectorAll('.media-cell');
+    const thumbs    = card.querySelectorAll('.media-thumb');
+
+    thumbs.forEach(thumb => {
+      thumb.addEventListener('click', () => {
+        thumbs.forEach(t => t.classList.remove('active'));
+        thumb.classList.add('active');
+
+        const src = thumb.dataset.img;
+        if (!src || !gridCells.length) return;
+
+        // Shift the grid images: main becomes the clicked thumb
+        // (looks like PayPal's behaviour — swaps the hero image)
+        const first = gridCells[0].querySelector('img');
+        if (first) first.src = src;
+      });
     });
   });
-  
-  productsLoaded = true;
 }
 
 // ======================================================
-// FILTER PRODUCTS
+// MOBILE MENU
 // ======================================================
 
-function filterProducts(category) {
-  currentFilter = category;
-  
-  let filtered = products;
-  
-  if (category !== 'all') {
-    filtered = products.filter(p => p.category === category);
-  }
-  
-  // Apply current sort
-  filtered = sortProductArray(filtered, currentSort);
-  
-  renderProducts(filtered);
-  
-  if (category === 'all') {
-    showNotification('Showing: All Products');
-  } else {
-    showNotification(`Showing: ${filtered.length} products in ${category.toUpperCase()}`);
-  }
-}
+function initMobileMenu() {
+  const menuToggle = document.getElementById('menuToggle');
+  const mainNav    = document.getElementById('mainNav');
+  if (!menuToggle || !mainNav) return;
 
-window.filterProducts = filterProducts;
-
-// ======================================================
-// SORT PRODUCTS
-// ======================================================
-
-function sortProductArray(productsArray, sortType) {
-  const sorted = [...productsArray];
-  
-  switch(sortType) {
-    case 'price-asc':
-      sorted.sort((a, b) => a.price - b.price);
-      showNotification('Sorted: Price (Low to High)');
-      break;
-      
-    case 'price-desc':
-      sorted.sort((a, b) => b.price - a.price);
-      showNotification('Sorted: Price (High to Low)');
-      break;
-      
-    case 'name-asc':
-      sorted.sort((a, b) => a.name.localeCompare(b.name));
-      showNotification('Sorted: Name (A to Z)');
-      break;
-      
-    case 'name-desc':
-      sorted.sort((a, b) => b.name.localeCompare(a.name));
-      showNotification('Sorted: Name (Z to A)');
-      break;
-      
-    case 'featured':
-    default:
-      sorted.sort((a, b) => a.id - b.id);
-      showNotification('Sorted: Featured');
-      break;
-  }
-  
-  return sorted;
-}
-
-function sortProducts(sortType) {
-  currentSort = sortType;
-  
-  let filtered = products;
-  if (currentFilter !== 'all') {
-    filtered = products.filter(p => p.category === currentFilter);
-  }
-  
-  const sorted = sortProductArray(filtered, sortType);
-  renderProducts(sorted);
-}
-
-window.sortProducts = sortProducts;
-
-// ======================================================
-// LOAD MORE
-// ======================================================
-
-function loadMoreProducts() {
-  showNotification('More products coming soon! Stay tuned.', true);
-}
-
-// ======================================================
-// INITIALIZE CONTROLS
-// ======================================================
-
-function initControls() {
-  // Filter buttons
-  filterBtns.forEach(btn => {
-    btn.addEventListener('click', function() {
-      filterBtns.forEach(b => b.classList.remove('active'));
-      this.classList.add('active');
-      filterProducts(this.dataset.filter);
+  const icon = menuToggle.querySelector('i');
+  menuToggle.addEventListener('click', (e) => {
+    e.stopPropagation();
+    mainNav.classList.toggle('active');
+    const open = mainNav.classList.contains('active');
+    icon.classList.toggle('fa-bars', !open);
+    icon.classList.toggle('fa-times', open);
+  });
+  document.querySelectorAll('.nav-link').forEach(link => {
+    link.addEventListener('click', () => {
+      mainNav.classList.remove('active');
+      icon.classList.add('fa-bars');
+      icon.classList.remove('fa-times');
     });
   });
-  
-  // Sort select
-  if (sortSelect) {
-    sortSelect.addEventListener('change', function() {
-      sortProducts(this.value);
-    });
-  }
-  
-  // Load more
-  if (loadMoreBtn) {
-    loadMoreBtn.addEventListener('click', loadMoreProducts);
-  }
+  document.addEventListener('click', (e) => {
+    if (mainNav.classList.contains('active') &&
+        !mainNav.contains(e.target) &&
+        !menuToggle.contains(e.target)) {
+      mainNav.classList.remove('active');
+      icon.classList.add('fa-bars');
+      icon.classList.remove('fa-times');
+    }
+  });
 }
 
 // ======================================================
-// INITIALIZE
+// BRAND → HOME
 // ======================================================
 
-function initShop() {
-  // Render initial products
-  renderProducts(products);
-  
-  // Initialize controls
-  initControls();
-  
-  // Brand navigation
-  const brand = document.querySelector('.brand');
-  if (brand) {
-    brand.addEventListener('click', function(e) {
-      e.preventDefault();
-      showNotification('Returning to home...');
-      setTimeout(() => {
-        window.location.href = 'index.html';
-      }, 500);
-    });
-  }
-  
-  console.log('🛍️ GEARSOULS Shop — PayPal Integration Ready');
+function initBrand() {
+  const brand = document.getElementById('brandLink');
+  if (!brand) return;
+  brand.addEventListener('click', (e) => {
+    e.preventDefault();
+    showNotification('Returning to home…');
+    setTimeout(() => { window.location.href = 'index.html'; }, 500);
+  });
 }
 
 // ======================================================
-// DOM CONTENT LOADED
+// INIT
 // ======================================================
 
-document.addEventListener('DOMContentLoaded', initShop);
+function init() {
+  renderProducts();
+  initMobileMenu();
+  initBrand();
+  console.log('🛍️ GEARSOULS Shop ready — 3 PayPal products');
+}
 
-// ======================================================
-// EXPOSE FUNCTIONS GLOBALLY
-// ======================================================
-
-window.filterProducts = filterProducts;
-window.sortProducts = sortProducts;
-window.showNotification = showNotification;
-window.loadMoreProducts = loadMoreProducts;
+document.addEventListener('DOMContentLoaded', init);
