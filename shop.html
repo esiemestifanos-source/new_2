@@ -41,7 +41,7 @@
       overflow-x: hidden; 
       width: 100%; 
       max-width: 100vw; 
-      padding-bottom: 60px; 
+      padding-bottom: 55px; 
     }
     a { text-decoration: none; color: inherit; }
 
@@ -60,21 +60,9 @@
       from { opacity: 0; }
       to { opacity: 1; }
     }
-    @keyframes slideInLeft {
-      from { opacity: 0; transform: translateX(-40px); }
-      to { opacity: 1; transform: translateX(0); }
-    }
-    @keyframes slideInRight {
-      from { opacity: 0; transform: translateX(40px); }
-      to { opacity: 1; transform: translateX(0); }
-    }
     @keyframes pulseGlow {
       0%, 100% { box-shadow: 0 0 0 0 rgba(201, 182, 152, 0.5); }
       50% { box-shadow: 0 0 0 8px rgba(201, 182, 152, 0); }
-    }
-    @keyframes float {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-4px); }
     }
     @keyframes shimmer {
       0% { background-position: -200% 0; }
@@ -83,11 +71,6 @@
     @keyframes spinSlow {
       from { transform: rotate(0deg); }
       to { transform: rotate(360deg); }
-    }
-    @keyframes shimmerLine {
-      0% { width: 0; opacity: 0; }
-      50% { opacity: 1; }
-      100% { width: 100%; opacity: 0; }
     }
     @keyframes glowText {
       0%, 100% { text-shadow: 0 0 4px rgba(201, 182, 152, 0.2); }
@@ -98,29 +81,24 @@
       60% { opacity: 1; transform: scale(1.05); }
       100% { opacity: 1; transform: scale(1); }
     }
-    @keyframes gradientShift {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
-    }
     @keyframes cartBounce {
       0%, 100% { transform: translateX(-50%) translateY(0); }
       50% { transform: translateX(-50%) translateY(-4px); }
     }
 
     /* ==========================================================
-       NAVBAR - COMPACT
+       NAVBAR
     ========================================================== */
     .navbar {
       position: fixed;
       top: 0;
       left: 0;
       width: 100%;
-      height: 50px;
+      height: 46px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0 14px;
+      padding: 0 12px;
       background: #0a0a0a;
       z-index: 1000;
       animation: fadeInDown 0.8s cubic-bezier(0.23, 1, 0.32, 1) both;
@@ -133,8 +111,8 @@
     }
     .brand:hover { transform: scale(1.04); }
     .brand-logo {
-      width: 28px;
-      height: 28px;
+      width: 24px;
+      height: 24px;
       border-radius: 50%;
       border: 1.5px solid #c9b698;
       object-fit: cover;
@@ -146,20 +124,20 @@
     }
     .brand-text {
       color: white;
-      margin-left: 8px;
+      margin-left: 6px;
       font-family: 'Cormorant Garamond', serif;
       font-weight: 300;
-      font-size: 14px;
-      letter-spacing: 3px;
+      font-size: 12px;
+      letter-spacing: 2.5px;
       transition: letter-spacing 0.4s ease, color 0.3s ease;
     }
     .brand:hover .brand-text {
-      letter-spacing: 4.5px;
+      letter-spacing: 4px;
       color: #c9b698;
     }
     .nav {
       display: flex;
-      gap: 16px;
+      gap: 14px;
       align-items: center;
     }
     .nav-link {
@@ -194,7 +172,7 @@
     .menu-toggle {
       display: none;
       color: white;
-      font-size: 18px;
+      font-size: 16px;
       cursor: pointer;
       background: none;
       border: none;
@@ -203,20 +181,20 @@
     .menu-toggle:hover { transform: rotate(90deg); color: #c9b698; }
 
     @media (max-width: 768px) {
-      .navbar { height: 44px; padding: 0 10px; }
-      .brand-logo { width: 24px; height: 24px; }
-      .brand-text { font-size: 12px; letter-spacing: 2px; margin-left: 6px; }
+      .navbar { height: 42px; padding: 0 10px; }
+      .brand-logo { width: 22px; height: 22px; }
+      .brand-text { font-size: 11px; letter-spacing: 2px; margin-left: 5px; }
       .nav {
         position: absolute;
-        top: 44px;
+        top: 42px;
         left: 0;
         width: 100%;
         background: #0a0a0a;
         display: flex;
         flex-direction: column;
         align-items: center;
-        gap: 14px;
-        padding: 16px 0;
+        gap: 12px;
+        padding: 14px 0;
         transform: translateY(-200%);
         transition: 0.4s;
         z-index: 999;
@@ -237,29 +215,30 @@
     }
 
     /* ==========================================================
-       HERO - COMPACT, SMALLER
+       HERO - COMPACT
     ========================================================== */
     .shop-hero { 
-      margin-top: 50px; 
-      padding: 10px 16px 8px; 
+      margin-top: 46px; 
+      padding: 8px 14px 6px; 
       text-align: center; 
       background: linear-gradient(180deg, #faf7f2 0%, #f4efe8 100%); 
       border-bottom: 1px solid #e8e0d6; 
     }
-    .hero-eyebrow { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-style: italic; font-size: 0.55rem; letter-spacing: 4px; color: #c9b698; text-transform: uppercase; animation: fadeIn 1s ease 0.3s both; }
-    .hero-title { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: 1.6rem; letter-spacing: 6px; color: #1e1b18; margin: 2px 0; animation: fadeInUp 0.9s cubic-bezier(0.23, 1, 0.32, 1) 0.2s both, glowText 4s ease-in-out 1.2s infinite; }
+    .hero-eyebrow { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-style: italic; font-size: 0.5rem; letter-spacing: 3.5px; color: #c9b698; text-transform: uppercase; animation: fadeIn 1s ease 0.3s both; }
+    .hero-title { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: 1.4rem; letter-spacing: 5px; color: #1e1b18; margin: 2px 0; animation: fadeInUp 0.9s cubic-bezier(0.23, 1, 0.32, 1) 0.2s both, glowText 4s ease-in-out 1.2s infinite; }
     .hero-title span { font-weight: 400; color: #c9b698; }
-    .hero-divider { width: 30px; height: 1.5px; background: #c9b698; margin: 4px auto; animation: bounceIn 0.7s cubic-bezier(0.23, 1, 0.32, 1) 0.5s both; }
-    @media (max-width: 768px) { .shop-hero { margin-top: 0; padding: 6px 12px 4px; } .hero-title { font-size: 1.2rem; letter-spacing: 4px; } .hero-eyebrow { font-size: 0.45rem; } }
-    @media (max-width: 480px) { .hero-title { font-size: 1.0rem; letter-spacing: 3px; } .hero-eyebrow { font-size: 0.4rem; } }
+    .hero-divider { width: 28px; height: 1.5px; background: #c9b698; margin: 4px auto; animation: bounceIn 0.7s cubic-bezier(0.23, 1, 0.32, 1) 0.5s both; }
+    @media (max-width: 768px) { .shop-hero { margin-top: 42px; padding: 6px 12px 4px; } .hero-title { font-size: 1.1rem; letter-spacing: 4px; } .hero-eyebrow { font-size: 0.42rem; } }
+    @media (max-width: 480px) { .shop-hero { margin-top: 40px; padding: 5px 10px 3px; } .hero-title { font-size: 1.0rem; letter-spacing: 3px; } .hero-eyebrow { font-size: 0.38rem; } }
 
     /* ==========================================================
-       PRODUCT SHOWCASE - SIDEWAYS (HORIZONTAL) ON ALL DEVICES
+       PRODUCT SHOWCASE - HORIZONTAL SCROLL ON MOBILE
+       Smaller cards so full card fits top-to-bottom on phone
     ========================================================== */
     .product-showcase { 
       max-width: 100%; 
       margin: 0 auto; 
-      padding: 8px 10px 40px; 
+      padding: 6px 8px 30px; 
       flex: 1; 
       width: 100%; 
     }
@@ -267,12 +246,12 @@
     .product-grid { 
       display: flex;
       flex-direction: row;
-      gap: 12px;
+      gap: 10px;
       max-width: 100%;
       margin: 0 auto;
       overflow-x: auto;
       overflow-y: visible;
-      padding-bottom: 8px;
+      padding-bottom: 6px;
       scroll-snap-type: x mandatory;
       -webkit-overflow-scrolling: touch;
     }
@@ -284,10 +263,10 @@
       box-shadow: 0 2px 12px rgba(0,0,0,0.04); 
       display: flex; 
       flex-direction: column; 
-      padding: 14px 16px 16px; 
+      padding: 10px 12px 12px; 
       border: 1px solid rgba(201, 182, 152, 0.10); 
-      flex: 0 0 78vw;
-      max-width: 300px;
+      flex: 0 0 68vw;
+      max-width: 280px;
       scroll-snap-align: start;
       opacity: 0;
       animation: fadeInUp 0.8s cubic-bezier(0.23, 1, 0.32, 1) both;
@@ -308,8 +287,8 @@
     .product-card:nth-child(2) { animation-delay: 0.5s; }
     .product-card:nth-child(3) { animation-delay: 0.65s; }
     .product-card:hover {
-      transform: translateY(-6px);
-      box-shadow: 0 14px 32px rgba(0,0,0,0.10);
+      transform: translateY(-4px);
+      box-shadow: 0 12px 28px rgba(0,0,0,0.10);
       border-color: rgba(201, 182, 152, 0.4);
     }
     .product-card:active { transform: scale(0.98); }
@@ -318,12 +297,12 @@
       display: inline-block; 
       background: #c9b698; 
       color: #1e1b18; 
-      font-size: 0.4rem; 
-      letter-spacing: 2px; 
+      font-size: 0.35rem; 
+      letter-spacing: 1.8px; 
       text-transform: uppercase; 
-      padding: 2px 12px; 
+      padding: 2px 10px; 
       font-weight: 600; 
-      margin-bottom: 6px; 
+      margin-bottom: 4px; 
       align-self: flex-start;
       border-radius: 12px;
       background-image: linear-gradient(90deg, #c9b698 0%, #e8dcc6 50%, #c9b698 100%);
@@ -331,8 +310,8 @@
       animation: shimmer 3s linear infinite;
     }
     .product-category { 
-      font-size: 0.4rem; 
-      letter-spacing: 2px; 
+      font-size: 0.35rem; 
+      letter-spacing: 1.8px; 
       text-transform: uppercase; 
       color: #b0a69c; 
       font-weight: 500; 
@@ -340,47 +319,38 @@
     }
     .product-name { 
       font-family: 'Cormorant Garamond', serif; 
-      font-size: 1.3rem; 
+      font-size: 1.0rem; 
       font-weight: 300; 
-      letter-spacing: 2px; 
+      letter-spacing: 1.5px; 
       color: #1e1b18; 
       line-height: 1.1; 
-      margin-bottom: 2px; 
+      margin-bottom: 4px; 
       transition: letter-spacing 0.4s ease;
     }
-    .product-card:hover .product-name { letter-spacing: 3px; }
+    .product-card:hover .product-name { letter-spacing: 2.2px; }
     .product-name .accent { color: #c9b698; font-weight: 400; }
     .product-description { 
-      font-size: 0.6rem; 
+      font-size: 0.55rem; 
       color: #4f4943; 
       max-width: 100%; 
-      margin-bottom: 6px; 
+      margin-bottom: 4px; 
       font-weight: 300; 
       line-height: 1.3; 
     }
-    .product-description .highlight { 
-      font-family: 'Cormorant Garamond', serif; 
-      font-size: 0.7rem; 
-      font-style: italic; 
-      color: #c9b698; 
-      display: block; 
-      margin-top: 1px; 
-      letter-spacing: 0.5px; 
-    }
     
-    /* ---- PURCHASE AREA - NO QUANTITY ---- */
+    /* ---- PURCHASE AREA ---- */
     .purchase-area {
       width: 100%;
-      margin-top: 2px;
-      padding-top: 8px;
+      margin-top: auto;
+      padding-top: 6px;
       border-top: 1px solid #e8e0d6;
       display: flex;
       flex-direction: column;
-      gap: 6px;
+      gap: 4px;
     }
     .paypal-add-wrapper { 
       width: 100%; 
-      min-height: 38px;
+      min-height: 36px;
       transition: transform 0.3s ease;
     }
     .product-card:hover .paypal-add-wrapper { transform: scale(1.02); }
@@ -389,7 +359,7 @@
       --paypal-button-shape: rect; 
       --paypal-button-size: small;
       --paypal-button-width: 100%; 
-      --paypal-button-height: 38px;
+      --paypal-button-height: 36px;
     }
     .action-group {
       display: flex;
@@ -402,8 +372,8 @@
       background: transparent;
       border: 1.5px solid #1e1b18;
       color: #1e1b18;
-      padding: 6px 14px;
-      font-size: 0.5rem;
+      padding: 5px 12px;
+      font-size: 0.45rem;
       letter-spacing: 1.5px;
       font-weight: 600;
       transition: all 0.3s cubic-bezier(0.23, 1, 0.32, 1);
@@ -411,7 +381,7 @@
       font-family: 'Inter', sans-serif;
       border-radius: 4px;
       flex: 1;
-      min-height: 30px;
+      min-height: 28px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -420,12 +390,12 @@
     }
     .btn-secondary:hover { background: #1e1b18; color: #faf7f2; transform: translateY(-2px); }
     .btn-secondary:active { background: #1e1b18; color: #faf7f2; transform: scale(0.97); }
-    .btn-secondary i { margin-right: 4px; font-size: 0.45rem; }
 
     /* ==========================================================
-       DESKTOP - CARDS SIDE BY SIDE (SIDEWAYS)
+       DESKTOP
     ========================================================== */
     @media (min-width: 600px) {
+      .product-showcase { padding: 8px 12px 40px; }
       .product-grid { 
         justify-content: center;
         gap: 16px;
@@ -436,16 +406,15 @@
       .product-card { 
         flex: 0 0 calc(50% - 16px);
         max-width: 340px;
+        padding: 16px 18px 18px;
       }
-      .product-name { font-size: 1.6rem; }
+      .product-name { font-size: 1.5rem; }
       .paypal-add-wrapper { min-height: 44px; }
       .paypal-add-wrapper paypal-add-to-cart-button { --paypal-button-height: 44px; }
     }
 
     @media (min-width: 1024px) {
-      .product-grid { 
-        gap: 20px;
-      }
+      .product-grid { gap: 20px; }
       .product-card { 
         flex: 0 0 calc(33.333% - 20px);
         max-width: 320px;
@@ -455,35 +424,35 @@
     }
 
     /* ==========================================================
-       FUTURE PRODUCTS - COMPACT
+       FUTURE PRODUCTS
     ========================================================== */
     .future-products { 
-      margin-top: 20px; 
-      padding-top: 16px; 
+      margin-top: 14px; 
+      padding-top: 12px; 
       border-top: 1px solid #e8e0d6; 
       max-width: 480px; 
       margin-left: auto; 
       margin-right: auto; 
-      padding-left: 16px; 
-      padding-right: 16px; 
+      padding-left: 14px; 
+      padding-right: 14px; 
     }
     .future-header { 
       display: flex; 
       justify-content: space-between; 
       align-items: center; 
-      margin-bottom: 10px; 
+      margin-bottom: 8px; 
       flex-wrap: wrap; 
       gap: 4px; 
     }
     .future-header h3 { 
       font-family: 'Cormorant Garamond', serif; 
       font-weight: 300; 
-      font-size: 0.9rem; 
-      letter-spacing: 3px; 
+      font-size: 0.8rem; 
+      letter-spacing: 2.5px; 
       color: #1e1b18; 
     }
     .future-header span { 
-      font-size: 0.45rem; 
+      font-size: 0.4rem; 
       color: #b0a69c; 
       letter-spacing: 1.5px; 
       font-weight: 400; 
@@ -495,18 +464,18 @@
     }
     .future-placeholder { 
       background: #f4efe8; 
-      aspect-ratio: 1 / 1.1; 
+      aspect-ratio: 1 / 1.0; 
       display: flex; 
       flex-direction: column; 
       align-items: center; 
       justify-content: center; 
       color: #b0a69c; 
-      font-size: 0.4rem; 
-      letter-spacing: 1.5px; 
+      font-size: 0.38rem; 
+      letter-spacing: 1.2px; 
       text-transform: uppercase; 
       border: 1px dashed #d6cec4; 
       transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1); 
-      padding: 8px; 
+      padding: 6px; 
       text-align: center; 
       border-radius: 6px;
       opacity: 0;
@@ -516,34 +485,33 @@
     .future-placeholder:nth-child(2) { animation-delay: 0.85s; }
     .future-placeholder:nth-child(3) { animation-delay: 1.0s; }
     .future-placeholder i { 
-      font-size: 1.0rem; 
+      font-size: 0.85rem; 
       color: #c9b698; 
-      margin-bottom: 4px; 
+      margin-bottom: 3px; 
       opacity: 0.6; 
       transition: transform 0.4s ease, opacity 0.3s ease;
     }
     .future-placeholder:hover {
       background: #ede7df;
       border-color: #c9b698;
-      transform: translateY(-4px) scale(1.03);
+      transform: translateY(-3px) scale(1.03);
     }
     .future-placeholder:hover i { transform: scale(1.25) rotate(-8deg); opacity: 1; }
-    .future-placeholder:active { background: #ede7df; border-color: #c9b698; }
 
     @media (min-width: 600px) {
       .future-products { max-width: 720px; padding-left: 24px; padding-right: 24px; }
       .future-grid { gap: 10px; }
-      .future-placeholder { font-size: 0.45rem; }
+      .future-placeholder { font-size: 0.45rem; aspect-ratio: 1 / 1.1; }
       .future-placeholder i { font-size: 1.2rem; }
     }
 
     /* ==========================================================
-       BRAND NOTE - COMPACT
+       BRAND NOTE
     ========================================================== */
     .brand-note { 
       max-width: 480px; 
-      margin: 0 auto 12px; 
-      padding: 0 16px; 
+      margin: 0 auto 10px; 
+      padding: 0 14px; 
       display: flex; 
       justify-content: center; 
       width: 100%; 
@@ -551,14 +519,14 @@
     }
     .note-block { 
       border-left: 2px solid #c9b698; 
-      padding-left: 12px; 
+      padding-left: 10px; 
       max-width: 100%; 
       transition: border-color 0.3s ease, padding-left 0.3s ease;
     }
-    .note-block:hover { border-color: #1e1b18; padding-left: 18px; }
+    .note-block:hover { border-color: #1e1b18; padding-left: 16px; }
     .note-block p { 
       font-family: 'Cormorant Garamond', serif; 
-      font-size: 0.7rem; 
+      font-size: 0.65rem; 
       font-weight: 300; 
       font-style: italic; 
       color: #4f4943; 
@@ -567,8 +535,8 @@
     }
     .note-block .attribution { 
       font-family: 'Inter', sans-serif; 
-      font-size: 0.4rem; 
-      letter-spacing: 2px; 
+      font-size: 0.38rem; 
+      letter-spacing: 1.8px; 
       text-transform: uppercase; 
       color: #b0a69c; 
       margin-top: 2px; 
@@ -580,12 +548,12 @@
     }
 
     /* ==========================================================
-       FOOTER - COMPACT
+       FOOTER
     ========================================================== */
     .footer-modern { 
       background: #0d0b09; 
       border-top: 1px solid rgba(201, 182, 152, 0.08); 
-      padding: 20px 12px 12px; 
+      padding: 16px 12px 10px; 
       margin-top: auto; 
       width: 100%; 
       animation: fadeIn 1s ease 0.8s both;
@@ -596,12 +564,12 @@
       display: flex; 
       flex-direction: column; 
       align-items: center; 
-      gap: 14px; 
+      gap: 12px; 
     }
     .footer-brand { display: flex; align-items: center; gap: 8px; }
     .footer-brand .brand-logo-small { 
-      width: 28px; 
-      height: 28px; 
+      width: 26px; 
+      height: 26px; 
       border-radius: 50%; 
       border: 1.5px solid rgba(201, 182, 152, 0.15); 
       display: flex; 
@@ -617,21 +585,21 @@
       border-color: #c9b698;
     }
     .footer-brand p { 
-      font-size: 0.45rem; 
+      font-size: 0.42rem; 
       color: rgba(255,255,255,0.3); 
-      letter-spacing: 1.5px; 
+      letter-spacing: 1.4px; 
       font-weight: 300; 
     }
     .footer-links { 
       display: flex; 
-      gap: 16px; 
+      gap: 14px; 
       flex-wrap: wrap; 
       justify-content: center; 
       width: 100%; 
     }
     .footer-col h4 { 
-      font-size: 0.4rem; 
-      letter-spacing: 1.5px; 
+      font-size: 0.38rem; 
+      letter-spacing: 1.4px; 
       text-transform: uppercase; 
       color: rgba(255,255,255,0.2); 
       font-weight: 600; 
@@ -640,7 +608,7 @@
     }
     .footer-col a { 
       display: block; 
-      font-size: 0.45rem; 
+      font-size: 0.42rem; 
       color: rgba(255,255,255,0.25); 
       padding: 2px 0; 
       transition: color 0.3s ease, transform 0.3s ease, letter-spacing 0.3s ease; 
@@ -650,17 +618,16 @@
       cursor: pointer; 
     }
     .footer-col a:hover { color: #c9b698; transform: translateX(4px); letter-spacing: 0.8px; }
-    .footer-col a:active { color: #c9b698; }
-    .footer-col a i { margin-right: 4px; font-size: 0.4rem; }
+    .footer-col a i { margin-right: 4px; font-size: 0.38rem; }
     .footer-bottom { 
       text-align: center; 
-      padding-top: 10px; 
-      margin-top: 10px; 
+      padding-top: 8px; 
+      margin-top: 8px; 
       border-top: 1px solid rgba(255,255,255,0.04); 
       width: 100%; 
     }
     .footer-bottom p { 
-      font-size: 0.4rem; 
+      font-size: 0.38rem; 
       color: rgba(255,255,255,0.1); 
       letter-spacing: 1px; 
     }
@@ -677,13 +644,13 @@
     ========================================================== */
     .shop-notification { 
       position: fixed; 
-      bottom: 16px; 
+      bottom: 60px; 
       left: 16px; 
       right: 16px; 
       background: #1e1b18; 
       border: 1px solid #c9b698; 
       color: #faf7f2; 
-      padding: 8px 16px; 
+      padding: 6px 14px; 
       font-size: 0.55rem; 
       font-weight: 400; 
       letter-spacing: 0.8px; 
@@ -704,18 +671,18 @@
     .mobile-cart-fab {
       display: none;
       position: fixed;
-      bottom: 12px;
+      bottom: 10px;
       left: 50%;
       transform: translateX(-50%);
       z-index: 9998;
       background: #0a0a0a;
       border: 1px solid #c9b698;
       border-radius: 40px;
-      padding: 6px 16px;
+      padding: 5px 14px;
       box-shadow: 0 4px 18px rgba(0,0,0,0.5);
       backdrop-filter: blur(4px);
       align-items: center;
-      gap: 6px;
+      gap: 5px;
       color: #faf7f2;
       font-size: 0.5rem;
       letter-spacing: 1.5px;
@@ -724,7 +691,7 @@
       transition: all 0.3s ease;
       white-space: nowrap;
     }
-    .mobile-cart-fab i { color: #c9b698; font-size: 0.7rem; transition: transform 0.3s ease; }
+    .mobile-cart-fab i { color: #c9b698; font-size: 0.65rem; transition: transform 0.3s ease; }
     .mobile-cart-fab:hover { border-color: #faf7f2; box-shadow: 0 6px 24px rgba(201, 182, 152, 0.35); }
     .mobile-cart-fab:hover i { transform: scale(1.2) rotate(-10deg); }
     .mobile-cart-fab paypal-cart-button {
@@ -735,10 +702,8 @@
     }
     .mobile-cart-fab .cart-label { display: inline-block; margin-right: 3px; }
     @media (max-width: 768px) {
-      .mobile-cart-fab { display: flex; bottom: 12px; padding: 6px 12px; gap: 5px; font-size: 0.45rem; animation: cartBounce 3s ease-in-out infinite; }
-      .mobile-cart-fab i { font-size: 0.6rem; }
-    }
-    @media (max-width: 768px) {
+      .mobile-cart-fab { display: flex; bottom: 10px; padding: 5px 10px; gap: 4px; font-size: 0.45rem; animation: cartBounce 3s ease-in-out infinite; }
+      .mobile-cart-fab i { font-size: 0.55rem; }
       .navbar .cart-wrapper { display: none !important; }
     }
 
@@ -755,7 +720,6 @@
       transform: translateY(0);
     }
 
-    /* Respect reduced motion */
     @media (prefers-reduced-motion: reduce) {
       *, *::before, *::after {
         animation-duration: 0.01ms !important;
@@ -797,58 +761,50 @@
 ============================================================ -->
   <h1 class="hero-title reveal"><span>DROP</span> 002</h1>
 <!-- ============================================================
-   PRODUCT SHOWCASE - NO QUANTITY SELECTOR
+   PRODUCT SHOWCASE
 ============================================================ -->
 <section class="product-showcase">
   <div class="product-grid">
     
-    <!-- PRODUCT 1: GEARSOULS BEANIE -->
+    <!-- PRODUCT 1 -->
     <div class="product-card reveal">
-    
       <h2 class="product-name">GEARSOULS <span class="accent">BEANIE</span></h2>
-      <p class="product-description">
-      </p>
+      <p class="product-description"></p>
       
       <div class="purchase-area">
         <div class="paypal-add-wrapper">
           <paypal-add-to-cart-button data-id="UP39NSGJGCRVC"></paypal-add-to-cart-button>
           <script> cartPaypal.AddToCart({ id: "UP39NSGJGCRVC" }); </script>
         </div>
-        <div class="action-group">
-        </div>
+        <div class="action-group"></div>
       </div>
     </div>
 
-    <!-- PRODUCT 2: STREETWEAR TANK-TOP -->
+    <!-- PRODUCT 2 -->
     <div class="product-card reveal">
-    
       <h2 class="product-name">STREETWEAR <span class="accent">BEST T-SHIRT</span></h2>
-      <p class="product-description">
-      </p>
+      <p class="product-description"></p>
       
       <div class="purchase-area">
         <div class="paypal-add-wrapper">
           <paypal-add-to-cart-button data-id="8BFGGXMHESFJE"></paypal-add-to-cart-button>
           <script> cartPaypal.AddToCart({ id: "8BFGGXMHESFJE" }); </script>
         </div>
-        <div class="action-group">
-        </div>
+        <div class="action-group"></div>
       </div>
     </div>
 
-    <!-- PRODUCT 3: RED TANK-TOP -->
+    <!-- PRODUCT 3 -->
     <div class="product-card reveal">
       <h2 class="product-name">GEARSOUL <span class="accent">Another T-Shirt</span></h2>
-      <p class="product-description">
-      </p>
+      <p class="product-description"></p>
       
       <div class="purchase-area">
         <div class="paypal-add-wrapper">
           <paypal-add-to-cart-button data-id="3R7SKEB2X6DZ2"></paypal-add-to-cart-button>
           <script> cartPaypal.AddToCart({ id: "3R7SKEB2X6DZ2" }); </script>
         </div>
-        <div class="action-group">
-        </div>
+        <div class="action-group"></div>
       </div>
     </div>
 
@@ -973,7 +929,6 @@
     }
     window.showNotification = showNotification;
 
-    // MOBILE MENU TOGGLE
     const menuToggle = document.getElementById('menuToggle');
     const mainNav = document.getElementById('mainNav');
     if (menuToggle && mainNav) {
@@ -1007,7 +962,6 @@
       });
     }
 
-    // BRAND LINK
     const brandLink = document.getElementById('brandLink');
     if (brandLink) {
       brandLink.addEventListener('click', function(e) {
@@ -1017,7 +971,6 @@
       });
     }
 
-    // NOTIFY ME BUTTONS
     const notifyBtns = document.querySelectorAll('.notify-btn');
     notifyBtns.forEach(btn => {
       btn.addEventListener('click', function() {
@@ -1026,7 +979,6 @@
       });
     });
 
-    // SCROLL REVEAL
     const revealEls = document.querySelectorAll('.reveal');
     if ('IntersectionObserver' in window) {
       const io = new IntersectionObserver(function(entries) {
@@ -1039,11 +991,9 @@
       }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
       revealEls.forEach(function(el) { io.observe(el); });
     } else {
-      // Fallback for old browsers
       revealEls.forEach(function(el) { el.classList.add('visible'); });
     }
 
-    // PARALLAX HERO (subtle)
     const heroTitle = document.querySelector('.hero-title');
     if (heroTitle && window.matchMedia('(min-width: 769px)').matches) {
       let ticking = false;
@@ -1059,7 +1009,7 @@
       }, { passive: true });
     }
 
-    console.log('✦ GEARSOULS · Shop — Animated. Horizontal layout. Quantity in cart.');
+    console.log('✦ GEARSOULS · Shop — Compact mobile layout.');
   })();
 </script>
 
