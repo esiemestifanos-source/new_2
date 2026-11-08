@@ -27,7 +27,6 @@
   "logo": "https://gearsouls.com/img/0000.png"
 }
 </script>
-</script>
   <style>
     /* ==========================================================
        RESET & BASE
@@ -52,7 +51,7 @@
     a { text-decoration: none; color: inherit; }
     img { display: block; max-width: 100%; }
 
-    /* ----- FIXED BACKGROUND - SINGLE IMAGE 0011 ----- */
+    /* ----- FIXED BACKGROUND ----- */
     .bg-fixed {
       position: fixed;
       top: 0;
@@ -92,7 +91,7 @@
     }
 
     /* ==========================================================
-       NAVBAR - CLEAN VERSION
+       NAVBAR
     ========================================================== */
     .navbar {
       position: fixed;
@@ -655,20 +654,15 @@
 </head>
 <body>
 
-<!-- ============================================================
-   FIXED BACKGROUND - SINGLE IMAGE 0011
-============================================================ -->
+<!-- FIXED BACKGROUND -->
 <div class="bg-fixed"></div>
 <div class="bg-overlay"></div>
 <img src="img/0011.jpg" alt="Background" style="display:none">
 
-
 <!-- PARTICLE CANVAS -->
 <canvas id="particleCanvas"></canvas>
 
-<!-- ============================================================
-   NAVBAR - CLEAN VERSION
-============================================================ -->
+<!-- NAVBAR -->
 <header class="navbar">
   <a href="index.html" class="brand" id="brandLink">
     <img src="img/0000.jpeg" class="brand-logo" alt="GearSouls" onerror="this.style.display='none'">
@@ -684,9 +678,7 @@
   </div>
 </header>
 
-<!-- ============================================================
-   HERO
-============================================================ -->
+<!-- HERO -->
 <section class="collection-hero">
   <div class="hero-text">
     <div class="hero-mini">✦ gear souls</div>
@@ -695,26 +687,24 @@
   </div>
 </section>
 
-<!-- ============================================================
-   INTRO BAR
-============================================================ -->
+<!-- INTRO BAR -->
 <div class="collection-intro">
   <span>collectior</span> <strong>drop2</strong> <span>GEARSOULS</span> <strong>~2026~</strong>
 </div>
 
-<!-- ============================================================
-   PRODUCT GRID 1
-============================================================ -->
+<!-- PRODUCT GRID 1 -->
 <div class="product-grid">
-  <div class="product-card" data-product-id="10743198351624" data-product-name="SKULL GEAR EMBLEM">
-    <div class="product-image"><img src="img/005.png" alt="Skull Gear Emblem"></div>
+  <!-- Updated to trigger Jeans category -->
+  <div class="product-card" data-category="jeans" data-product-id="10743198351624" data-product-name="SKULL GEAR EMBLEM">
+    <div class="product-image"><img src="img/1112.png" alt="Skull Gear Emblem"></div>
     <div class="product-info">
       <div class="product-category">branding · core</div>
       <div class="product-name">SKULL GEAR EMBLEM</div>
       <div class="product-description">Official skull-in-gear insignia.</div>
-      <div class="product-price">In Stock: 0</div>
+      <div class="product-price">In Stock: 1</div>
     </div>
   </div>
+  
   <div class="product-card" data-product-id="10760158773512" data-product-name="FITTED SKULL TEE">
     <div class="product-image"><img src="img/0001.jpeg" alt="Fitted Skull Tee"></div>
     <div class="product-info">
@@ -746,9 +736,7 @@
 
 <div class="bg-section"></div>
 
-<!-- ============================================================
-   PRODUCT GRID 2
-============================================================ -->
+<!-- PRODUCT GRID 2 -->
 <div class="product-grid">
   <div class="product-card" data-product-id="10761255387400" data-product-name="RED SKULL TANK-TOP">
     <div class="product-image"><img src="img/0021.png" alt="Red Skull Tank-Top"></div>
@@ -756,7 +744,7 @@
       <div class="product-category">tops · limited</div>
       <div class="product-name">Another T-Shirt</div>
       <div class="product-description">Limited Shirt edition.</div>
-      <div class="product-price">In Stock: 9</div>
+      <div class="product-price">In Stock: 3</div>
     </div>
   </div>
   <div class="product-card" data-product-id="10743198351624" data-product-name="T-SHIRTS AND TROUSERS">
@@ -790,9 +778,7 @@
 
 <div class="bg-section"></div>
 
-<!-- ============================================================
-   PRODUCT GRID 3
-============================================================ -->
+<!-- PRODUCT GRID 3 -->
 <div class="product-grid">
   <div class="product-card" data-product-id="10761230024968" data-product-name="LONG SLEEVE LOGO SHIRT">
     <div class="product-image"><img src="img/0008.jpeg" alt="Long Sleeve Logo"></div>
@@ -816,17 +802,13 @@
   <div class="bg-spot" style="background-image: url('img/0005.jpeg');"></div>
 </div>
 
-<!-- ============================================================
-   DROP BANNER
-============================================================ -->
+<!-- DROP BANNER -->
 <div class="drop-banner">
   <div class="drop-banner-left"><span>collectior</span> <strong>drop2</strong> <span>GEARSOULS</span></div>
   <div class="drop-banner-right">~2026~</div>
 </div>
 
-<!-- ============================================================
-   FOOTER
-============================================================ -->
+<!-- FOOTER -->
 <footer class="footer-modern">
   <div class="footer-content">
     <div class="footer-brand">
@@ -860,9 +842,7 @@
   <div class="footer-bottom"><p>© 2026 GEARSOULS — ALL RIGHTS RESERVED</p></div>
 </footer>
 
-<!-- ============================================================
-   SCROLL TOP + NOTIFICATION
-============================================================ -->
+<!-- SCROLL TOP + NOTIFICATION -->
 <div class="scroll-top" id="scrollTop"><i class="fas fa-arrow-up"></i></div>
 <div class="shop-notification" id="notification"><i class="fas fa-check"></i><span id="notifMsg">Welcome to GEARSOULS</span></div>
 
@@ -978,17 +958,14 @@
       }
     });
 
-    // Close menu when clicking a nav link - let navigation happen naturally
     document.querySelectorAll('.nav-link').forEach(link => {
       link.addEventListener('click', () => {
         nav.classList.remove('active');
         body.classList.remove('menu-open');
         icon?.classList.replace('fa-times', 'fa-bars');
-        // Let the browser navigate naturally
       });
     });
 
-    // Close menu when clicking outside
     document.addEventListener('click', (e) => {
       if (nav.classList.contains('active') && !nav.contains(e.target) && !toggle.contains(e.target)) {
         nav.classList.remove('active');
@@ -999,37 +976,40 @@
   }
 
   // ============================================================
-  // NAVIGATION - Let browser handle it
+  // NAVIGATION
   // ============================================================
-  // Brand link
   document.getElementById('brandLink')?.addEventListener('click', (e) => {
     showMsg('Returning to home');
   });
 
-  // Home link
   document.getElementById('navHome')?.addEventListener('click', (e) => {
     showMsg('You are already on HOME');
   });
 
-  // Shop link
   document.getElementById('navShop')?.addEventListener('click', (e) => {
     showMsg('Navigating to SHOP …');
   });
 
-  // Account link
   document.getElementById('navAccount')?.addEventListener('click', (e) => {
     showMsg('Navigating to ACCOUNT …');
   });
 
   // ============================================================
-  // PRODUCT CARDS
+  // PRODUCT CARDS ROUTING
   // ============================================================
   document.querySelectorAll('.product-card').forEach(card => {
     card.addEventListener('click', function() {
       const name = this.getAttribute('data-product-name') || 'item';
+      const category = this.getAttribute('data-category');
+      
       showMsg(`Loading ${name}...`);
+      
       setTimeout(() => {
-        window.location.href = `shop.html#product-${this.getAttribute('data-product-id')}`;
+        if (category) {
+          window.location.href = `shop.html?category=${category}`;
+        } else {
+          window.location.href = `shop.html#product-${this.getAttribute('data-product-id')}`;
+        }
       }, 300);
     });
   });
@@ -1052,12 +1032,11 @@
       if (href && href !== '#') {
         const page = href.replace('.html', '').toUpperCase();
         showMsg(`Navigating to ${page} …`);
-        // Let browser navigate naturally
       }
     });
   });
 
-  console.log('✦ GEARSOULS · Home Page — Clean navbar, navigation works on mobile');
+  console.log('✦ GEARSOULS · Home Page — Category routing enabled');
 })();
 </script>
 
