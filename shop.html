@@ -41,7 +41,7 @@
       overflow-x: hidden; 
       width: 100%; 
       max-width: 100vw; 
-      padding-bottom: 50px; 
+      padding-bottom: 60px; 
     }
     a { text-decoration: none; color: inherit; }
 
@@ -102,35 +102,13 @@
     }
 
     /* ==========================================================
-       MINIMAL HEADER (Text removed)
-    ========================================================== */
-    .shop-hero { 
-      margin-top: 50px; 
-      padding: 12px 16px 4px; 
-      background: linear-gradient(180deg, #faf7f2 0%, #f4efe8 100%); 
-      border-bottom: 1px solid #e8e0d6; 
-      display: flex;
-      justify-content: center;
-    }
-    .hero-divider { 
-      width: 40px; 
-      height: 1.5px; 
-      background: #c9b698; 
-      animation: bounceIn 0.7s cubic-bezier(0.23, 1, 0.32, 1) 0.3s both; 
-    }
-    
-    @media (max-width: 768px) { .shop-hero { margin-top: 44px; padding: 10px 12px 4px; } }
-    @media (max-width: 480px) { .shop-hero { margin-top: 40px; padding: 8px 10px 3px; } }
-
-    /* ==========================================================
-       CATEGORY FILTER NAV
+       CATEGORY FILTER NAV (Directly under navbar)
     ========================================================== */
     .category-nav { 
       display: flex; justify-content: center; align-items: center; 
-      gap: 6px; 
-      padding: 10px 12px 6px; 
-      max-width: 100%; 
-      margin: 0 auto; flex-wrap: wrap; 
+      gap: 6px; padding: 12px 12px 6px; 
+      max-width: 100%; margin: 0 auto; flex-wrap: wrap; 
+      margin-top: 50px; 
       animation: fadeIn 1s ease 0.4s both; 
     }
     .category-nav .cat-btn { 
@@ -146,19 +124,24 @@
     .category-nav .cat-btn.active { background: #1e1b18; border-color: #1e1b18; color: #faf7f2; }
     .category-nav .cat-btn.active i { color: #c9b698; opacity: 1; }
     .product-card.filtered-out { display: none !important; }
-    
-    @media (min-width: 600px) { 
-      .category-nav { gap: 8px; padding: 12px 16px 8px; } 
-      .category-nav .cat-btn { font-size: 0.55rem; padding: 6px 18px; } 
+
+    @media (max-width: 768px) {
+      .category-nav { margin-top: 44px; padding: 10px 10px 4px; gap: 5px; }
+      .category-nav .cat-btn { padding: 4px 12px; font-size: 0.45rem; min-height: 26px; }
+    }
+    @media (max-width: 480px) {
+      .category-nav { margin-top: 40px; padding: 8px 8px 2px; }
+      .category-nav .cat-btn { padding: 4px 10px; font-size: 0.4rem; min-height: 24px; gap: 3px; }
+      .category-nav .cat-btn i { font-size: 0.4rem; }
     }
 
     /* ==========================================================
-       PRODUCT SHOWCASE
+       PRODUCT SHOWCASE - CLEAN ALIGNMENT, NO EXTRA SPACE
     ========================================================== */
-    .product-showcase { max-width: 100%; margin: 0 auto; padding: 4px 8px 16px; flex: 1; width: 100%; }
+    .product-showcase { max-width: 100%; margin: 0 auto; padding: 4px 10px 20px; flex: 1; width: 100%; }
     
     .product-grid { 
-      display: flex; flex-direction: row; gap: 10px; 
+      display: flex; flex-direction: row; gap: 12px; 
       max-width: 100%; margin: 0 auto; 
       overflow-x: auto; overflow-y: visible; 
       padding-bottom: 8px; 
@@ -166,18 +149,16 @@
     }
     
     .product-card { 
-      background: #f4efe8; border-radius: 8px; overflow: hidden; 
-      box-shadow: 0 2px 10px rgba(0,0,0,0.03); 
+      background: #f4efe8; border-radius: 10px; overflow: hidden; 
+      box-shadow: 0 2px 12px rgba(0,0,0,0.04); 
       display: flex; flex-direction: column; 
-      padding: 10px 10px 8px; 
+      padding: 16px 16px 14px; 
       border: 1px solid rgba(201, 182, 152, 0.10); 
-      flex: 0 0 88vw; 
-      max-width: 350px; 
-      scroll-snap-align: center; 
-      opacity: 0; 
-      animation: fadeInUp 0.8s cubic-bezier(0.23, 1, 0.32, 1) both; 
-      transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.4s ease, border-color 0.4s ease; 
-      position: relative; 
+      flex: 0 0 78vw; max-width: 300px; 
+      scroll-snap-align: start; opacity: 0;
+      animation: fadeInUp 0.8s cubic-bezier(0.23, 1, 0.32, 1) both;
+      transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.4s ease, border-color 0.4s ease;
+      position: relative;
     }
     .product-card::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(120deg, transparent 30%, rgba(201, 182, 152, 0.18) 50%, transparent 70%); transition: left 0.8s ease; pointer-events: none; }
     .product-card:hover::before { left: 100%; }
@@ -188,16 +169,12 @@
     .product-card:nth-child(4) { animation-delay: 0.65s; }
     .product-card:nth-child(5) { animation-delay: 0.75s; }
     .product-card:nth-child(6) { animation-delay: 0.85s; }
-    
-    .product-card:hover { transform: translateY(-4px); box-shadow: 0 12px 28px rgba(0,0,0,0.08); border-color: rgba(201, 182, 152, 0.4); }
+
+    .product-card:hover { transform: translateY(-6px); box-shadow: 0 14px 32px rgba(0,0,0,0.10); border-color: rgba(201, 182, 152, 0.4); }
     .product-card:active { transform: scale(0.98); }
     
-    .product-label { font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-weight: 400; letter-spacing: 2px; color: #1e1b18; line-height: 1.2; margin-bottom: 6px; text-transform: uppercase; transition: letter-spacing 0.4s ease; }
-    .product-card:hover .product-label { letter-spacing: 3px; }
-    .product-label .accent { color: #c9b698; font-weight: 500; }
-    
-    .purchase-area { width: 100%; margin-top: auto; padding-top: 2px; display: flex; flex-direction: column; gap: 0; }
-    .paypal-add-wrapper { width: 100%; min-height: 32px; transition: transform 0.3s ease; }
+    .purchase-area { width: 100%; margin-top: 4px; padding-top: 0; border-top: none; display: flex; flex-direction: column; gap: 4px; }
+    .paypal-add-wrapper { width: 100%; min-height: 38px; transition: transform 0.3s ease; }
     .product-card:hover .paypal-add-wrapper { transform: scale(1.02); }
     
     .paypal-add-wrapper paypal-add-to-cart-button { 
@@ -205,32 +182,30 @@
       --paypal-button-shape: rect; 
       --paypal-button-size: small; 
       --paypal-button-width: 100%; 
-      --paypal-button-height: 32px; 
+      --paypal-button-height: 38px; 
     }
 
     @media (min-width: 600px) {
-      .product-grid { justify-content: center; gap: 14px; flex-wrap: wrap; overflow-x: visible; padding-bottom: 0; }
-      .product-card { flex: 0 0 calc(50% - 14px); max-width: 300px; padding: 12px 12px 10px; }
-      .product-label { font-size: 1.1rem; }
-      .paypal-add-wrapper { min-height: 36px; }
-      .paypal-add-wrapper paypal-add-to-cart-button { --paypal-button-height: 36px; }
+      .product-grid { justify-content: center; gap: 16px; flex-wrap: wrap; overflow-x: visible; padding-bottom: 0; }
+      .product-card { flex: 0 0 calc(50% - 16px); max-width: 340px; }
+      .paypal-add-wrapper { min-height: 44px; }
+      .paypal-add-wrapper paypal-add-to-cart-button { --paypal-button-height: 44px; }
     }
-    
+
     @media (min-width: 1024px) {
-      .product-grid { gap: 16px; max-width: 1200px; }
-      .product-card { flex: 0 0 calc(25% - 16px); max-width: 290px; padding: 14px 14px 12px; }
-      .product-label { font-size: 1.15rem; }
+      .product-grid { gap: 20px; }
+      .product-card { flex: 0 0 calc(33.333% - 20px); max-width: 320px; padding: 20px 20px 18px; }
     }
 
     /* ==========================================================
-       FUTURE PRODUCTS
+       FUTURE PRODUCTS - COMPACT
     ========================================================== */
-    .future-products { margin-top: 12px; padding-top: 12px; border-top: 1px solid #e8e0d6; max-width: 480px; margin-left: auto; margin-right: auto; padding-left: 16px; padding-right: 16px; }
-    .future-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; flex-wrap: wrap; gap: 4px; }
+    .future-products { margin-top: 16px; padding-top: 14px; border-top: 1px solid #e8e0d6; max-width: 480px; margin-left: auto; margin-right: auto; padding-left: 16px; padding-right: 16px; }
+    .future-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; flex-wrap: wrap; gap: 4px; }
     .future-header h3 { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: 0.9rem; letter-spacing: 3px; color: #1e1b18; }
     .future-header span { font-size: 0.45rem; color: #b0a69c; letter-spacing: 1.5px; font-weight: 400; }
     .future-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
-    .future-placeholder { background: #f4efe8; aspect-ratio: 1 / 1.1; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #b0a69c; font-size: 0.4rem; letter-spacing: 1.5px; text-transform: uppercase; border: 1px dashed #d6cec4; transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1); padding: 6px; text-align: center; border-radius: 6px; opacity: 0; animation: fadeInUp 0.7s cubic-bezier(0.23, 1, 0.32, 1) both; }
+    .future-placeholder { background: #f4efe8; aspect-ratio: 1 / 1.1; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #b0a69c; font-size: 0.4rem; letter-spacing: 1.5px; text-transform: uppercase; border: 1px dashed #d6cec4; transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1); padding: 8px; text-align: center; border-radius: 6px; opacity: 0; animation: fadeInUp 0.7s cubic-bezier(0.23, 1, 0.32, 1) both; }
     .future-placeholder:nth-child(1) { animation-delay: 0.7s; }
     .future-placeholder:nth-child(2) { animation-delay: 0.85s; }
     .future-placeholder:nth-child(3) { animation-delay: 1.0s; }
@@ -241,9 +216,9 @@
     @media (min-width: 600px) { .future-products { max-width: 720px; padding-left: 24px; padding-right: 24px; } .future-grid { gap: 10px; } .future-placeholder { font-size: 0.45rem; } .future-placeholder i { font-size: 1.2rem; } }
 
     /* ==========================================================
-       BRAND NOTE
+       BRAND NOTE - COMPACT
     ========================================================== */
-    .brand-note { max-width: 480px; margin: 0 auto 10px; padding: 0 16px; display: flex; justify-content: center; width: 100%; animation: fadeIn 1.2s ease 1.1s both; }
+    .brand-note { max-width: 480px; margin: 0 auto 12px; padding: 0 16px; display: flex; justify-content: center; width: 100%; animation: fadeIn 1.2s ease 1.1s both; }
     .note-block { border-left: 2px solid #c9b698; padding-left: 12px; max-width: 100%; transition: border-color 0.3s ease, padding-left 0.3s ease; }
     .note-block:hover { border-color: #1e1b18; padding-left: 18px; }
     .note-block p { font-family: 'Cormorant Garamond', serif; font-size: 0.7rem; font-weight: 300; font-style: italic; color: #4f4943; letter-spacing: 0.3px; line-height: 1.4; }
@@ -251,10 +226,10 @@
     @media (min-width: 600px) { .brand-note { max-width: 720px; padding: 0 24px; } .note-block p { font-size: 0.8rem; } }
 
     /* ==========================================================
-       FOOTER
+       FOOTER - COMPACT
     ========================================================== */
-    .footer-modern { background: #0d0b09; border-top: 1px solid rgba(201, 182, 152, 0.08); padding: 16px 12px 10px; margin-top: auto; width: 100%; animation: fadeIn 1s ease 0.8s both; }
-    .footer-content { max-width: 480px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 12px; }
+    .footer-modern { background: #0d0b09; border-top: 1px solid rgba(201, 182, 152, 0.08); padding: 20px 12px 12px; margin-top: auto; width: 100%; animation: fadeIn 1s ease 0.8s both; }
+    .footer-content { max-width: 480px; margin: 0 auto; display: flex; flex-direction: column; align-items: center; gap: 14px; }
     .footer-brand { display: flex; align-items: center; gap: 8px; }
     .footer-brand .brand-logo-small { width: 28px; height: 28px; border-radius: 50%; border: 1.5px solid rgba(201, 182, 152, 0.15); display: flex; align-items: center; justify-content: center; font-size: 10px; color: #c9b698; background: #2a2520; transition: transform 0.5s ease, border-color 0.3s ease; }
     .footer-brand:hover .brand-logo-small { transform: rotate(360deg); border-color: #c9b698; }
@@ -285,7 +260,7 @@
     @media (max-width: 768px) { .mobile-cart-fab { display: flex; bottom: 12px; padding: 6px 12px; gap: 5px; font-size: 0.45rem; animation: cartBounce 3s ease-in-out infinite; } .mobile-cart-fab i { font-size: 0.6rem; } .navbar .cart-wrapper { display: none !important; } }
 
     /* ==========================================================
-       SCROLL REVEAL & MOTION
+       SCROLL REVEAL
     ========================================================== */
     .reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.9s cubic-bezier(0.23, 1, 0.32, 1), transform 0.9s cubic-bezier(0.23, 1, 0.32, 1); }
     .reveal.visible { opacity: 1; transform: translateY(0); }
@@ -294,7 +269,9 @@
 </head>
 <body>
 
-<!-- NAVBAR -->
+<!-- ============================================================
+   NAVBAR
+============================================================ -->
 <header class="navbar">
   <a href="index.html" class="brand" id="brandLink">
     <img src="img/0000.jpeg" class="brand-logo" alt="GearSouls" onerror="this.style.display='none'">
@@ -317,12 +294,9 @@
   </button>
 </header>
 
-<!-- MINIMAL HEADER -->
-<div class="shop-hero">
-  <div class="hero-divider"></div>
-</div>
-
-<!-- CATEGORY FILTER NAV -->
+<!-- ============================================================
+   CATEGORY FILTER NAV
+============================================================ -->
 <nav class="category-nav" id="categoryNav" aria-label="Product categories">
   <button class="cat-btn active" data-category="all">
     <i class="fas fa-layer-group"></i> ALL
@@ -338,7 +312,9 @@
   </button>
 </nav>
 
-<!-- PRODUCT SHOWCASE -->
+<!-- ============================================================
+   PRODUCT SHOWCASE
+============================================================ -->
 <section class="product-showcase">
   <div class="product-grid" id="productGrid">
     
@@ -401,7 +377,9 @@
   </div>
 </section>
 
-<!-- FUTURE PRODUCTS -->
+<!-- ============================================================
+   FUTURE PRODUCTS
+============================================================ -->
 <div class="future-products reveal">
   <div class="future-header">
     <h3>coming next</h3>
@@ -423,7 +401,9 @@
   </div>
 </div>
 
-<!-- BRAND NOTE -->
+<!-- ============================================================
+   BRAND NOTE
+============================================================ -->
 <div class="brand-note">
   <div class="note-block">
     <p>"Three pieces. Eternal archive. Each drop is a chapter."</p>
@@ -431,7 +411,9 @@
   </div>
 </div>
 
-<!-- FOOTER -->
+<!-- ============================================================
+   FOOTER
+============================================================ -->
 <footer class="footer-modern">
   <div class="footer-content">
     <div class="footer-brand">
@@ -464,7 +446,9 @@
   </div>
 </footer>
 
-<!-- MOBILE CART FAB -->
+<!-- ============================================================
+   FIXED CART BUTTON – MOBILE
+============================================================ -->
 <div class="mobile-cart-fab" id="mobileCartFab">
   <i class="fas fa-shopping-bag"></i>
   <span class="cart-label">CART</span>
@@ -472,13 +456,17 @@
   <script> cartPaypal.Cart({ id: "pp-view-cart-mobile" }); </script>
 </div>
 
-<!-- NOTIFICATION -->
+<!-- ============================================================
+   NOTIFICATION
+============================================================ -->
 <div class="shop-notification" id="shopNotification">
   <i class="fas fa-check"></i>
   <span id="notificationMessage"></span>
 </div>
 
-<!-- SCRIPT -->
+<!-- ============================================================
+   SCRIPT
+============================================================ -->
 <script>
   (function() {
     'use strict';
@@ -597,7 +585,7 @@
       });
     }
 
-    // AUTO-SELECT CATEGORY FROM URL (e.g., shop.html?category=jeans)
+    // AUTO-SELECT CATEGORY FROM URL
     const urlParams = new URLSearchParams(window.location.search);
     const categoryParam = urlParams.get('category');
     if (categoryParam) {
@@ -620,7 +608,7 @@
       revealEls.forEach(function(el) { el.classList.add('visible'); });
     }
 
-    console.log('✦ GEARSOULS · Shop — URL category routing enabled.');
+    console.log('✦ GEARSOULS · Shop — Max screen space for products.');
   })();
 </script>
 
