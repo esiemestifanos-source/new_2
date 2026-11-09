@@ -55,6 +55,8 @@
     @keyframes spinSlow { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
     @keyframes bounceIn { 0% { opacity: 0; transform: scale(0.6); } 60% { opacity: 1; transform: scale(1.05); } 100% { opacity: 1; transform: scale(1); } }
     @keyframes cartBounce { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(-4px); } }
+    @keyframes pillPop { 0% { transform: scale(1); } 50% { transform: scale(1.06); } 100% { transform: scale(1); } }
+    @keyframes arrowPulse { 0%, 100% { opacity: 0.4; transform: translateX(0); } 50% { opacity: 1; transform: translateX(4px); } }
 
     /* ==========================================================
        NAVBAR
@@ -102,13 +104,21 @@
     }
 
     /* ==========================================================
-       CATEGORY FILTER NAV (Slim)
+       DROP MARKER + CATEGORY FILTER NAV
     ========================================================== */
+    .drop-marker {
+      text-align: center; margin-top: 50px; padding-top: 14px;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.7rem; letter-spacing: 4px; text-transform: uppercase;
+      color: #b0a69c; font-weight: 400;
+      animation: fadeIn 1s ease 0.35s both;
+    }
+    .drop-marker span { color: #c9b698; }
+
     .category-nav { 
       display: flex; justify-content: center; align-items: center; 
-      gap: 6px; padding: 10px 12px 4px; 
+      gap: 6px; padding: 8px 12px 4px; 
       max-width: 100%; margin: 0 auto; flex-wrap: wrap; 
-      margin-top: 50px; 
       animation: fadeIn 1s ease 0.4s both; 
     }
     .category-nav .cat-btn { 
@@ -120,47 +130,87 @@
       min-height: 26px; display: flex; align-items: center; gap: 5px; 
     }
     .category-nav .cat-btn i { font-size: 0.5rem; opacity: 0.65; transition: opacity 0.3s ease; }
+    .category-nav .cat-btn .cat-count {
+      display: inline-flex; align-items: center; justify-content: center;
+      min-width: 14px; height: 14px; padding: 0 4px;
+      background: rgba(201, 182, 152, 0.25); color: #4f4943;
+      font-size: 0.38rem; font-weight: 600; border-radius: 20px;
+      margin-left: 2px; transition: all 0.3s ease; letter-spacing: 0;
+    }
     .category-nav .cat-btn:hover { border-color: #1e1b18; color: #1e1b18; transform: translateY(-2px); }
-    .category-nav .cat-btn.active { background: #1e1b18; border-color: #1e1b18; color: #faf7f2; }
+    .category-nav .cat-btn.active { background: #1e1b18; border-color: #1e1b18; color: #faf7f2; animation: pillPop 0.35s cubic-bezier(0.23, 1, 0.32, 1); }
     .category-nav .cat-btn.active i { color: #c9b698; opacity: 1; }
+    .category-nav .cat-btn.active .cat-count { background: rgba(201, 182, 152, 0.35); color: #faf7f2; }
     .product-card.filtered-out { display: none !important; }
 
+    /* Sticky category nav on scroll (desktop only) */
+    .category-nav.sticky {
+      position: sticky; top: 50px; z-index: 900;
+      background: rgba(250, 247, 242, 0.92);
+      backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+      padding-top: 8px; padding-bottom: 6px;
+      box-shadow: 0 6px 18px -14px rgba(0,0,0,0.25);
+      border-bottom: 1px solid rgba(201, 182, 152, 0.12);
+    }
+
     @media (max-width: 768px) {
-      .category-nav { margin-top: 44px; padding: 8px 8px 2px; gap: 4px; }
+      .drop-marker { margin-top: 44px; font-size: 0.6rem; letter-spacing: 3px; padding-top: 10px; }
+      .category-nav { padding: 8px 8px 2px; gap: 4px; }
       .category-nav .cat-btn { padding: 4px 10px; font-size: 0.45rem; min-height: 24px; }
+      .category-nav .cat-btn .cat-count { font-size: 0.34rem; min-width: 12px; height: 12px; padding: 0 3px; }
+      .category-nav.sticky { top: 44px; }
     }
     @media (max-width: 480px) {
-      .category-nav { margin-top: 40px; padding: 6px 6px 2px; }
+      .drop-marker { margin-top: 40px; font-size: 0.55rem; letter-spacing: 2.5px; }
+      .category-nav { padding: 6px 6px 2px; }
       .category-nav .cat-btn { padding: 3px 8px; font-size: 0.4rem; min-height: 22px; gap: 3px; }
       .category-nav .cat-btn i { font-size: 0.4rem; }
+      .category-nav.sticky { top: 40px; }
     }
 
     /* ==========================================================
-       PRODUCT SHOWCASE - ULTRA COMPACT FOR MOBILE
+       PRODUCT SHOWCASE
     ========================================================== */
-    .product-showcase { max-width: 100%; margin: 0 auto; padding: 4px 8px 16px; flex: 1; width: 100%; }
+    .product-showcase { max-width: 100%; margin: 0 auto; padding: 4px 8px 16px; flex: 1; width: 100%; position: relative; }
     
     .product-grid { 
       display: flex; flex-direction: row; gap: 10px; 
       max-width: 100%; margin: 0 auto; 
       overflow-x: auto; overflow-y: visible; 
       padding-bottom: 6px; 
+      padding-left: 11vw;
+      padding-right: 11vw;
+      scroll-padding-left: 11vw;
       scroll-snap-type: x mandatory; -webkit-overflow-scrolling: touch; 
+      scrollbar-width: none;
     }
+    .product-grid::-webkit-scrollbar { display: none; }
     
     .product-card { 
       background: #f4efe8; border-radius: 8px; overflow: hidden; 
       box-shadow: 0 2px 10px rgba(0,0,0,0.04); 
       display: flex; flex-direction: column; 
-      padding: 8px 8px 6px; /* Extremely tight padding */
+      padding: 12px 8px 6px; 
       border: 1px solid rgba(201, 182, 152, 0.10); 
-      flex: 0 0 88vw; max-width: 320px; 
+      flex: 0 0 78vw; max-width: 280px; 
       scroll-snap-align: center; opacity: 0;
       animation: fadeInUp 0.8s cubic-bezier(0.23, 1, 0.32, 1) both;
       transition: transform 0.4s cubic-bezier(0.23, 1, 0.32, 1), box-shadow 0.4s ease, border-color 0.4s ease;
       position: relative;
     }
-    .product-card::before { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: linear-gradient(120deg, transparent 30%, rgba(201, 182, 152, 0.18) 50%, transparent 70%); transition: left 0.8s ease; pointer-events: none; }
+    /* Top accent line on hover */
+    .product-card::after {
+      content: ''; position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+      width: 0; height: 2px; background: linear-gradient(90deg, transparent, #c9b698, transparent);
+      transition: width 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+    .product-card:hover::after { width: 80%; }
+    /* Shine sweep */
+    .product-card::before { 
+      content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; 
+      background: linear-gradient(120deg, transparent 30%, rgba(201, 182, 152, 0.18) 50%, transparent 70%); 
+      transition: left 0.8s ease; pointer-events: none; 
+    }
     .product-card:hover::before { left: 100%; }
     
     .product-card:nth-child(1) { animation-delay: 0.35s; }
@@ -172,8 +222,18 @@
 
     .product-card:hover { transform: translateY(-4px); box-shadow: 0 12px 28px rgba(0,0,0,0.08); border-color: rgba(201, 182, 152, 0.4); }
     .product-card:active { transform: scale(0.98); }
-    
-    .purchase-area { width: 100%; margin-top: 2px; padding-top: 0; border-top: none; display: flex; flex-direction: column; gap: 2px; }
+
+    /* Card index marker (archive feel) */
+    .card-index {
+      position: absolute; top: 6px; right: 8px; z-index: 2;
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 0.52rem; letter-spacing: 1px; font-style: italic;
+      color: #b0a69c; opacity: 0.7; transition: color 0.3s ease, opacity 0.3s ease;
+      pointer-events: none;
+    }
+    .product-card:hover .card-index { color: #c9b698; opacity: 1; }
+
+    .purchase-area { width: 100%; margin-top: 6px; padding-top: 0; border-top: none; display: flex; flex-direction: column; gap: 2px; }
     .paypal-add-wrapper { width: 100%; min-height: 34px; transition: transform 0.3s ease; }
     .product-card:hover .paypal-add-wrapper { transform: scale(1.02); }
     
@@ -185,30 +245,46 @@
       --paypal-button-height: 34px; 
     }
 
-    /* --- MOBILE SPECIFIC COMPACTION (Fits on 1 screen) --- */
+    /* Swipe affordance arrow */
+    .swipe-hint {
+      position: absolute; top: 50%; right: 4px; transform: translateY(-50%);
+      color: #c9b698; font-size: 1rem; pointer-events: none;
+      animation: arrowPulse 2.2s ease-in-out infinite;
+      display: none;
+    }
+
     @media (max-width: 768px) {
       .product-showcase { padding: 2px 6px 10px; }
-      .product-card { flex: 0 0 90vw; padding: 6px 6px 4px; } /* Wider card, tighter padding */
-      
-      /* Force PayPal iframe container to be smaller */
+      .product-card { flex: 0 0 78vw; padding: 12px 6px 4px; }
       .paypal-add-wrapper { min-height: 28px; margin-top: 0; }
       .paypal-add-wrapper paypal-add-to-cart-button { --paypal-button-height: 28px; }
-
-      /* Shrink everything inside PayPal injected iframe wrapper if possible */
       .product-card iframe { height: 100% !important; }
+      .swipe-hint { display: block; }
     }
 
     @media (min-width: 600px) {
-      .product-grid { justify-content: center; gap: 14px; flex-wrap: wrap; overflow-x: visible; padding-bottom: 0; }
-      .product-card { flex: 0 0 calc(50% - 14px); max-width: 340px; padding: 10px 10px 8px; }
+      .product-grid { justify-content: center; gap: 14px; flex-wrap: wrap; overflow-x: visible; padding-bottom: 0; padding-left: 0; padding-right: 0; scroll-padding-left: 0; }
+      .product-card { flex: 0 0 calc(50% - 14px); max-width: 340px; padding: 14px 10px 8px; }
       .paypal-add-wrapper { min-height: 38px; }
       .paypal-add-wrapper paypal-add-to-cart-button { --paypal-button-height: 38px; }
+      .swipe-hint { display: none; }
     }
 
     @media (min-width: 1024px) {
       .product-grid { gap: 20px; max-width: 1200px; }
-      .product-card { flex: 0 0 calc(33.333% - 20px); max-width: 320px; padding: 14px 14px 12px; }
+      .product-card { flex: 0 0 calc(33.333% - 20px); max-width: 320px; padding: 16px 14px 12px; }
     }
+
+    /* Empty state */
+    .empty-state {
+      display: none; flex-direction: column; align-items: center; justify-content: center;
+      padding: 40px 20px; text-align: center; color: #b0a69c;
+      animation: fadeIn 0.5s ease;
+    }
+    .empty-state.show { display: flex; }
+    .empty-state i { font-size: 1.5rem; color: #c9b698; margin-bottom: 10px; opacity: 0.7; }
+    .empty-state p { font-family: 'Cormorant Garamond', serif; font-size: 0.9rem; font-style: italic; letter-spacing: 0.5px; }
+    .empty-state span { font-family: 'Inter', sans-serif; font-size: 0.45rem; letter-spacing: 2px; text-transform: uppercase; margin-top: 6px; opacity: 0.7; }
 
     /* ==========================================================
        FUTURE PRODUCTS
@@ -302,20 +378,29 @@
 </header>
 
 <!-- ============================================================
+   DROP MARKER
+============================================================ -->
+<div class="drop-marker" id="dropMarker">DROP <span>002</span> · THE ARCHIVE</div>
+
+<!-- ============================================================
    CATEGORY FILTER NAV
 ============================================================ -->
 <nav class="category-nav" id="categoryNav" aria-label="Product categories">
   <button class="cat-btn active" data-category="all">
     <i class="fas fa-layer-group"></i> ALL
+    <span class="cat-count" data-count="all">6</span>
   </button>
   <button class="cat-btn" data-category="shirts">
     <i class="fas fa-tshirt"></i> SHIRTS
+    <span class="cat-count" data-count="shirts">3</span>
   </button>
-  <button class="cat-btn" data-category="pants">
-    <i class="fas fa-socks"></i> PANTS
+  <button class="cat-btn" data-category="hoodies">
+    <i class="fas fa-shirt"></i> HOODIES
+    <span class="cat-count" data-count="hoodies">0</span>
   </button>
   <button class="cat-btn" data-category="jeans">
     <i class="fas fa-scroll"></i> JEANS
+    <span class="cat-count" data-count="jeans">3</span>
   </button>
 </nav>
 
@@ -326,7 +411,8 @@
   <div class="product-grid" id="productGrid">
     
     <!-- SHIRTS -->
-    <div class="product-card reveal" data-category="shirts">      
+    <div class="product-card reveal" data-category="shirts">
+      <div class="card-index">01 / 06</div>
       <div class="purchase-area">
         <div class="paypal-add-wrapper">
           <paypal-add-to-cart-button data-id="UP39NSGJGCRVC"></paypal-add-to-cart-button>
@@ -335,7 +421,8 @@
       </div>
     </div>
 
-    <div class="product-card reveal" data-category="shirts">      
+    <div class="product-card reveal" data-category="shirts">
+      <div class="card-index">02 / 06</div>
       <div class="purchase-area">
         <div class="paypal-add-wrapper">
           <paypal-add-to-cart-button data-id="8BFGGXMHESFJE"></paypal-add-to-cart-button>
@@ -345,6 +432,7 @@
     </div>
 
     <div class="product-card reveal" data-category="shirts">
+      <div class="card-index">03 / 06</div>
       <div class="purchase-area">
         <div class="paypal-add-wrapper">
           <paypal-add-to-cart-button data-id="3R7SKEB2X6DZ2"></paypal-add-to-cart-button>
@@ -355,6 +443,7 @@
 
     <!-- JEANS -->
     <div class="product-card reveal" data-category="jeans">
+      <div class="card-index">04 / 06</div>
       <div class="purchase-area">
         <div class="paypal-add-wrapper">
           <paypal-add-to-cart-button data-id="LJ3LRBSHBJ3NY"></paypal-add-to-cart-button>
@@ -364,6 +453,7 @@
     </div>
 
     <div class="product-card reveal" data-category="jeans">
+      <div class="card-index">05 / 06</div>
       <div class="purchase-area">
         <div class="paypal-add-wrapper">
           <paypal-add-to-cart-button data-id="QHALSAQBPYQA6"></paypal-add-to-cart-button>
@@ -373,6 +463,7 @@
     </div>
 
     <div class="product-card reveal" data-category="jeans">
+      <div class="card-index">06 / 06</div>
       <div class="purchase-area">
         <div class="paypal-add-wrapper">
           <paypal-add-to-cart-button data-id="VQB9S2HS2RJHJ"></paypal-add-to-cart-button>
@@ -381,6 +472,16 @@
       </div>
     </div>
 
+  </div>
+
+  <!-- Swipe hint (mobile only) -->
+  <i class="fas fa-chevron-right swipe-hint"></i>
+
+  <!-- Empty state (shown when a filtered category has 0 items) -->
+  <div class="empty-state" id="emptyState">
+    <i class="fas fa-box-open"></i>
+    <p>Nothing here yet.</p>
+    <span>Drop 003 · Soon</span>
   </div>
 </section>
 
@@ -546,9 +647,21 @@
       });
     }
 
-    // CATEGORY FILTER
+    // CATEGORY FILTER + COUNTS + EMPTY STATE
     const categoryNav = document.getElementById('categoryNav');
     const productCards = document.querySelectorAll('.product-card');
+    const emptyState = document.getElementById('emptyState');
+
+    // Precompute counts per category
+    const counts = { all: productCards.length, shirts: 0, hoodies: 0, jeans: 0 };
+    productCards.forEach(card => {
+      const cat = card.getAttribute('data-category');
+      if (counts[cat] !== undefined) counts[cat]++;
+    });
+    document.querySelectorAll('.cat-count').forEach(el => {
+      const key = el.getAttribute('data-count');
+      if (counts[key] !== undefined) el.textContent = counts[key];
+    });
 
     function filterCategory(category) {
       if (!categoryNav) return;
@@ -572,6 +685,13 @@
         }
       });
 
+      // Empty state handling
+      if (visibleCount === 0) {
+        emptyState.classList.add('show');
+      } else {
+        emptyState.classList.remove('show');
+      }
+
       if (category === 'all') {
         showNotification('Showing all pieces ✦', false);
       } else if (visibleCount === 0) {
@@ -589,6 +709,28 @@
         const btn = e.target.closest('.cat-btn');
         if (!btn) return;
         filterCategory(btn.getAttribute('data-category'));
+      });
+    }
+
+    // STICKY CATEGORY NAV ON SCROLL (desktop)
+    if (categoryNav) {
+      const stickyOffset = 50;
+      let originalTop = categoryNav.offsetTop;
+      const onScroll = function() {
+        if (window.innerWidth >= 769) {
+          if (window.scrollY > originalTop - stickyOffset) {
+            categoryNav.classList.add('sticky');
+          } else {
+            categoryNav.classList.remove('sticky');
+          }
+        } else {
+          categoryNav.classList.remove('sticky');
+        }
+      };
+      window.addEventListener('scroll', onScroll, { passive: true });
+      window.addEventListener('resize', function() {
+        originalTop = categoryNav.offsetTop;
+        onScroll();
       });
     }
 
@@ -615,7 +757,7 @@
       revealEls.forEach(function(el) { el.classList.add('visible'); });
     }
 
-    console.log('✦ GEARSOULS · Shop — Compact layout for maximum visibility.');
+    console.log('✦ GEARSOULS · Shop — Compact, editorial, archive-driven.');
   })();
 </script>
 
